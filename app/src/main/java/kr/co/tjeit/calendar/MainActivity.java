@@ -41,20 +41,17 @@ public class MainActivity extends BaseActivity {
         BottomNavigationItem bottomNavigationItem = new BottomNavigationItem
                 ("Calendar", color[0], image[0]);
         BottomNavigationItem bottomNavigationItem1 = new BottomNavigationItem
-                ("Like", color[1], image[1]);
+                ("Feed", color[1], image[1]);
         BottomNavigationItem bottomNavigationItem2 = new BottomNavigationItem
-                ("Books", color[2], image[2]);
+                ("Board", color[2], image[2]);
         BottomNavigationItem bottomNavigationItem3 = new BottomNavigationItem
-                ("GitHub", color[3], image[3]);
+                ("Setting", color[3], image[3]);
 
 
         bottomNavigation.addTab(bottomNavigationItem);
         bottomNavigation.addTab(bottomNavigationItem1);
         bottomNavigation.addTab(bottomNavigationItem2);
         bottomNavigation.addTab(bottomNavigationItem3);
-
-//        bottomNavigation.isColoredBackground(false);
-//        bottomNavigation.setItemActiveColorWithoutColoredBackground(R.color.fourthColor);
 
         bottomNavigation.setOnBottomNavigationItemClickListener(new OnBottomNavigationItemClickListener() {
             @Override
