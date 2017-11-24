@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center_horizontal"
     android:layout_height="match_parent">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:mcv_showOtherDates="all"
-        app:mcv_selectionColor="#99F4BFCD"
-        />
+        android:layout_height="wrap_content"
+        app:mcv_showOtherDates="defaults"
+        app:mcv_selectionColor="#66F4BFCD"
+        app:mcv_tileHeight="40dp"
+        app:mcv_dateTextAppearance="@style/CustomDateTextView"
+        app:mcv_weekDayTextAppearance="@style/CustomWeekTextView" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></ListView>
 
 </LinearLayout>
