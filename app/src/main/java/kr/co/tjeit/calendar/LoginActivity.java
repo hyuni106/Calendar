@@ -1,6 +1,8 @@
 package kr.co.tjeit.calendar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -27,7 +29,19 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
-
+        View.OnClickListener intent = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                if (v.getId() == R.id.loginBtn) {
+                    intent = new Intent(mContext, MainActivity.class);
+                } else {
+                    intent = new Intent(mContext, SignUpActivity.class);
+                }
+                startActivity(intent);
+            }
+        };
+        loginBtn.setOnClickListener(intent);
     }
 
     @Override
