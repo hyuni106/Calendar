@@ -8,6 +8,7 @@
     <color name="white">#FFFFFF</color>
     <color name="red">#FF1625</color>
     <color name="blue">#2058FF</color>
+    <color name="divide_line">#cecece</color>
 
     <color name="firstColor">#EEA4B7</color>
     <color name="secondColor">#f7c370</color>

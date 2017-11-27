@@ -3,6 +3,7 @@ package kr.co.tjeit.calendar;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -28,6 +29,7 @@ public class MainActivity extends BaseActivity {
 
     private boolean isDrawerOpened;
     private int actionBarMenuState;
+    private LinearLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,13 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+
+        materialmenubutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(drawer);
+            }
+        });
     }
 
     @Override
@@ -84,7 +93,7 @@ public class MainActivity extends BaseActivity {
         BottomNavigationItem bottomNavigationItem = new BottomNavigationItem
                 ("Calendar", color[0], image[0]);
         BottomNavigationItem bottomNavigationItem1 = new BottomNavigationItem
-                ("Feed", color[1], image[1]);
+                ("Schedule", color[1], image[1]);
         BottomNavigationItem bottomNavigationItem2 = new BottomNavigationItem
                 ("Board", color[2], image[2]);
         BottomNavigationItem bottomNavigationItem3 = new BottomNavigationItem
@@ -107,6 +116,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void bindViews() {
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        this.drawer = (LinearLayout) findViewById(R.id.drawer);
         this.bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
         this.SettingLayout = (LinearLayout) findViewById(R.id.SettingLayout);
         this.BoardFragment = (LinearLayout) findViewById(R.id.BoardFragment);
