@@ -8,27 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import kr.co.tjeit.calendar.R;
-import kr.co.tjeit.calendar.adapter.ScheduleAdapter;
-import kr.co.tjeit.calendar.data.Schedule;
+import kr.co.tjeit.calendar.adapter.BoardAdapter;
 
 /**
- * Created by the on 2017-11-23.
+ * Created by the on 2017-11-27.
  */
 
-public class ScheduleFragment extends Fragment {
-    private android.widget.ListView scheduleListView;
-    List<Schedule> mList = new ArrayList<>();
-    ScheduleAdapter mAdapter;
-
+public class SettingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_schedule, container, false);
-        this.scheduleListView = (ListView) v.findViewById(R.id.scheduleListView);
+        View v = inflater.inflate(R.layout.fragment_setting, container, false);
+
         return v;
     }
 
@@ -40,8 +32,7 @@ public class ScheduleFragment extends Fragment {
     }
 
     private void setValues() {
-        mAdapter = new ScheduleAdapter(getContext(), mList);
-        scheduleListView.setAdapter(mAdapter);
+
     }
 
     private void setupEvents() {

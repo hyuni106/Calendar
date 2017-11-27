@@ -7,19 +7,15 @@
     android:orientation="vertical"
     tools:context="kr.co.tjeit.calendar.MainActivity">
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawerLayout"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolBar"
@@ -27,106 +23,173 @@
                 android:layout_height="wrap_content"
                 android:background="@color/firstColor"></android.support.v7.widget.Toolbar>
 
-                <com.balysv.materialmenu.MaterialMenuView
-                    android:id="@+id/material_menu_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    app:mm_strokeWidth="2"
-                    app:mm_color="@color/white"
-                    app:mm_transformDuration="3000" />
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:id="@+id/CalendarLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <fragment
-                        class="kr.co.tjeit.calendar.fragment.CalendarFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:layout="@layout/fragment_calendar" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/FeedLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <fragment
-                        class="kr.co.tjeit.calendar.fragment.ScheduleFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/BoardFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <fragment
-                        class="kr.co.tjeit.calendar.fragment.BoardFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/SettingLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <fragment
-                        class="kr.co.tjeit.calendar.fragment.ScheduleFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </LinearLayout>
-
-            </FrameLayout>
-
-            <com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView
-                android:id="@+id/bottomNavigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/drawer"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:dividerHeight="0dp"
-            android:background="#fff">
-
-            <TextView
+            <com.balysv.materialmenu.MaterialMenuView
+                android:id="@+id/material_menu_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:padding="30dp"
-                android:text="Neat :)"
-                android:layout_centerInParent="true"/>
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                app:mm_color="@color/white"
+                app:mm_strokeWidth="2"
+                app:mm_transformDuration="3000" />
 
-        </LinearLayout>
+        </FrameLayout>
 
-    </android.support.v4.widget.DrawerLayout>
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/drawerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/CalendarLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <fragment
+                            class="kr.co.tjeit.calendar.fragment.CalendarFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            tools:layout="@layout/fragment_calendar" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/FeedLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <fragment
+                            class="kr.co.tjeit.calendar.fragment.ScheduleFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/BoardFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <fragment
+                            class="kr.co.tjeit.calendar.fragment.BoardFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/SettingLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <fragment
+                            class="kr.co.tjeit.calendar.fragment.SettingFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView
+                    android:id="@+id/bottomNavigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/drawer"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:layout_gravity="start"
+                android:dividerHeight="0dp"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/calImgView"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@color/firstColor"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/userNameTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:text="사용자" />
+
+                        <TextView
+                            android:id="@+id/userInfoTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="사용자 정보" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/settingBtn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@mipmap/ic_launcher_round"
+                        android:layout_gravity="right"
+                        android:layout_margin="10dp"/>
+
+                </FrameLayout>
+
+                <Button
+                    android:id="@+id/calAddBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="캘린더 추가"/>
+
+                <GridView
+                    android:id="@+id/groupGridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnWidth="130dp"
+                    android:horizontalSpacing="10dp"
+                    android:verticalSpacing="10dp"
+                    android:numColumns="auto_fit" >
+                </GridView>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.DrawerLayout>
+
+    </LinearLayout>
+
 
 </LinearLayout>

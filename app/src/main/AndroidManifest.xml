@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SplashActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".CreateGroupActivity"></activity>
     </application>
 
 </manifest>

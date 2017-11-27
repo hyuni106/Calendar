@@ -1,19 +1,28 @@
 package kr.co.tjeit.calendar;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.MaterialMenuView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import kr.co.tjeit.calendar.adapter.GridViewAdapter;
+import kr.co.tjeit.calendar.data.Schedule;
 
 public class MainActivity extends BaseActivity {
 
@@ -28,8 +37,15 @@ public class MainActivity extends BaseActivity {
     private android.support.v4.widget.DrawerLayout drawerLayout;
 
     private boolean isDrawerOpened;
-    private int actionBarMenuState;
     private LinearLayout drawer;
+    private android.widget.ImageView calImgView;
+    private android.widget.TextView userNameTxt;
+    private android.widget.TextView userInfoTxt;
+    private android.widget.Button calAddBtn;
+    private android.widget.GridView groupGridView;
+
+    List<Schedule> mList = new ArrayList<>();
+    GridViewAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +86,50 @@ public class MainActivity extends BaseActivity {
         materialmenubutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(drawer);
+                if (drawerLayout.isDrawerOpen(drawer)) {
+                    drawerLayout.closeDrawer(drawer);
+                } else {
+                    drawerLayout.openDrawer(drawer);
+                }
+            }
+        });
+
+        drawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                materialmenubutton.setTransformationOffset(
+                        MaterialMenuDrawable.AnimationState.BURGER_ARROW,
+                        isDrawerOpened ? 2 - slideOffset : slideOffset
+                );
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                isDrawerOpened = true;
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                isDrawerOpened = false;
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                if (newState == DrawerLayout.STATE_IDLE) {
+                    if (isDrawerOpened) {
+                        materialmenubutton.animateIconState(MaterialMenuDrawable.IconState.ARROW);
+                    } else {
+                        materialmenubutton.animateIconState(MaterialMenuDrawable.IconState.BURGER);
+                    }
+                }
+            }
+        });
+
+        calAddBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, CreateGroupActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -79,9 +138,11 @@ public class MainActivity extends BaseActivity {
     public void setValues() {
         setTitle("");
         setSupportActionBar(toolBar);
-        materialMenu = new MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
         toolBar.setNavigationIcon(materialMenu);
         setBottomNavi();
+
+        mAdapter = new GridViewAdapter(mContext, mList);
+        groupGridView.setAdapter(mAdapter);
     }
 
     private void setBottomNavi() {
@@ -117,6 +178,11 @@ public class MainActivity extends BaseActivity {
     public void bindViews() {
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         this.drawer = (LinearLayout) findViewById(R.id.drawer);
+        this.groupGridView = (GridView) findViewById(R.id.groupGridView);
+        this.calAddBtn = (Button) findViewById(R.id.calAddBtn);
+        this.userInfoTxt = (TextView) findViewById(R.id.userInfoTxt);
+        this.userNameTxt = (TextView) findViewById(R.id.userNameTxt);
+        this.calImgView = (ImageView) findViewById(R.id.calImgView);
         this.bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
         this.SettingLayout = (LinearLayout) findViewById(R.id.SettingLayout);
         this.BoardFragment = (LinearLayout) findViewById(R.id.BoardFragment);
