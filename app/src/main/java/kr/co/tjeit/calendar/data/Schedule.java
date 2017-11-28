@@ -7,4 +7,29 @@ import java.io.Serializable;
  */
 
 public class Schedule implements Serializable {
+    int id;
+    String content;
+
+    public Schedule() {
+    }
+
+    public Schedule(String content) {
+        this.content = content;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

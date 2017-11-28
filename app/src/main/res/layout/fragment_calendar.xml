@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:gravity="center_horizontal"
     android:layout_height="match_parent">
 
@@ -15,9 +17,37 @@
         app:mcv_dateTextAppearance="@style/CustomDateTextView"
         app:mcv_weekDayTextAppearance="@style/CustomWeekTextView" />
 
-    <ListView
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"></ListView>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/noCalendarAlertTxt"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="일정이 없습니다. 일정을 추가해주세요."
+            android:textColor="@color/black"/>
+
+        <ListView
+            android:id="@+id/calendarListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:src="@drawable/plus"
+            android:scaleType="fitCenter"
+            fab:fab_colorNormal="@color/firstColor"
+            fab:fab_colorPressed="@color/firstColor"
+            fab:fab_colorRipple="@color/firstColor" />
+
+    </FrameLayout>
 
 </LinearLayout>
