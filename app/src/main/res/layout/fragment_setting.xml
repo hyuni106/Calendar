@@ -11,7 +11,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@color/fourthColor" />
+            android:background="@color/honey_flower" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,6 +40,7 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/calendarSettingLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -47,7 +48,6 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/calendarSettingLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"

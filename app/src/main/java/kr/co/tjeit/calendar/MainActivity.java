@@ -23,6 +23,7 @@ import java.util.List;
 
 import kr.co.tjeit.calendar.adapter.GridViewAdapter;
 import kr.co.tjeit.calendar.data.Schedule;
+import kr.co.tjeit.calendar.util.GlobalData;
 
 public class MainActivity extends BaseActivity {
 
@@ -44,8 +45,8 @@ public class MainActivity extends BaseActivity {
     private android.widget.Button calAddBtn;
     private android.widget.GridView groupGridView;
 
-    List<Schedule> mList = new ArrayList<>();
     GridViewAdapter mAdapter;
+    private ImageView alertBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,19 +66,19 @@ public class MainActivity extends BaseActivity {
                 switch (index) {
                     case 0:
                         CalendarLayout.setVisibility(View.VISIBLE);
-                        toolBar.setBackgroundColor(getResources().getColor(R.color.firstColor));
+//                        toolBar.setBackgroundColor(getResources().getColor(R.color.firstColor));
                         break;
                     case 1:
                         FeedLayout.setVisibility(View.VISIBLE);
-                        toolBar.setBackgroundColor(getResources().getColor(R.color.secondColor));
+//                        toolBar.setBackgroundColor(getResources().getColor(R.color.secondColor));
                         break;
                     case 2:
                         BoardFragment.setVisibility(View.VISIBLE);
-                        toolBar.setBackgroundColor(getResources().getColor(R.color.thirdColor));
+//                        toolBar.setBackgroundColor(getResources().getColor(R.color.thirdColor));
                         break;
                     case 3:
                         SettingLayout.setVisibility(View.VISIBLE);
-                        toolBar.setBackgroundColor(getResources().getColor(R.color.fourthColor));
+//                        toolBar.setBackgroundColor(getResources().getColor(R.color.fourthColor));
                         break;
                 }
             }
@@ -132,6 +133,14 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+        alertBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, AlertActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -141,18 +150,18 @@ public class MainActivity extends BaseActivity {
         toolBar.setNavigationIcon(materialMenu);
         setBottomNavi();
 
-        mAdapter = new GridViewAdapter(mContext, mList);
+        mAdapter = new GridViewAdapter(mContext, GlobalData.usersGroup);
         groupGridView.setAdapter(mAdapter);
 
-//        bottomNavigation.isColoredBackground(false);
-//        bottomNavigation.setItemActiveColorWithoutColoredBackground(getResources().getColor(R.color.firstColor));
+        bottomNavigation.isColoredBackground(false);
+        bottomNavigation.setItemActiveColorWithoutColoredBackground(getResources().getColor(R.color.honey_flower));
     }
 
     private void setBottomNavi() {
         int[] image = {R.drawable.ic_mic_black_24dp, R.drawable.ic_favorite_black_24dp,
                 R.drawable.ic_book_black_24dp, R.drawable.github_circle};
-        int[] color = {ContextCompat.getColor(this, R.color.firstColor), ContextCompat.getColor(this, R.color.secondColor),
-                ContextCompat.getColor(this, R.color.thirdColor), ContextCompat.getColor(this, R.color.fourthColor)};
+        int[] color = {ContextCompat.getColor(this, R.color.honey_flower), ContextCompat.getColor(this, R.color.honey_flower),
+                ContextCompat.getColor(this, R.color.honey_flower), ContextCompat.getColor(this, R.color.honey_flower)};
 
         BottomNavigationItem bottomNavigationItem = new BottomNavigationItem
                 ("Calendar", color[0], image[0]);
@@ -178,11 +187,18 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void bindViews() {
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         this.drawer = (LinearLayout) findViewById(R.id.drawer);
         this.groupGridView = (GridView) findViewById(R.id.groupGridView);
         this.calAddBtn = (Button) findViewById(R.id.calAddBtn);
+        this.alertBtn = (ImageView) findViewById(R.id.alertBtn);
         this.userInfoTxt = (TextView) findViewById(R.id.userInfoTxt);
         this.userNameTxt = (TextView) findViewById(R.id.userNameTxt);
         this.calImgView = (ImageView) findViewById(R.id.calImgView);

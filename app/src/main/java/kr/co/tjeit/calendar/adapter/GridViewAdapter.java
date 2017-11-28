@@ -7,22 +7,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.List;
 
 import kr.co.tjeit.calendar.R;
+import kr.co.tjeit.calendar.data.Group;
 import kr.co.tjeit.calendar.data.Schedule;
 
 /**
  * Created by the on 2017-11-27.
  */
 
-public class GridViewAdapter extends ArrayAdapter<Schedule> {
+public class GridViewAdapter extends ArrayAdapter<Group> {
     Context mContext;
-    List<Schedule> mList;
+    List<Group> mList;
     LayoutInflater inf;
 
-    public GridViewAdapter(Context context, List<Schedule> list) {
+    public GridViewAdapter(Context context, List<Group> list) {
         super(context, R.layout.gridview_item, list);
 
         mContext = context;
@@ -38,11 +40,14 @@ public class GridViewAdapter extends ArrayAdapter<Schedule> {
             row = inf.inflate(R.layout.gridview_item, null);
         }
 
-        return row;
-    }
+        Group data = mList.get(position);
 
-    @Override
-    public int getCount() {
-        return 5;
+        TextView calNameTxt = (TextView) row.findViewById(R.id.calNameTxt);
+        TextView calInfoTxt = (TextView) row.findViewById(R.id.calInfoTxt);
+
+        calNameTxt.setText(data.getName());
+        calInfoTxt.setText(data.getComment());
+
+        return row;
     }
 }

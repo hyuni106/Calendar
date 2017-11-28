@@ -15,7 +15,7 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/fourthColor"></android.support.v7.widget.Toolbar>
+            android:background="@color/honey_flower"></android.support.v7.widget.Toolbar>
 
         <com.balysv.materialmenu.MaterialMenuView
             android:id="@+id/backBtn"

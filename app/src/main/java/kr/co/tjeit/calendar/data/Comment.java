@@ -3,24 +3,22 @@ package kr.co.tjeit.calendar.data;
 import java.io.Serializable;
 
 /**
- * Created by the on 2017-11-27.
+ * Created by suhyu on 2017-11-28.
  */
 
-public class Board implements Serializable {
+public class Comment implements Serializable {
     private int id;
     private String content;
-    private String createdAt;
 
     User writer;
-    Group includeGroup;
+    Board includeBoard;
 
-    public Board() {
+    public Comment() {
     }
 
-    public Board(int id, String content, String createdAt) {
+    public Comment(int id, String content) {
         this.id = id;
         this.content = content;
-        this.createdAt = createdAt;
     }
 
     public int getId() {
@@ -39,14 +37,6 @@ public class Board implements Serializable {
         this.content = content;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public User getWriter() {
         return writer;
     }
@@ -55,11 +45,11 @@ public class Board implements Serializable {
         this.writer = writer;
     }
 
-    public Group getIncludeGroup() {
-        return includeGroup;
+    public Board getIncludeBoard() {
+        return includeBoard;
     }
 
-    public void setIncludeGroup(Group includeGroup) {
-        this.includeGroup = includeGroup;
+    public void setIncludeBoard(Board includeBoard) {
+        this.includeBoard = includeBoard;
     }
 }

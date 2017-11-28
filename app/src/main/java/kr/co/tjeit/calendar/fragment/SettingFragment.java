@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import kr.co.tjeit.calendar.AppSettingActivity;
 import kr.co.tjeit.calendar.CalendarSettingActivity;
@@ -21,17 +20,17 @@ import kr.co.tjeit.calendar.R;
 
 public class SettingFragment extends Fragment {
     private ListView memberListView;
-    private android.widget.TextView calendarSettingLayout;
     private android.widget.LinearLayout appSettingLayout;
     private android.widget.LinearLayout addMemberLayout;
+    private LinearLayout calendarSettingLayout;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_setting, container, false);
+        this.calendarSettingLayout = (LinearLayout) v.findViewById(R.id.calendarSettingLayout);
         this.addMemberLayout = (LinearLayout) v.findViewById(R.id.addMemberLayout);
         this.appSettingLayout = (LinearLayout) v.findViewById(R.id.appSettingLayout);
-        this.calendarSettingLayout = (TextView) v.findViewById(R.id.calendarSettingLayout);
         this.memberListView = (ListView) v.findViewById(R.id.memberListView);
         return v;
     }

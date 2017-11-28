@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.melnykov.fab.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +28,13 @@ public class BoardFragment extends Fragment {
     private android.widget.ListView boardListView;
     List<Board> mList = new ArrayList<>();
     BoardAdapter mAdapter;
+    private com.melnykov.fab.FloatingActionButton fab;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_board, container, false);
+        this.fab = (FloatingActionButton) v.findViewById(R.id.fab);
         this.boardListView = (ListView) v.findViewById(R.id.boardListView);
         return v;
     }

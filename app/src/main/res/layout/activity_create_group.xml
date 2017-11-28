@@ -15,7 +15,7 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/fourthColor"></android.support.v7.widget.Toolbar>
+            android:background="@color/honey_flower"></android.support.v7.widget.Toolbar>
 
         <com.balysv.materialmenu.MaterialMenuView
             android:id="@+id/backBtn"
@@ -45,7 +45,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@color/fourthColor" />
+        android:background="@color/honey_flower" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,6 +60,7 @@
             android:text="그룹 이름" />
 
         <EditText
+            android:id="@+id/groupNameEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -70,8 +71,11 @@
             android:text="그룹 설명" />
 
         <EditText
+            android:id="@+id/groupInfoEdt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="10자 이내로 작성해주세요"
+            android:maxLength="10"/>
 
     </LinearLayout>
 

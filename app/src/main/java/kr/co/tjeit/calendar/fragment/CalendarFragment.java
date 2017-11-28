@@ -130,7 +130,7 @@ public class CalendarFragment extends Fragment {
                 view.addSpan(new StyleSpan(Typeface.BOLD));
                 view.addSpan(new RelativeSizeSpan(1.2f));
                 view.addSpan(new ForegroundColorSpan(
-                        ContextCompat.getColor(getContext(), R.color.firstColor)));
+                        ContextCompat.getColor(getContext(), R.color.honey_flower)));
             }
         });
     }

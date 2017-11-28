@@ -3,6 +3,7 @@ package kr.co.tjeit.calendar.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.tjeit.calendar.data.Group;
 import kr.co.tjeit.calendar.data.Schedule;
 
 /**
@@ -11,4 +12,5 @@ import kr.co.tjeit.calendar.data.Schedule;
 
 public class GlobalData {
     public static List<Schedule> allSchedule = new ArrayList<>();
+    public static List<Group> usersGroup = new ArrayList<>();
 }

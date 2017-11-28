@@ -12,24 +12,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:mcv_showOtherDates="defaults"
-        app:mcv_selectionColor="#66F4BFCD"
+        app:mcv_selectionColor="#66654172"
         app:mcv_tileHeight="40dp"
         app:mcv_dateTextAppearance="@style/CustomDateTextView"
         app:mcv_weekDayTextAppearance="@style/CustomWeekTextView" />
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:fab="http://schemas.android.com/apk/res-auto"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/noCalendarAlertTxt"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="일정이 없습니다. 일정을 추가해주세요."
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:visibility="gone" />
 
         <ListView
             android:id="@+id/calendarListView"
@@ -42,11 +41,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
-            android:src="@drawable/plus"
             android:scaleType="fitCenter"
-            fab:fab_colorNormal="@color/firstColor"
-            fab:fab_colorPressed="@color/firstColor"
-            fab:fab_colorRipple="@color/firstColor" />
+            android:src="@drawable/plus"
+            fab:fab_colorNormal="@color/honey_flower"
+            fab:fab_colorPressed="@color/honey_flower"
+            fab:fab_colorRipple="@color/honey_flower" />
 
     </FrameLayout>
 
