@@ -143,6 +143,9 @@ public class MainActivity extends BaseActivity {
 
         mAdapter = new GridViewAdapter(mContext, mList);
         groupGridView.setAdapter(mAdapter);
+
+//        bottomNavigation.isColoredBackground(false);
+//        bottomNavigation.setItemActiveColorWithoutColoredBackground(getResources().getColor(R.color.firstColor));
     }
 
     private void setBottomNavi() {

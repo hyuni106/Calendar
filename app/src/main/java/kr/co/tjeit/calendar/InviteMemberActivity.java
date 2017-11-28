@@ -3,15 +3,12 @@ package kr.co.tjeit.calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class CreateGroupActivity extends BaseActivity {
+public class InviteMemberActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_group);
-        bindViews();
-        setupEvents();
-        setValues();
+        setContentView(R.layout.activity_invite_member);
     }
 
     @Override

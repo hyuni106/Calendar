@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    tools:context="kr.co.tjeit.calendar.AddScheduleActivity">
+    tools:context="kr.co.tjeit.calendar.ViewScheduleActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -16,16 +15,16 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"></android.support.v7.widget.Toolbar>
+            android:background="@color/fourthColor"></android.support.v7.widget.Toolbar>
 
         <com.balysv.materialmenu.MaterialMenuView
-            android:id="@+id/material_menu_button"
+            android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
+            app:mm_color="@color/white"
             app:mm_iconState="arrow"
-            app:mm_color="@color/black"
             app:mm_strokeWidth="2"
             app:mm_transformDuration="3000" />
 
@@ -37,42 +36,56 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="카테고리" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="카테고리" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="제목"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/startScheduleLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="10dp"
-                android:gravity="center">
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="시작"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="2017년 11월 28일"/>
+                    android:text="시작" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="오후 01시 05분"/>
+                    android:text="2017년 11월 28일" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="오후 01시 05분" />
 
             </LinearLayout>
 
@@ -81,54 +94,76 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="10dp"
-                android:gravity="center">
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="종료"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="2017년 11월 28일"/>
+                    android:text="종료" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="오후 01시 05분"/>
+                    android:text="2017년 11월 28일" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="오후 01시 05분" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/inputEdt"
-            android:layout_width="match_parent"
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="제목"/>
-
-        <EditText
-            android:id="@+id/locationEdt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="장소"/>
+            android:text="장소" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/okBtn"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="확인" />
+            android:layout_marginTop="10dp"
+            android:background="@drawable/gray_border_white_box"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/likeBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="참여" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divide_line"/>
+
+            <TextView
+                android:id="@+id/shareBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="공유" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

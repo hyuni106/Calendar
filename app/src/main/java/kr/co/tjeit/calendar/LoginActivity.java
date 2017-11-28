@@ -39,9 +39,13 @@ public class LoginActivity extends BaseActivity {
                     intent = new Intent(mContext, SignUpActivity.class);
                 }
                 startActivity(intent);
+                if (v.getId() == R.id.loginBtn) {
+                    finish();
+                }
             }
         };
         loginBtn.setOnClickListener(intent);
+        signUpBtn.setOnClickListener(intent);
     }
 
     @Override
