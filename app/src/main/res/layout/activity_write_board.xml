@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="kr.co.tjeit.calendar.CreateGroupActivity">
+    tools:context="kr.co.tjeit.calendar.WriteBoardActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            app:mm_iconState="arrow"
             app:mm_color="@color/white"
+            app:mm_iconState="arrow"
             app:mm_strokeWidth="2"
             app:mm_transformDuration="3000" />
 
@@ -41,67 +41,18 @@
 
     </FrameLayout>
 
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@color/honey_flower" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="그룹 이름" />
-
         <EditText
-            android:id="@+id/groupNameEdt"
+            android:id="@+id/contentEdt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="그룹 설명" />
-
-        <EditText
-            android:id="@+id/groupInfoEdt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="10자 이내로 작성해주세요"
-            android:maxLength="10"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/inviteMemberLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="초대하기" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"/>
 
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/memberListView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"></ListView>
 
 </LinearLayout>

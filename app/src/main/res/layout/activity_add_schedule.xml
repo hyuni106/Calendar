@@ -63,12 +63,14 @@
                     android:text="시작"/>
 
                 <TextView
+                    android:id="@+id/startDateTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="2017년 11월 28일"/>
 
                 <TextView
+                    android:id="@+id/startTimeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -91,12 +93,14 @@
                     android:text="종료"/>
 
                 <TextView
+                    android:id="@+id/endDateTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="2017년 11월 28일"/>
 
                 <TextView
+                    android:id="@+id/endTimeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -118,6 +122,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="장소"/>
+
+        <EditText
+            android:id="@+id/memoEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="메모"/>
 
         <TextView
             android:layout_width="wrap_content"

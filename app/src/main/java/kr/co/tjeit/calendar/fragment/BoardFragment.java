@@ -17,8 +17,10 @@ import java.util.List;
 
 import kr.co.tjeit.calendar.R;
 import kr.co.tjeit.calendar.ViewBoardActivity;
+import kr.co.tjeit.calendar.WriteBoardActivity;
 import kr.co.tjeit.calendar.adapter.BoardAdapter;
 import kr.co.tjeit.calendar.data.Board;
+import kr.co.tjeit.calendar.util.GlobalData;
 
 /**
  * Created by suhyu on 2017-11-24.
@@ -47,7 +49,7 @@ public class BoardFragment extends Fragment {
     }
 
     private void setValues() {
-        mAdapter = new BoardAdapter(getContext(), mList);
+        mAdapter = new BoardAdapter(getContext(), GlobalData.allBoard);
         boardListView.setAdapter(mAdapter);
     }
 
@@ -56,8 +58,23 @@ public class BoardFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), ViewBoardActivity.class);
+                intent.putExtra("board_Item", GlobalData.allBoard.get(position));
                 startActivity(intent);
             }
         });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), WriteBoardActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
     }
 }

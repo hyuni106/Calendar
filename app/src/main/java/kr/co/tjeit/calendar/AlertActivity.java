@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
+import kr.co.tjeit.calendar.adapter.AlertAdapter;
+import kr.co.tjeit.calendar.util.GlobalData;
+
 public class AlertActivity extends BaseActivity {
 
     private android.support.v7.widget.Toolbar toolBar;
@@ -15,10 +18,15 @@ public class AlertActivity extends BaseActivity {
     private android.widget.ListView alertListView;
     private android.widget.TextView noAlertTxt;
 
+    AlertAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alert);
+        bindViews();
+        setupEvents();
+        setValues();
     }
 
     @Override
@@ -33,7 +41,15 @@ public class AlertActivity extends BaseActivity {
 
     @Override
     public void setValues() {
-
+        if (GlobalData.allParticipantAlert.size() == 0) {
+            noAlertTxt.setVisibility(View.VISIBLE);
+            alertListView.setVisibility(View.GONE);
+        } else {
+            mAdapter = new AlertAdapter(mContext, GlobalData.allParticipantAlert);
+            alertListView.setAdapter(mAdapter);
+            noAlertTxt.setVisibility(View.GONE);
+            alertListView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

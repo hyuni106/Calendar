@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class Participant implements Serializable {
     private int id;
-    private int status;
+    private int status; // 0 : 미수락 1 : 수락 2 : 거절
 
     User member;
     Group participant_Group;

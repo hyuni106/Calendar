@@ -43,11 +43,18 @@ public class BoardAdapter extends ArrayAdapter<Board> {
             row = inf.inflate(R.layout.board_list_item, null);
         }
 
-        return row;
-    }
+        Board data = mList.get(position);
 
-    @Override
-    public int getCount() {
-        return 5;
+        TextView contentTxt = (TextView) row.findViewById(R.id.contentTxt);
+        TextView writerTxt = (TextView) row.findViewById(R.id.writerTxt);
+        TextView createAtTxt = (TextView) row.findViewById(R.id.createAtTxt);
+        TextView commentBtn = (TextView) row.findViewById(R.id.commentBtn);
+        TextView likeBtn = (TextView) row.findViewById(R.id.likeBtn);
+        TextView shareBtn = (TextView) row.findViewById(R.id.shareBtn);
+
+        contentTxt.setText(data.getContent());
+        createAtTxt.setText(data.getCreatedAt());
+
+        return row;
     }
 }

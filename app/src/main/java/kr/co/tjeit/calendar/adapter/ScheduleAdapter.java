@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -38,11 +39,18 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
             row = inf.inflate(R.layout.schedule_list_item, null);
         }
 
-        return row;
-    }
+        Schedule data = mList.get(position);
 
-    @Override
-    public int getCount() {
-        return 5;
+        TextView categoryTxt = (TextView) row.findViewById(R.id.categoryTxt);
+        TextView contentTxt = (TextView) row.findViewById(R.id.contentTxt);
+        TextView writerTxt = (TextView) row.findViewById(R.id.writerTxt);
+        TextView commentBtn = (TextView) row.findViewById(R.id.commentBtn);
+        TextView likeBtn = (TextView) row.findViewById(R.id.likeBtn);
+        TextView shareBtn = (TextView) row.findViewById(R.id.shareBtn);
+
+        contentTxt.setText(data.getTitle());
+
+
+        return row;
     }
 }

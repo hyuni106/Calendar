@@ -13,6 +13,7 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ import java.util.List;
 
 import kr.co.tjeit.calendar.AddScheduleActivity;
 import kr.co.tjeit.calendar.R;
+import kr.co.tjeit.calendar.ViewScheduleActivity;
 import kr.co.tjeit.calendar.adapter.CalendarAdapter;
 import kr.co.tjeit.calendar.data.Schedule;
 import kr.co.tjeit.calendar.util.GlobalData;
@@ -72,11 +74,11 @@ public class CalendarFragment extends Fragment {
 
     private void setValues() {
         settingCalendar();
-        if (mList.size() == 0) {
+        if (GlobalData.allSchedule.size() == 0) {
             noCalendarAlertTxt.setVisibility(View.VISIBLE);
 
         } else {
-            mAdapter = new CalendarAdapter(getContext(), mList);
+            mAdapter = new CalendarAdapter(getContext(), GlobalData.allSchedule);
             calendarListView.setAdapter(mAdapter);
         }
     }
@@ -143,6 +145,15 @@ public class CalendarFragment extends Fragment {
                 startActivityForResult(intent, 1);
             }
         });
+
+        calendarListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getContext(), ViewScheduleActivity.class);
+                intent.putExtra("schedule_item", GlobalData.allSchedule.get(i));
+                startActivity(intent);
+            }
+        });
     }
 
     public void addDecorator() {
@@ -156,11 +167,12 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (mList.size() == 0) {
+        if (GlobalData.allSchedule.size() == 0) {
             noCalendarAlertTxt.setVisibility(View.VISIBLE);
             calendarListView.setVisibility(View.GONE);
         } else {
-            mAdapter = new CalendarAdapter(getContext(), mList);
+//            mAdapter.notifyDataSetChanged();
+            mAdapter = new CalendarAdapter(getContext(), GlobalData.allSchedule);
             calendarListView.setAdapter(mAdapter);
             noCalendarAlertTxt.setVisibility(View.GONE);
             calendarListView.setVisibility(View.VISIBLE);
@@ -177,7 +189,7 @@ public class CalendarFragment extends Fragment {
 
         if (requestCode == 1) {
             Schedule add = (Schedule) data.getSerializableExtra("schedule");
-            mList.add(add);
+            GlobalData.allSchedule.add(add);
             addDecorator();
         } else {
             Toast.makeText(getContext(), "REQUEST_ACT가 아님", Toast.LENGTH_SHORT).show();

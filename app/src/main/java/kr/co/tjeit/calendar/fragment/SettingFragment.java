@@ -9,10 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import kr.co.tjeit.calendar.AppSettingActivity;
 import kr.co.tjeit.calendar.CalendarSettingActivity;
+import kr.co.tjeit.calendar.InviteMemberActivity;
 import kr.co.tjeit.calendar.R;
+import kr.co.tjeit.calendar.adapter.MemberAdapter;
+import kr.co.tjeit.calendar.data.User;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by the on 2017-11-27.
@@ -23,6 +32,9 @@ public class SettingFragment extends Fragment {
     private android.widget.LinearLayout appSettingLayout;
     private android.widget.LinearLayout addMemberLayout;
     private LinearLayout calendarSettingLayout;
+
+    List<User> memberList = new ArrayList<>();
+    MemberAdapter mAdapter;
 
     @Nullable
     @Override
@@ -43,7 +55,8 @@ public class SettingFragment extends Fragment {
     }
 
     private void setValues() {
-
+        mAdapter = new MemberAdapter(getContext(), memberList);
+        memberListView.setAdapter(mAdapter);
     }
 
     private void setupEvents() {
@@ -61,5 +74,30 @@ public class SettingFragment extends Fragment {
         };
         calendarSettingLayout.setOnClickListener(settingIntent);
         appSettingLayout.setOnClickListener(settingIntent);
+
+        addMemberLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), InviteMemberActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+            Toast.makeText(getContext(), "결과가 성공이 아님.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (requestCode == 1) {
+            User addUser = (User) data.getSerializableExtra("user");
+            memberList.add(addUser);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(getContext(), "REQUEST_ACT가 아님", Toast.LENGTH_SHORT).show();
+        }
     }
 }

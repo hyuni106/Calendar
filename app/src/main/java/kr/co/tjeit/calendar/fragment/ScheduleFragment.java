@@ -17,6 +17,7 @@ import kr.co.tjeit.calendar.R;
 import kr.co.tjeit.calendar.ViewScheduleActivity;
 import kr.co.tjeit.calendar.adapter.ScheduleAdapter;
 import kr.co.tjeit.calendar.data.Schedule;
+import kr.co.tjeit.calendar.util.GlobalData;
 
 /**
  * Created by the on 2017-11-23.
@@ -43,7 +44,7 @@ public class ScheduleFragment extends Fragment {
     }
 
     private void setValues() {
-        mAdapter = new ScheduleAdapter(getContext(), mList);
+        mAdapter = new ScheduleAdapter(getContext(), GlobalData.allSchedule);
         scheduleListView.setAdapter(mAdapter);
     }
 
@@ -52,8 +53,15 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), ViewScheduleActivity.class);
+                intent.putExtra("schedule_item", GlobalData.allSchedule.get(position));
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
     }
 }

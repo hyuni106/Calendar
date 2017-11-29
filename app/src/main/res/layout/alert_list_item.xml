@@ -19,27 +19,27 @@
                 android:id="@+id/userNickTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ㅇㅇ님"
+                android:text="ㅇㅇ"
                 android:textColor="@color/fourthColor"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" 이 " />
+                android:text=" 님이 " />
 
             <TextView
                 android:id="@+id/groupNameTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ㅇㅇ그룹"
+                android:text="ㅇㅇ"
                 android:textColor="@color/fourthColor"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" 에 초대했습니다." />
+                android:text=" 그룹에 회원님을 초대했습니다." />
 
         </LinearLayout>
 
@@ -51,11 +51,12 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/acceptBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="수락"/>
 
             <TextView
@@ -64,11 +65,12 @@
                 android:background="@color/divide_line"/>
 
             <TextView
+                android:id="@+id/rejectBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="거절"/>
 
         </LinearLayout>
