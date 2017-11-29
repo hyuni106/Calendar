@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 public class LoginActivity extends BaseActivity {
 
-    private android.widget.TextView idTxt;
     private android.widget.EditText idEdt;
-    private android.widget.TextView pwTxt;
     private android.widget.EditText pwEdt;
     private android.widget.CheckBox autoLoginCheck;
     private android.widget.Button loginBtn;
@@ -59,8 +57,6 @@ public class LoginActivity extends BaseActivity {
         this.loginBtn = (Button) findViewById(R.id.loginBtn);
         this.autoLoginCheck = (CheckBox) findViewById(R.id.autoLoginCheck);
         this.pwEdt = (EditText) findViewById(R.id.pwEdt);
-        this.pwTxt = (TextView) findViewById(R.id.pwTxt);
         this.idEdt = (EditText) findViewById(R.id.idEdt);
-        this.idTxt = (TextView) findViewById(R.id.idTxt);
     }
 }

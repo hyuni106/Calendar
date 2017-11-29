@@ -28,17 +28,6 @@
             app:mm_strokeWidth="2"
             app:mm_transformDuration="3000" />
 
-        <com.balysv.materialmenu.MaterialMenuView
-            android:id="@+id/checkBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="5dp"
-            app:mm_iconState="check"
-            app:mm_color="@color/white"
-            app:mm_strokeWidth="2"
-            app:mm_transformDuration="3000" />
-
     </FrameLayout>
 
 
@@ -77,12 +66,6 @@
                 android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/idTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ID"
-                    android:visibility="invisible" />
 
                 <EditText
                     android:id="@+id/idEdt"
@@ -90,12 +73,6 @@
                     android:layout_height="wrap_content"
                     android:hint="ID" />
 
-                <TextView
-                    android:id="@+id/nameTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:visibility="invisible" />
 
                 <EditText
                     android:id="@+id/nameEdt"
@@ -103,13 +80,11 @@
                     android:layout_height="wrap_content"
                     android:hint="Name" />
 
-                <TextView
-                    android:id="@+id/pwTxt"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/nickNameEdt"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Password"
-                    android:visibility="invisible" />
+                    android:hint="NickName" />
 
                 <EditText
                     android:id="@+id/pwEdt"
@@ -117,14 +92,6 @@
                     android:layout_height="wrap_content"
                     android:hint="Password"
                     android:inputType="textPassword" />
-
-                <TextView
-                    android:id="@+id/pwCheckTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Password"
-                    android:visibility="invisible" />
 
                 <EditText
                     android:id="@+id/pwCheckEdt"
@@ -136,7 +103,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/signUpBtn"

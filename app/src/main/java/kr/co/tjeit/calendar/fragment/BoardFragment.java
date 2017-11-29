@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.melnykov.fab.FloatingActionButton;
 
@@ -31,11 +32,13 @@ public class BoardFragment extends Fragment {
     List<Board> mList = new ArrayList<>();
     BoardAdapter mAdapter;
     private com.melnykov.fab.FloatingActionButton fab;
+    private android.widget.TextView noCalendarAlertTxt;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_board, container, false);
+        this.noCalendarAlertTxt = (TextView) v.findViewById(R.id.noCalendarAlertTxt);
         this.fab = (FloatingActionButton) v.findViewById(R.id.fab);
         this.boardListView = (ListView) v.findViewById(R.id.boardListView);
         return v;
@@ -49,8 +52,15 @@ public class BoardFragment extends Fragment {
     }
 
     private void setValues() {
-        mAdapter = new BoardAdapter(getContext(), GlobalData.allBoard);
-        boardListView.setAdapter(mAdapter);
+        if (GlobalData.allBoard.size() != 0) {
+            noCalendarAlertTxt.setVisibility(View.GONE);
+            boardListView.setVisibility(View.VISIBLE);
+            mAdapter = new BoardAdapter(getContext(), GlobalData.allBoard);
+            boardListView.setAdapter(mAdapter);
+        } else {
+            noCalendarAlertTxt.setVisibility(View.VISIBLE);
+            boardListView.setVisibility(View.GONE);
+        }
     }
 
     private void setupEvents() {
@@ -75,6 +85,11 @@ public class BoardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mAdapter.notifyDataSetChanged();
+        if (GlobalData.allBoard.size() != 0) {
+            noCalendarAlertTxt.setVisibility(View.GONE);
+            boardListView.setVisibility(View.VISIBLE);
+            mAdapter = new BoardAdapter(getContext(), GlobalData.allBoard);
+            boardListView.setAdapter(mAdapter);
+        }
     }
 }

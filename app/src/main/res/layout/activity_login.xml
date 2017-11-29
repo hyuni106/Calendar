@@ -41,26 +41,11 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/idTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ID"
-                    android:visibility="invisible" />
-
                 <EditText
                     android:id="@+id/idEdt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="id" />
-
-                <TextView
-                    android:id="@+id/pwTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="PASSWORD"
-                    android:visibility="invisible" />
 
                 <EditText
                     android:id="@+id/pwEdt"
@@ -74,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="자동 로그인"/>
+                    android:text="자동 로그인" />
 
                 <Button
                     android:id="@+id/loginBtn"
@@ -82,20 +67,20 @@
                     android:layout_height="45dp"
                     android:layout_marginTop="5dp"
                     android:text="로그인"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/signUpBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="아직 회원이 아니신가요?"/>
+                    android:text="아직 회원이 아니신가요?" />
 
-           </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -9,6 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/noCalendarAlertTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="게시물이 없습니다. 게시물을 작성해주세요."
+            android:textColor="@color/black"
+            android:visibility="gone" />
+
         <ListView
             android:id="@+id/boardListView"
             android:layout_width="match_parent"
@@ -24,6 +33,7 @@
             android:layout_margin="16dp"
             android:scaleType="fitCenter"
             android:src="@drawable/plus"
+            android:padding="20dp"
             fab:fab_colorNormal="@color/honey_flower"
             fab:fab_colorPressed="@color/honey_flower"
             fab:fab_colorRipple="@color/honey_flower" />

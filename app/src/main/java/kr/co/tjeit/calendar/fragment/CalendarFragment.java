@@ -157,11 +157,15 @@ public class CalendarFragment extends Fragment {
     }
 
     public void addDecorator() {
-        CalendarDay date = calendarView.getSelectedDate();
+//        CalendarDay date = calendarView.getSelectedDate();
 //        CalendarDay date = CalendarDay.today();
         ArrayList<CalendarDay> dates = new ArrayList<>();
-        dates.add(date);
-        calendarView.addDecorator(new EventDecorator(Color.RED, dates));
+        for (int i=0; i<GlobalData.allSchedule.size(); i++) {
+            Calendar decoDate = GlobalData.allSchedule.get(i).getStart_date();
+            dates.add(CalendarDay.from(decoDate.get(Calendar.YEAR), decoDate.get(Calendar.MONTH), decoDate.get(Calendar.DAY_OF_MONTH)));
+        }
+//        dates.add(date);
+        calendarView.addDecorator(new EventDecorator(getResources().getColor(R.color.honey_flower), dates));
     }
 
     @Override

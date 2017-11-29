@@ -43,6 +43,7 @@
             android:layout_margin="16dp"
             android:scaleType="fitCenter"
             android:src="@drawable/plus"
+            android:padding="20dp"
             fab:fab_colorNormal="@color/honey_flower"
             fab:fab_colorPressed="@color/honey_flower"
             fab:fab_colorRipple="@color/honey_flower" />

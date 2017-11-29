@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +28,13 @@ public class ScheduleFragment extends Fragment {
     private android.widget.ListView scheduleListView;
     List<Schedule> mList = new ArrayList<>();
     ScheduleAdapter mAdapter;
+    private android.widget.TextView noCalendarAlertTxt;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_schedule, container, false);
+        this.noCalendarAlertTxt = (TextView) v.findViewById(R.id.noCalendarAlertTxt);
         this.scheduleListView = (ListView) v.findViewById(R.id.scheduleListView);
         return v;
     }
@@ -44,8 +47,15 @@ public class ScheduleFragment extends Fragment {
     }
 
     private void setValues() {
-        mAdapter = new ScheduleAdapter(getContext(), GlobalData.allSchedule);
-        scheduleListView.setAdapter(mAdapter);
+        if (GlobalData.allSchedule.size() != 0) {
+            noCalendarAlertTxt.setVisibility(View.GONE);
+            scheduleListView.setVisibility(View.VISIBLE);
+            mAdapter = new ScheduleAdapter(getContext(), GlobalData.allSchedule);
+            scheduleListView.setAdapter(mAdapter);
+        } else {
+            noCalendarAlertTxt.setVisibility(View.VISIBLE);
+            scheduleListView.setVisibility(View.GONE);
+        }
     }
 
     private void setupEvents() {
@@ -62,6 +72,11 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mAdapter.notifyDataSetChanged();
+        if (GlobalData.allSchedule.size() != 0) {
+            noCalendarAlertTxt.setVisibility(View.GONE);
+            scheduleListView.setVisibility(View.VISIBLE);
+            mAdapter = new ScheduleAdapter(getContext(), GlobalData.allSchedule);
+            scheduleListView.setAdapter(mAdapter);
+        }
     }
 }

@@ -51,7 +51,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="그룹 캘린더 설정" />
+            android:text="그룹 캘린더 설정"
+            android:textColor="@color/black"/>
 
         <TextView
             android:layout_width="0dp"
@@ -59,10 +60,10 @@
             android:layout_weight="1" />
 
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@drawable/next_img" />
 
     </LinearLayout>
 
@@ -83,7 +84,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="사용자 설정" />
+            android:text="사용자 설정"
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="0dp"
@@ -91,10 +93,10 @@
             android:layout_weight="1" />
 
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@drawable/next_img" />
 
     </LinearLayout>
 
@@ -115,7 +117,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="멤버 추가" />
+            android:text="멤버 추가"
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="0dp"
@@ -123,10 +126,10 @@
             android:layout_weight="1" />
 
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@drawable/next_img" />
 
     </LinearLayout>
 

@@ -1,10 +1,13 @@
 package kr.co.tjeit.calendar;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.balysv.materialmenu.MaterialMenuView;
 
 public class SignUpActivity extends BaseActivity {
 
@@ -17,6 +20,9 @@ public class SignUpActivity extends BaseActivity {
     private android.widget.TextView pwCheckTxt;
     private android.widget.EditText pwCheckEdt;
     private android.widget.Button signUpBtn;
+    private android.support.v7.widget.Toolbar toolBar;
+    private com.balysv.materialmenu.MaterialMenuView backBtn;
+    private EditText nickNameEdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,12 @@ public class SignUpActivity extends BaseActivity {
                 finish();
             }
         });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -46,12 +58,11 @@ public class SignUpActivity extends BaseActivity {
     public void bindViews() {
         this.signUpBtn = (Button) findViewById(R.id.signUpBtn);
         this.pwCheckEdt = (EditText) findViewById(R.id.pwCheckEdt);
-        this.pwCheckTxt = (TextView) findViewById(R.id.pwCheckTxt);
         this.pwEdt = (EditText) findViewById(R.id.pwEdt);
-        this.pwTxt = (TextView) findViewById(R.id.pwTxt);
+        this.nickNameEdt = (EditText) findViewById(R.id.nickNameEdt);
         this.nameEdt = (EditText) findViewById(R.id.nameEdt);
-        this.nameTxt = (TextView) findViewById(R.id.nameTxt);
         this.idEdt = (EditText) findViewById(R.id.idEdt);
-        this.idTxt = (TextView) findViewById(R.id.idTxt);
+        this.backBtn = (MaterialMenuView) findViewById(R.id.backBtn);
+        this.toolBar = (Toolbar) findViewById(R.id.toolBar);
     }
 }

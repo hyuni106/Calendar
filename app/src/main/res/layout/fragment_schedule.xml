@@ -3,11 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/scheduleListView"
-        android:dividerHeight="0dp"
-        android:divider="@null"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/noCalendarAlertTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="일정이 없습니다. 일정을 추가해주세요."
+            android:textColor="@color/black"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/scheduleListView"
+            android:dividerHeight="0dp"
+            android:divider="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+
+    </FrameLayout>
 
 </LinearLayout>

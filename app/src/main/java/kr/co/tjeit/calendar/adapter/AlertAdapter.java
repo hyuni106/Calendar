@@ -47,6 +47,7 @@ public class AlertAdapter extends ArrayAdapter<Participant> {
         TextView rejectBtn = (TextView) row.findViewById(R.id.rejectBtn);
 
         userNickTxt.setText(data.getMember().getNickName());
+        groupNameTxt.setText(data.getParticipant_Group().getName());
 
         return row;
     }

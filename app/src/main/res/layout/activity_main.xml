@@ -163,7 +163,8 @@
                         android:id="@+id/alertBtn"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:src="@mipmap/ic_launcher_round"
+                        android:src="@drawable/alert_icon"
+                        android:scaleType="fitCenter"
                         android:layout_gravity="right"
                         android:layout_margin="10dp"/>
 

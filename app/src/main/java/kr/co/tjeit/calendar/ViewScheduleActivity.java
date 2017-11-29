@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
+import java.text.SimpleDateFormat;
+
 import kr.co.tjeit.calendar.data.Schedule;
 
 public class ViewScheduleActivity extends BaseActivity {
@@ -21,6 +23,10 @@ public class ViewScheduleActivity extends BaseActivity {
     private TextView categoryTxt;
     private TextView titleTxt;
     private TextView locationTxt;
+    private TextView startDateTxt;
+    private TextView startTimeTxt;
+    private TextView endDateTxt;
+    private TextView endTimeTxt;
     private TextView memoTxt;
 
     Schedule view;
@@ -50,6 +56,12 @@ public class ViewScheduleActivity extends BaseActivity {
         titleTxt.setText(view.getTitle());
         memoTxt.setText(view.getMemo());
         locationTxt.setText(view.getLocation());
+        SimpleDateFormat myDateFormatDate = new SimpleDateFormat("yyyy년 MM월 dd일");
+        SimpleDateFormat myDateFormatTime = new SimpleDateFormat("a hh시 mm분");
+        startDateTxt.setText(myDateFormatDate.format(view.getStart_date().getTime()));
+        startTimeTxt.setText(myDateFormatTime.format(view.getStart_date().getTime()));
+        endDateTxt.setText(myDateFormatDate.format(view.getEnd_date().getTime()));
+        endTimeTxt.setText(myDateFormatTime.format(view.getEnd_date().getTime()));
     }
 
     @Override
@@ -58,6 +70,10 @@ public class ViewScheduleActivity extends BaseActivity {
         this.likeBtn = (TextView) findViewById(R.id.likeBtn);
         this.memoTxt = (TextView) findViewById(R.id.memoTxt);
         this.locationTxt = (TextView) findViewById(R.id.locationTxt);
+        this.endTimeTxt = (TextView) findViewById(R.id.endTimeTxt);
+        this.endDateTxt = (TextView) findViewById(R.id.endDateTxt);
+        this.startTimeTxt = (TextView) findViewById(R.id.startTimeTxt);
+        this.startDateTxt = (TextView) findViewById(R.id.startDateTxt);
         this.endScheduleLayout = (LinearLayout) findViewById(R.id.endScheduleLayout);
         this.startScheduleLayout = (LinearLayout) findViewById(R.id.startScheduleLayout);
         this.titleTxt = (TextView) findViewById(R.id.titleTxt);

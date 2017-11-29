@@ -16,12 +16,15 @@ import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import kr.co.tjeit.calendar.data.Schedule;
 import kr.co.tjeit.calendar.util.GlobalData;
+
+import static java.util.Calendar.MINUTE;
 
 public class AddScheduleActivity extends BaseActivity {
 
@@ -38,7 +41,9 @@ public class AddScheduleActivity extends BaseActivity {
     private android.widget.TextView endDateTxt;
     private android.widget.TextView endTimeTxt;
 
-    int year, month, day, hour, minute;
+    Calendar startDate = Calendar.getInstance();
+    Calendar endDate = Calendar.getInstance();
+    boolean isStartPicker = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,28 +67,52 @@ public class AddScheduleActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("schedule", new Schedule(GlobalData.allSchedule.size() + 1, inputEdt.getText().toString(), memoEdt.getText().toString(), "", "", "", "", locationEdt.getText().toString()));
+                intent.putExtra("schedule", new Schedule(GlobalData.allSchedule.size() + 1, inputEdt.getText().toString(), memoEdt.getText().toString(),
+                        startDate, endDate, locationEdt.getText().toString()));
                 setResult(RESULT_OK, intent);
                 finish();
             }
         });
 
-        startScheduleLayout.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener dateTimePicker = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int hour = 0, minute = 0;
+                if (view.getId() == R.id.startScheduleLayout) {
+                    isStartPicker = true;
+                    hour = 0;
+                    minute = 0;
+                } else if (view.getId() == R.id.endScheduleLayout) {
+                    isStartPicker = false;
+                    hour = 23;
+                    minute = 59;
+                }
                 new TimePickerDialog(mContext, timeSetListener, hour, minute, false).show();
-                new DatePickerDialog(mContext, dateSetListener, year, month, day).show();
+                new DatePickerDialog(mContext, dateSetListener, startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DAY_OF_MONTH)).show();
             }
-        });
+        };
+
+        startScheduleLayout.setOnClickListener(dateTimePicker);
+        endScheduleLayout.setOnClickListener(dateTimePicker);
     }
 
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             // TODO Auto-generated method stub
-            String msg = String.format(Locale.KOREA, "%d년 %d월 %d일", year,monthOfYear+1, dayOfMonth);
-            startDateTxt.setText(msg);
-//            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+            if (isStartPicker) {
+                startDate.set(Calendar.YEAR, year);
+                startDate.set(Calendar.MONTH, monthOfYear);
+                startDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                startDateTxt.setText(myDateFormat.format(startDate.getTime()));
+                endDateTxt.setText(myDateFormat.format(startDate.getTime()));
+            } else {
+                endDate.set(Calendar.YEAR, year);
+                endDate.set(Calendar.MONTH, monthOfYear);
+                endDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                endDateTxt.setText(myDateFormat.format(endDate.getTime()));
+            }
         }
     };
 
@@ -91,19 +120,26 @@ public class AddScheduleActivity extends BaseActivity {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // TODO Auto-generated method stub
-            String msg = String.format(Locale.KOREA, "%d시 %d분", hourOfDay, minute);
-            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            SimpleDateFormat myDateFormat = new SimpleDateFormat("a hh시 mm분");
+            if (isStartPicker) {
+                startDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                startDate.set(MINUTE, minute);
+                startTimeTxt.setText(myDateFormat.format(startDate.getTime()));
+            } else {
+                endDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                endDate.set(MINUTE, minute);
+                endTimeTxt.setText(myDateFormat.format(endDate.getTime()));
+            }
         }
     };
 
     @Override
     public void setValues() {
-        GregorianCalendar calendar = new GregorianCalendar();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day= calendar.get(Calendar.DAY_OF_MONTH);
-        hour = calendar.get(Calendar.HOUR_OF_DAY);
-        minute = calendar.get(Calendar.MINUTE);
+        SimpleDateFormat myDateFormatDate = new SimpleDateFormat("yyyy년 MM월 dd일");
+        startDateTxt.setText(myDateFormatDate.format(startDate.getTime()));
+        endDateTxt.setText(myDateFormatDate.format(startDate.getTime()));
+        startTimeTxt.setText("오전 12시 00분");
+        endTimeTxt.setText("오후 11시 59분");
     }
 
     @Override
