@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            app:mm_iconState="arrow"
             app:mm_color="@color/white"
+            app:mm_iconState="arrow"
             app:mm_strokeWidth="2"
             app:mm_transformDuration="3000" />
 
@@ -38,23 +38,6 @@
         android:padding="20dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="회원가입"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
@@ -66,25 +49,26 @@
                 android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
-
-                <EditText
-                    android:id="@+id/idEdt"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="ID" />
+                    android:orientation="horizontal">
 
+                    <EditText
+                        android:id="@+id/idEdt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="ID" />
 
-                <EditText
-                    android:id="@+id/nameEdt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Name" />
+                    <TextView
+                        android:id="@+id/checkDuplIdBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="중복확인"
+                        android:layout_marginLeft="10dp"/>
 
-                <EditText
-                    android:id="@+id/nickNameEdt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="NickName" />
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/pwEdt"
@@ -99,6 +83,32 @@
                     android:layout_height="wrap_content"
                     android:hint="Password"
                     android:inputType="textPassword" />
+
+                <TextView
+                    android:id="@+id/passwordCheckTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="비밀번호가 일치하지 않습니다."
+                    android:visibility="invisible" />
+
+                <EditText
+                    android:id="@+id/nameEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name" />
+
+                <EditText
+                    android:id="@+id/nickNameEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="NickName" />
+
+                <EditText
+                    android:id="@+id/birthEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="birth" />
 
                 <TextView
                     android:layout_width="match_parent"

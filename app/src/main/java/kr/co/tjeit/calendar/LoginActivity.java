@@ -8,6 +8,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
+import kr.co.tjeit.calendar.util.ServerUtil;
+
 public class LoginActivity extends BaseActivity {
 
     private android.widget.EditText idEdt;
@@ -30,20 +34,26 @@ public class LoginActivity extends BaseActivity {
         View.OnClickListener intent = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                if (v.getId() == R.id.loginBtn) {
-                    intent = new Intent(mContext, MainActivity.class);
-                } else {
-                    intent = new Intent(mContext, SignUpActivity.class);
-                }
+                Intent intent = new Intent(mContext, SignUpActivity.class);
                 startActivity(intent);
-                if (v.getId() == R.id.loginBtn) {
-                    finish();
-                }
             }
         };
-        loginBtn.setOnClickListener(intent);
         signUpBtn.setOnClickListener(intent);
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ServerUtil.sign_in(mContext, idEdt.getText().toString(), pwEdt.getText().toString(),
+                        new ServerUtil.JsonResponseHandler() {
+                            @Override
+                            public void onResponse(JSONObject json) {
+                                Intent intent = new Intent(mContext, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+            }
+        });
     }
 
     @Override

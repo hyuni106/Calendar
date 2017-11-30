@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +24,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.format.DateFormatTitleFormatter;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
@@ -54,6 +56,8 @@ public class CalendarFragment extends Fragment {
     private android.widget.ListView calendarListView;
     private android.widget.TextView noCalendarAlertTxt;
 
+    SimpleDateFormat myDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,7 +82,14 @@ public class CalendarFragment extends Fragment {
             noCalendarAlertTxt.setVisibility(View.VISIBLE);
 
         } else {
-            mAdapter = new CalendarAdapter(getContext(), GlobalData.allSchedule);
+            mList.clear();
+            String selectDate = myDateFormatDate.format(Calendar.getInstance().getTime());
+            for (Schedule s : GlobalData.allSchedule) {
+                if (myDateFormatDate.format(s.getStart_date().getTime()).equals(selectDate)) {
+                    mList.add(s);
+                }
+            }
+            mAdapter = new CalendarAdapter(getContext(), mList);
             calendarListView.setAdapter(mAdapter);
         }
     }
@@ -142,6 +153,7 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AddScheduleActivity.class);
+                intent.putExtra("calendar", calendarView.getSelectedDate().getCalendar());
                 startActivityForResult(intent, 1);
             }
         });
@@ -152,6 +164,28 @@ public class CalendarFragment extends Fragment {
                 Intent intent = new Intent(getContext(), ViewScheduleActivity.class);
                 intent.putExtra("schedule_item", GlobalData.allSchedule.get(i));
                 startActivity(intent);
+            }
+        });
+
+        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+//                Toast.makeText(getContext(), "선택 : " + date.getCalendar(), Toast.LENGTH_SHORT).show();
+                mList.clear();
+                String selectDate = myDateFormatDate.format(date.getCalendar().getTime());
+                for (Schedule s : GlobalData.allSchedule) {
+                    if (myDateFormatDate.format(s.getStart_date().getTime()).equals(selectDate)) {
+                        mList.add(s);
+                    }
+                }
+                if (mList.size() != 0) {
+                    noCalendarAlertTxt.setVisibility(View.GONE);
+                    calendarListView.setVisibility(View.VISIBLE);
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    calendarListView.setVisibility(View.GONE);
+                    noCalendarAlertTxt.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -175,8 +209,14 @@ public class CalendarFragment extends Fragment {
             noCalendarAlertTxt.setVisibility(View.VISIBLE);
             calendarListView.setVisibility(View.GONE);
         } else {
-//            mAdapter.notifyDataSetChanged();
-            mAdapter = new CalendarAdapter(getContext(), GlobalData.allSchedule);
+            mList.clear();
+            String selectDate = myDateFormatDate.format(calendarView.getSelectedDate().getCalendar().getTime());
+            for (Schedule s : GlobalData.allSchedule) {
+                if (myDateFormatDate.format(s.getStart_date().getTime()).equals(selectDate)) {
+                    mList.add(s);
+                }
+            }
+            mAdapter = new CalendarAdapter(getContext(), mList);
             calendarListView.setAdapter(mAdapter);
             noCalendarAlertTxt.setVisibility(View.GONE);
             calendarListView.setVisibility(View.VISIBLE);

@@ -10,22 +10,23 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Locale;
 
 import kr.co.tjeit.calendar.R;
-import kr.co.tjeit.calendar.data.Board;
 import kr.co.tjeit.calendar.data.Participant;
+import kr.co.tjeit.calendar.data.User;
 
 /**
- * Created by suhyu on 2017-11-29.
+ * Created by suhyu on 2017-11-30.
  */
 
-public class AlertAdapter extends ArrayAdapter<Participant> {
+public class InviteAdapter extends ArrayAdapter<User> {
     Context mContext;
-    List<Participant> mList;
+    List<User> mList;
     LayoutInflater inf;
 
-    public AlertAdapter(Context context, List<Participant> list) {
-        super(context, R.layout.alert_list_item, list);
+    public InviteAdapter(Context context, List<User> list) {
+        super(context, R.layout.member_list_item, list);
         mContext = context;
         mList = list;
         inf = LayoutInflater.from(mContext);
@@ -36,18 +37,20 @@ public class AlertAdapter extends ArrayAdapter<Participant> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
         if (row == null) {
-            row = inf.inflate(R.layout.alert_list_item, null);
+            row = inf.inflate(R.layout.member_list_item, null);
         }
 
-        Participant data = mList.get(position);
+        User data = mList.get(position);
 
+        TextView nameTxt = (TextView) row.findViewById(R.id.nameTxt);
         TextView userNickTxt = (TextView) row.findViewById(R.id.userNickTxt);
-        TextView groupNameTxt = (TextView) row.findViewById(R.id.groupNameTxt);
-        TextView acceptBtn = (TextView) row.findViewById(R.id.acceptBtn);
-        TextView rejectBtn = (TextView) row.findViewById(R.id.rejectBtn);
+        TextView waitingAcceptTxt = (TextView) row.findViewById(R.id.waitingAcceptTxt);
 
-        userNickTxt.setText(data.getParticipant_User().getNickName());
-        groupNameTxt.setText(data.getParticipant_Group().getName());
+        waitingAcceptTxt.setVisibility(View.GONE);
+
+        nameTxt.setText(data.getName());
+        String nickname = String.format(Locale.KOREA, "( %s )", data.getNickName());
+        userNickTxt.setText(nickname);
 
         return row;
     }

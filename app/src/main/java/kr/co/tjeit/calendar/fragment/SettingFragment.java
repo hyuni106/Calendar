@@ -19,7 +19,9 @@ import kr.co.tjeit.calendar.CalendarSettingActivity;
 import kr.co.tjeit.calendar.InviteMemberActivity;
 import kr.co.tjeit.calendar.R;
 import kr.co.tjeit.calendar.adapter.MemberAdapter;
+import kr.co.tjeit.calendar.data.Participant;
 import kr.co.tjeit.calendar.data.User;
+import kr.co.tjeit.calendar.util.GlobalData;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -33,7 +35,7 @@ public class SettingFragment extends Fragment {
     private android.widget.LinearLayout addMemberLayout;
     private LinearLayout calendarSettingLayout;
 
-    List<User> memberList = new ArrayList<>();
+    List<Participant> memberList = new ArrayList<>();
     MemberAdapter mAdapter;
 
     @Nullable
@@ -55,6 +57,12 @@ public class SettingFragment extends Fragment {
     }
 
     private void setValues() {
+        memberList.clear();
+        for (int i=0; i<GlobalData.allParticipantAlert.size(); i++) {
+            if (GlobalData.allParticipantAlert.get(i).getStatus() == 1) {
+                memberList.add(GlobalData.allParticipantAlert.get(i));
+            }
+        }
         mAdapter = new MemberAdapter(getContext(), memberList);
         memberListView.setAdapter(mAdapter);
     }
@@ -93,8 +101,10 @@ public class SettingFragment extends Fragment {
         }
 
         if (requestCode == 1) {
+            Participant add = new Participant(GlobalData.allParticipantAlert.size()+1, 0);
             User addUser = (User) data.getSerializableExtra("user");
-            memberList.add(addUser);
+            add.setMember(addUser);
+            memberList.add(add);
             mAdapter.notifyDataSetChanged();
         } else {
             Toast.makeText(getContext(), "REQUEST_ACT가 아님", Toast.LENGTH_SHORT).show();

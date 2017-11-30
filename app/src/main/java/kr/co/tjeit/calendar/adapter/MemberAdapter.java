@@ -14,18 +14,19 @@ import java.util.Locale;
 
 import kr.co.tjeit.calendar.R;
 import kr.co.tjeit.calendar.data.Board;
+import kr.co.tjeit.calendar.data.Participant;
 import kr.co.tjeit.calendar.data.User;
 
 /**
  * Created by suhyu on 2017-11-29.
  */
 
-public class MemberAdapter extends ArrayAdapter<User> {
+public class MemberAdapter extends ArrayAdapter<Participant> {
     Context mContext;
-    List<User> mList;
+    List<Participant> mList;
     LayoutInflater inf;
 
-    public MemberAdapter(Context context, List<User> list) {
+    public MemberAdapter(Context context, List<Participant> list) {
         super(context, R.layout.member_list_item, list);
         mContext = context;
         mList = list;
@@ -40,15 +41,21 @@ public class MemberAdapter extends ArrayAdapter<User> {
             row = inf.inflate(R.layout.member_list_item, null);
         }
 
-        User data = mList.get(position);
+        Participant data = mList.get(position);
 
         TextView nameTxt = (TextView) row.findViewById(R.id.nameTxt);
         TextView userNickTxt = (TextView) row.findViewById(R.id.userNickTxt);
         TextView waitingAcceptTxt = (TextView) row.findViewById(R.id.waitingAcceptTxt);
 
-        nameTxt.setText(data.getName());
-        String nickname = String.format(Locale.KOREA, "( %s )", data.getNickName());
+        nameTxt.setText(data.getMember().getName());
+        String nickname = String.format(Locale.KOREA, "( %s )", data.getMember().getNickName());
         userNickTxt.setText(nickname);
+
+        if (data.getStatus() == 0) {
+            waitingAcceptTxt.setVisibility(View.VISIBLE);
+        } else {
+            waitingAcceptTxt.setVisibility(View.GONE);
+        }
 
         return row;
     }

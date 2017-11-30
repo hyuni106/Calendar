@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
+import kr.co.tjeit.calendar.adapter.InviteAdapter;
 import kr.co.tjeit.calendar.adapter.MemberAdapter;
 import kr.co.tjeit.calendar.data.Schedule;
 import kr.co.tjeit.calendar.data.User;
@@ -20,7 +21,7 @@ public class InviteMemberActivity extends BaseActivity {
     private com.balysv.materialmenu.MaterialMenuView backBtn;
     private android.widget.ListView userListView;
 
-    MemberAdapter mAdapter;
+    InviteAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class InviteMemberActivity extends BaseActivity {
 
     @Override
     public void setValues() {
-        mAdapter = new MemberAdapter(mContext, GlobalData.allUser);
+        mAdapter = new InviteAdapter(mContext, GlobalData.allUser);
         userListView.setAdapter(mAdapter);
     }
 

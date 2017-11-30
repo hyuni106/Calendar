@@ -49,6 +49,8 @@ public class AddScheduleActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
+        startDate = (Calendar) getIntent().getSerializableExtra("calendar");
+        endDate = (Calendar) getIntent().getSerializableExtra("calendar");
         bindViews();
         setupEvents();
         setValues();

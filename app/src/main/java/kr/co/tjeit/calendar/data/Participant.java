@@ -8,9 +8,10 @@ import java.io.Serializable;
 
 public class Participant implements Serializable {
     private int id;
-    private int status; // 0 : 미수락 1 : 수락 2 : 거절
+    private int status; // 0 : 미수락 / 1 : 수락 / 2 : 거절
 
     User member;
+    User participant_User;
     Group participant_Group;
 
     public Participant() {
@@ -43,6 +44,14 @@ public class Participant implements Serializable {
 
     public void setMember(User member) {
         this.member = member;
+    }
+
+    public User getParticipant_User() {
+        return participant_User;
+    }
+
+    public void setParticipant_User(User participant_User) {
+        this.participant_User = participant_User;
     }
 
     public Group getParticipant_Group() {

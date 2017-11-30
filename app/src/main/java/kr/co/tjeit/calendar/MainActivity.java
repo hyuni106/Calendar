@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -18,11 +19,8 @@ import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import kr.co.tjeit.calendar.adapter.GridViewAdapter;
-import kr.co.tjeit.calendar.data.Schedule;
+import kr.co.tjeit.calendar.data.Group;
 import kr.co.tjeit.calendar.util.GlobalData;
 
 public class MainActivity extends BaseActivity {
@@ -47,6 +45,9 @@ public class MainActivity extends BaseActivity {
 
     GridViewAdapter mAdapter;
     private ImageView alertBtn;
+
+    Group mainGroup;
+    private TextView groupNameTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,11 +142,21 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+        groupGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mainGroup = GlobalData.usersGroup.get(i);
+                drawerLayout.closeDrawer(drawer);
+                groupNameTxt.setText(mainGroup.getName());
+            }
+        });
     }
 
     @Override
     public void setValues() {
         setTitle("");
+        groupNameTxt.setText(GlobalData.usersGroup.get(0).getName());
         setSupportActionBar(toolBar);
         toolBar.setNavigationIcon(materialMenu);
         setBottomNavi();
@@ -207,6 +218,7 @@ public class MainActivity extends BaseActivity {
         this.BoardFragment = (LinearLayout) findViewById(R.id.BoardFragment);
         this.FeedLayout = (LinearLayout) findViewById(R.id.FeedLayout);
         this.CalendarLayout = (LinearLayout) findViewById(R.id.CalendarLayout);
+        this.groupNameTxt = (TextView) findViewById(R.id.groupNameTxt);
         this.materialmenubutton = (MaterialMenuView) findViewById(R.id.material_menu_button);
         this.toolBar = (Toolbar) findViewById(R.id.toolBar);
     }

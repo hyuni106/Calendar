@@ -1,5 +1,8 @@
 package kr.co.tjeit.calendar.data;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +15,22 @@ public class User implements Serializable {
     private String birth;
     private String name;
     private String nickName;
+
+    public static User getUserFromJson(JSONObject json) {
+        User u = new User();
+
+        try {
+            u.setId(json.getInt("id"));
+            u.setLogin_id(json.getString("login_id"));
+            u.setName(json.getString("name"));
+            u.setNickName(json.getString("nickname"));
+            u.setBirth(json.getString("birth"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return u;
+    }
 
     public User() {
     }

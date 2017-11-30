@@ -16,6 +16,7 @@ import java.util.List;
 
 import kr.co.tjeit.calendar.adapter.MemberAdapter;
 import kr.co.tjeit.calendar.data.Group;
+import kr.co.tjeit.calendar.data.Participant;
 import kr.co.tjeit.calendar.data.Schedule;
 import kr.co.tjeit.calendar.data.User;
 import kr.co.tjeit.calendar.util.GlobalData;
@@ -30,7 +31,7 @@ public class CreateGroupActivity extends BaseActivity {
     private android.widget.ListView memberListView;
     private android.widget.LinearLayout inviteMemberLayout;
 
-    List<User> inviteUserList = new ArrayList<>();
+    List<Participant> inviteUserList = new ArrayList<>();
     MemberAdapter mAdapter;
 
     @Override
@@ -83,8 +84,10 @@ public class CreateGroupActivity extends BaseActivity {
         }
 
         if (requestCode == 1) {
+            Participant add = new Participant(GlobalData.allParticipantAlert.size()+1, 0);
             User addUser = (User) data.getSerializableExtra("user");
-            inviteUserList.add(addUser);
+            add.setMember(addUser);
+            inviteUserList.add(add);
             mAdapter.notifyDataSetChanged();
         } else {
             Toast.makeText(mContext, "REQUEST_ACT가 아님", Toast.LENGTH_SHORT).show();
