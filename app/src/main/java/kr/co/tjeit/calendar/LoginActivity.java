@@ -7,9 +7,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import kr.co.tjeit.calendar.data.Group;
+import kr.co.tjeit.calendar.data.User;
+import kr.co.tjeit.calendar.util.ContextUtil;
+import kr.co.tjeit.calendar.util.GlobalData;
 import kr.co.tjeit.calendar.util.ServerUtil;
 
 public class LoginActivity extends BaseActivity {
@@ -47,9 +54,30 @@ public class LoginActivity extends BaseActivity {
                         new ServerUtil.JsonResponseHandler() {
                             @Override
                             public void onResponse(JSONObject json) {
-                                Intent intent = new Intent(mContext, MainActivity.class);
-                                startActivity(intent);
-                                finish();
+                                try {
+                                    if (json.getString("result").equals("OK")) {
+                                        JSONObject user = json.getJSONObject("user");
+                                        ContextUtil.setLoginUser(mContext, User.getUserFromJson(user));
+                                        JSONArray group = json.getJSONArray("group");
+                                        Intent intent = null;
+                                        if (group.length() > 0) {
+                                         intent = new Intent(mContext, MainActivity.class);
+                                            for (int i=0; i<group.length(); i++) {
+                                                Group g = Group.getGroupFromJson(group.getJSONObject(i));
+                                                GlobalData.usersGroup.add(g);
+                                            }
+                                        } else {
+                                            intent = new Intent(mContext, CreateGroupActivity.class);
+                                            intent.putExtra("activity", "login");
+                                        }
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Toast.makeText(mContext, "로그인 실패", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
             }

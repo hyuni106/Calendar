@@ -31,7 +31,7 @@ public class ContextUtil {
         pref.edit().putString(USER_BIRTH, birth).commit();
     }
 
-    public static void setUserRepresentCar(Context context, User loginUser) {
+    public static void setLoginUser(Context context, User loginUser) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
         pref.edit().putString(USER_LOGIN, "1").commit();
         pref.edit().putInt(USER_ID, loginUser.getId()).commit();

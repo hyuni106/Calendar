@@ -11,15 +11,21 @@ import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.tjeit.calendar.adapter.InviteAdapter;
 import kr.co.tjeit.calendar.adapter.MemberAdapter;
 import kr.co.tjeit.calendar.data.Group;
 import kr.co.tjeit.calendar.data.Participant;
 import kr.co.tjeit.calendar.data.Schedule;
 import kr.co.tjeit.calendar.data.User;
+import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.GlobalData;
+import kr.co.tjeit.calendar.util.ServerUtil;
 
 public class CreateGroupActivity extends BaseActivity {
 
@@ -31,13 +37,16 @@ public class CreateGroupActivity extends BaseActivity {
     private android.widget.ListView memberListView;
     private android.widget.LinearLayout inviteMemberLayout;
 
-    List<Participant> inviteUserList = new ArrayList<>();
-    MemberAdapter mAdapter;
+    List<User> inviteUserList = new ArrayList<>();
+    InviteAdapter mAdapter;
+
+    String act;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
+        act = getIntent().getStringExtra("activity");
         bindViews();
         setupEvents();
         setValues();
@@ -55,8 +64,32 @@ public class CreateGroupActivity extends BaseActivity {
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GlobalData.usersGroup.add(new Group(GlobalData.usersGroup.size() + 1, groupNameEdt.getText().toString(), groupInfoEdt.getText().toString()));
-                finish();
+                String participant_user_id = ContextUtil.getUserData(mContext).getId() + ",";
+                for (int i=0; i<inviteUserList.size(); i++) {
+                    if (i != inviteUserList.size() - 1) {
+                        participant_user_id += inviteUserList.get(i).getId() + ",";
+                    } else {
+                        participant_user_id += inviteUserList.get(i).getId();
+                    }
+                }
+                ServerUtil.createGroup(mContext, groupNameEdt.getText().toString(), groupInfoEdt.getText().toString(), "",ContextUtil.getUserData(mContext).getId() + "", participant_user_id,
+                        new ServerUtil.JsonResponseHandler() {
+                            @Override
+                            public void onResponse(JSONObject json) {
+                                try {
+                                    JSONObject group = json.getJSONObject("group");
+                                    Group g = Group.getGroupFromJson(group);
+                                    GlobalData.usersGroup.add(g);
+                                    if (act.equals("login")) {
+                                        Intent intent = new Intent(mContext, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                    finish();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
             }
         });
 
@@ -71,7 +104,7 @@ public class CreateGroupActivity extends BaseActivity {
 
     @Override
     public void setValues() {
-        mAdapter = new MemberAdapter(mContext, inviteUserList);
+        mAdapter = new InviteAdapter(mContext, inviteUserList);
         memberListView.setAdapter(mAdapter);
     }
 
@@ -84,10 +117,8 @@ public class CreateGroupActivity extends BaseActivity {
         }
 
         if (requestCode == 1) {
-            Participant add = new Participant(GlobalData.allParticipantAlert.size()+1, 0);
             User addUser = (User) data.getSerializableExtra("user");
-            add.setMember(addUser);
-            inviteUserList.add(add);
+            inviteUserList.add(addUser);
             mAdapter.notifyDataSetChanged();
         } else {
             Toast.makeText(mContext, "REQUEST_ACT가 아님", Toast.LENGTH_SHORT).show();

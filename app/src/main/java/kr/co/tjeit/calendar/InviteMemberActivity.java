@@ -9,11 +9,16 @@ import android.widget.ListView;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import kr.co.tjeit.calendar.adapter.InviteAdapter;
 import kr.co.tjeit.calendar.adapter.MemberAdapter;
 import kr.co.tjeit.calendar.data.Schedule;
 import kr.co.tjeit.calendar.data.User;
 import kr.co.tjeit.calendar.util.GlobalData;
+import kr.co.tjeit.calendar.util.ServerUtil;
 
 public class InviteMemberActivity extends BaseActivity {
 
@@ -54,6 +59,22 @@ public class InviteMemberActivity extends BaseActivity {
 
     @Override
     public void setValues() {
+        GlobalData.allUser.clear();
+        ServerUtil.getAllUsers(mContext, new ServerUtil.JsonResponseHandler() {
+            @Override
+            public void onResponse(JSONObject json) {
+                try {
+                    JSONArray users = json.getJSONArray("users");
+                    for (int i=0; i<users.length(); i++) {
+                        User u = User.getUserFromJson(users.getJSONObject(i));
+                        GlobalData.allUser.add(u);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         mAdapter = new InviteAdapter(mContext, GlobalData.allUser);
         userListView.setAdapter(mAdapter);
     }

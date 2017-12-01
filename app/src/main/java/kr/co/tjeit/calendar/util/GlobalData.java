@@ -1,13 +1,10 @@
 package kr.co.tjeit.calendar.util;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import kr.co.tjeit.calendar.data.Board;
 import kr.co.tjeit.calendar.data.Group;
-import kr.co.tjeit.calendar.data.Like;
 import kr.co.tjeit.calendar.data.Participant;
 import kr.co.tjeit.calendar.data.Schedule;
 import kr.co.tjeit.calendar.data.User;
@@ -22,7 +19,6 @@ public class GlobalData {
     public static List<Board> allBoard = new ArrayList<>();
     public static List<User> allUser = new ArrayList<>();
     public static List<Participant> allParticipantAlert = new ArrayList<>();
-    public static List<Like> userLike = new ArrayList<>();
 
     public static void initUserData() {
         allSchedule.clear();
@@ -38,12 +34,14 @@ public class GlobalData {
         allBoard.add(new Board(1, "2번게시물", "2017-12-01"));
         allBoard.add(new Board(2, "3번게시물", "2017-12-01"));
 
-        userLike.clear();
-        userLike.add(new Like(0));
-        userLike.add(new Like(1));
+        List<User> likeUser = new ArrayList<>();
+        allBoard.get(0).setLikeUser(likeUser);
 
-        userLike.get(0).setLikeBoard(allBoard.get(0));
-        userLike.get(1).setLikeBoard(allBoard.get(2));
+        likeUser.add(allUser.get(0));
+        likeUser.add(allUser.get(3));
+        likeUser.add(allUser.get(4));
+
+
 
         usersGroup.clear();
         usersGroup.add(new Group(0, "그룹1", "그룹1입니다"));

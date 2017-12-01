@@ -15,7 +15,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        GlobalData.initUserData();
+//        GlobalData.initUserData();
+        GlobalData.usersGroup.clear();
 
         new Handler().postDelayed(new Runnable() {
             @Override

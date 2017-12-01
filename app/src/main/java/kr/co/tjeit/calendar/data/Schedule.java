@@ -1,7 +1,9 @@
 package kr.co.tjeit.calendar.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by the on 2017-11-27.
@@ -17,6 +19,7 @@ public class Schedule implements Serializable {
 
     User writer;
     Group includeGroup;
+    List<User> attendUser = new ArrayList<>();
 
     public Schedule() {
     }
@@ -96,5 +99,13 @@ public class Schedule implements Serializable {
 
     public void setIncludeGroup(Group includeGroup) {
         this.includeGroup = includeGroup;
+    }
+
+    public List<User> getAttendUser() {
+        return attendUser;
+    }
+
+    public void setAttendUser(List<User> attendUser) {
+        this.attendUser = attendUser;
     }
 }

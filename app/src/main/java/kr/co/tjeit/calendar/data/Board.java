@@ -1,6 +1,8 @@
 package kr.co.tjeit.calendar.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by the on 2017-11-27.
@@ -13,6 +15,7 @@ public class Board implements Serializable {
 
     User writer;
     Group includeGroup;
+    List<User> likeUser = new ArrayList<>();
 
     public Board() {
     }
@@ -61,5 +64,13 @@ public class Board implements Serializable {
 
     public void setIncludeGroup(Group includeGroup) {
         this.includeGroup = includeGroup;
+    }
+
+    public List<User> getLikeUser() {
+        return likeUser;
+    }
+
+    public void setLikeUser(List<User> likeUser) {
+        this.likeUser = likeUser;
     }
 }

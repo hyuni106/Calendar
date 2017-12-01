@@ -21,6 +21,8 @@ import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItem
 
 import kr.co.tjeit.calendar.adapter.GridViewAdapter;
 import kr.co.tjeit.calendar.data.Group;
+import kr.co.tjeit.calendar.data.User;
+import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.GlobalData;
 
 public class MainActivity extends BaseActivity {
@@ -131,6 +133,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, CreateGroupActivity.class);
+                intent.putExtra("activity", "main");
                 startActivity(intent);
             }
         });
@@ -160,6 +163,10 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolBar);
         toolBar.setNavigationIcon(materialMenu);
         setBottomNavi();
+
+        User loginUser = ContextUtil.getUserData(mContext);
+        userNameTxt.setText(loginUser.getName());
+        userInfoTxt.setText(loginUser.getNickName());
 
         mAdapter = new GridViewAdapter(mContext, GlobalData.usersGroup);
         groupGridView.setAdapter(mAdapter);
