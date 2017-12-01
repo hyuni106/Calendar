@@ -91,6 +91,7 @@ public class CalendarFragment extends Fragment {
             }
             mAdapter = new CalendarAdapter(getContext(), mList);
             calendarListView.setAdapter(mAdapter);
+            fab.attachToListView(calendarListView);
         }
     }
 
