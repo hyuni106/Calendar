@@ -15,9 +15,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Locale;
 
 import kr.co.tjeit.calendar.R;
 import kr.co.tjeit.calendar.data.Board;
+import kr.co.tjeit.calendar.data.Like;
+import kr.co.tjeit.calendar.util.GlobalData;
 
 /**
  * Created by the on 2017-11-27.
@@ -49,11 +52,25 @@ public class BoardAdapter extends ArrayAdapter<Board> {
         TextView writerTxt = (TextView) row.findViewById(R.id.writerTxt);
         TextView createAtTxt = (TextView) row.findViewById(R.id.createAtTxt);
         TextView commentBtn = (TextView) row.findViewById(R.id.commentBtn);
-        TextView likeBtn = (TextView) row.findViewById(R.id.likeBtn);
+        final TextView likeBtn = (TextView) row.findViewById(R.id.likeBtn);
+        final TextView likeTxt = (TextView) row.findViewById(R.id.likeTxt);
         TextView shareBtn = (TextView) row.findViewById(R.id.shareBtn);
 
         contentTxt.setText(data.getContent());
         createAtTxt.setText(data.getCreatedAt());
+
+        for (Like l : GlobalData.userLike) {
+            if (l.getLikeBoard().getId() == data.getId()) {
+                likeTxt.setTextColor(getContext().getResources().getColor(R.color.red));
+            }
+        }
+
+        likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         return row;
     }

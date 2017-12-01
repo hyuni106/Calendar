@@ -65,8 +65,8 @@
                         android:id="@+id/checkDuplIdBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="중복확인"
-                        android:layout_marginLeft="10dp"/>
+                        android:padding="10dp"
+                        android:text="중복확인" />
 
                 </LinearLayout>
 
@@ -104,11 +104,26 @@
                     android:layout_height="wrap_content"
                     android:hint="NickName" />
 
-                <EditText
-                    android:id="@+id/birthEdt"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="birth" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/birthTxt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="생일" />
+
+                    <TextView
+                        android:id="@+id/pickBirthBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="선택하기"/>
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
