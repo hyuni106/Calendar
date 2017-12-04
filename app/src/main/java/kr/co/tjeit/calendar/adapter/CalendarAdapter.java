@@ -41,7 +41,7 @@ public class CalendarAdapter extends ArrayAdapter<Schedule> {
         Schedule data = mList.get(position);
 
         TextView contentTxt = (TextView) row.findViewById(R.id.contentTxt);
-        contentTxt.setText(data.getMemo());
+        contentTxt.setText(data.getTitle());
 
         return row;
     }

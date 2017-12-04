@@ -153,6 +153,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mainGroup = GlobalData.usersGroup.get(i);
+                ContextUtil.setRecentGroupId(mContext, GlobalData.usersGroup.get(i).getId());
                 drawerLayout.closeDrawer(drawer);
                 groupNameTxt.setText(mainGroup.getName());
             }

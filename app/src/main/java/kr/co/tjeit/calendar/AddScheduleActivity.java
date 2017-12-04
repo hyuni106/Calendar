@@ -16,13 +16,19 @@ import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import kr.co.tjeit.calendar.data.Schedule;
+import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.GlobalData;
+import kr.co.tjeit.calendar.util.ServerUtil;
 
 import static java.util.Calendar.MINUTE;
 
@@ -68,11 +74,20 @@ public class AddScheduleActivity extends BaseActivity {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("schedule", new Schedule(GlobalData.allSchedule.size() + 1, inputEdt.getText().toString(), memoEdt.getText().toString(),
-                        startDate, endDate, locationEdt.getText().toString()));
-                setResult(RESULT_OK, intent);
-                finish();
+                ServerUtil.createSchedule(mContext, inputEdt.getText().toString(), memoEdt.getText().toString(), parseDateFormat(startDate.getTime()), parseDateFormat(endDate.getTime()), locationEdt.getText().toString(),
+                        ContextUtil.getRecentGroupId(mContext), ContextUtil.getUserData(mContext).getId(), 1, new ServerUtil.JsonResponseHandler() {
+                            @Override
+                            public void onResponse(JSONObject json) {
+                                try {
+                                    Intent intent = new Intent();
+                                    intent.putExtra("schedule", Schedule.getScheduleFromJson(json.getJSONObject("schedule")));
+                                    setResult(RESULT_OK, intent);
+                                    finish();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
             }
         });
 
@@ -142,6 +157,11 @@ public class AddScheduleActivity extends BaseActivity {
         endDateTxt.setText(myDateFormatDate.format(startDate.getTime()));
         startTimeTxt.setText("오전 12시 00분");
         endTimeTxt.setText("오후 11시 59분");
+    }
+
+    public String parseDateFormat(Date date) {
+        SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return myDateFormat.format(date);
     }
 
     @Override

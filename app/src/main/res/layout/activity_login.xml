@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="kr.co.tjeit.calendar.LoginActivity">
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="30dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_marginTop="50dp"
+        android:src="@drawable/app_icon_border"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,6 +22,7 @@
         android:padding="20dp">
 
         <TextView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -38,20 +40,29 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="40dp"
                 android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/idEdt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="id" />
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:background="@drawable/gray_round_edittext"
+                    android:hint="ID" />
 
                 <EditText
                     android:id="@+id/pwEdt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="password"
+                    android:layout_marginTop="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:background="@drawable/gray_round_edittext"
+                    android:hint="Password"
                     android:inputType="textPassword" />
 
                 <CheckBox
@@ -59,14 +70,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_gravity="right"
                     android:text="자동 로그인" />
 
                 <Button
                     android:id="@+id/loginBtn"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_marginTop="5dp"
-                    android:text="로그인"
+                    android:layout_marginTop="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/theme_color_btn"
+                    android:text="로 그 인"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <TextView

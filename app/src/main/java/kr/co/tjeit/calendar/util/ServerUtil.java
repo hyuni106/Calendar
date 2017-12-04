@@ -17,7 +17,7 @@ public class ServerUtil {
 
     private static final String TAG = ServerUtil.class.getSimpleName();
 
-    private final static String BASE_URL = "http://192.168.100.140:8080/cal_app/"; // 라이브서버
+    private final static String BASE_URL = "http://192.168.100.121:8080/cal_app/"; // 라이브서버
 //    private final static String BASE_URL = "http://share-tdd.com/"; // 개발서버
 
     //    JSON 처리 부분 인터페이스
@@ -246,7 +246,7 @@ public class ServerUtil {
         data.put("user_id", user_id);
         data.put("participant_user_id", participant_user_id);
 
-        AsyncHttpRequest.post(context, url, data, false, new AsyncHttpRequest.HttpResponseHandler() {
+        AsyncHttpRequest.post(context, url, data, true, new AsyncHttpRequest.HttpResponseHandler() {
 
             @Override
             public boolean onPrepare() {
@@ -289,7 +289,7 @@ public class ServerUtil {
         data.put("comment", comment);
         data.put("image_path", null);
 
-        AsyncHttpRequest.post(context, url, data, false, new AsyncHttpRequest.HttpResponseHandler() {
+        AsyncHttpRequest.post(context, url, data, true, new AsyncHttpRequest.HttpResponseHandler() {
 
             @Override
             public boolean onPrepare() {
@@ -329,6 +329,54 @@ public class ServerUtil {
 
         Map<String, String> data = new HashMap<String, String>();
         data.put("user_id", user_id);
+
+        AsyncHttpRequest.post(context, url, data, false, new AsyncHttpRequest.HttpResponseHandler() {
+
+            @Override
+            public boolean onPrepare() {
+                return true;
+            }
+
+            @Override
+            public void onResponse(String response) {
+                System.out.println(response);
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    if (handler != null)
+                        handler.onResponse(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+
+        });
+    }
+
+    // 초대알림
+    public static void createSchedule(final Context context, String title, String memo, String start_date, String end_date, String location, int group_id, int user_id, int tag, final JsonResponseHandler handler) {
+        String url = BASE_URL + "group/createSchedule";
+        //		String registrationId = ContextUtil.getRegistrationId(context);
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("title", title);
+        data.put("memo", memo);
+        data.put("start_date", start_date);
+        data.put("end_date", end_date);
+        data.put("location", location);
+        data.put("group_id", group_id + "");
+        data.put("user_id", user_id + "");
+        data.put("tag", tag + "");
 
         AsyncHttpRequest.post(context, url, data, false, new AsyncHttpRequest.HttpResponseHandler() {
 

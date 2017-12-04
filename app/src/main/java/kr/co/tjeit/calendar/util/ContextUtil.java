@@ -20,6 +20,7 @@ public class ContextUtil {
     private final static String USER_NAME = "USER_NAME";
     private final static String USER_NICKNAME = "USER_NICKNAME";
     private final static String USER_BIRTH = "USER_BIRTH";
+    private final static String RECENT_GROUP = "RECENT_GROUP";
 
     public static void setLoginUser(Context context,int id, String login_id, String name, String nickname, String birth) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
@@ -68,5 +69,16 @@ public class ContextUtil {
     public static String isAutoLogin(Context context) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
         return pref.getString(USER_LOGIN, "");
+    }
+
+    public static void setRecentGroupId(Context context, int group_id) {
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+
+        pref.edit().putInt(RECENT_GROUP, group_id).commit();
+    }
+
+    public static int getRecentGroupId(Context context) {
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        return pref.getInt(RECENT_GROUP, 0);
     }
 }

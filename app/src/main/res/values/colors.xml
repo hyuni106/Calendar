@@ -11,7 +11,14 @@
     <color name="divide_line">#cecece</color>
 
     <color name="honey_flower">#654172</color>
+    <!--<color name="honey_flower">#34495E</color>-->
     <color name="ming">#336E7B</color>
+
+    <!-- Tag Color -->
+    <color name="razzmatazz">#DB0A5B</color>
+    <color name="seance">#9A12B3</color>
+    <color name="san_marino">#446CB3</color>
+    <color name="emerald">#3FC380</color>
 
     <color name="firstColor">#EEA4B7</color>
     <color name="secondColor">#f7c370</color>

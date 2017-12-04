@@ -1,8 +1,14 @@
 package kr.co.tjeit.calendar.data;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -16,21 +22,50 @@ public class Schedule implements Serializable {
     private Calendar start_date;
     private Calendar end_date;
     private String location;
+    private int tag;
 
     User writer;
     Group includeGroup;
     List<User> attendUser = new ArrayList<>();
 
+    public static Schedule getScheduleFromJson(JSONObject json) {
+        Schedule s = new Schedule();
+
+        try {
+            s.setId(json.getInt("id"));
+            s.setTitle(json.getString("title"));
+            s.setMemo(json.getString("memo"));
+
+            SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar start_date = Calendar.getInstance();
+            start_date.setTime(myDateFormat.parse(json.getString("start_date")));
+            s.setStart_date(start_date);
+            Calendar end_date = Calendar.getInstance();
+            end_date.setTime(myDateFormat.parse(json.getString("end_date")));
+            s.setEnd_date(end_date);
+
+            s.setLocation(json.getString("location"));
+            s.setTag(json.getInt("tag"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
     public Schedule() {
     }
 
-    public Schedule(int id, String title, String memo, Calendar start_date, Calendar end_date, String location) {
+    public Schedule(int id, String title, String memo, Calendar start_date, Calendar end_date, String location, int tag) {
         this.id = id;
         this.title = title;
         this.memo = memo;
         this.start_date = start_date;
         this.end_date = end_date;
         this.location = location;
+        this.tag = tag;
     }
 
     public Schedule(String content) {
@@ -107,5 +142,13 @@ public class Schedule implements Serializable {
 
     public void setAttendUser(List<User> attendUser) {
         this.attendUser = attendUser;
+    }
+
+    public int getTag() {
+        return tag;
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
     }
 }

@@ -81,6 +81,7 @@ public class CreateGroupActivity extends BaseActivity {
                                     Group g = Group.getGroupFromJson(group);
                                     GlobalData.usersGroup.add(g);
                                     if (act.equals("login")) {
+                                        ContextUtil.setRecentGroupId(mContext, g.getId());
                                         Intent intent = new Intent(mContext, MainActivity.class);
                                         startActivity(intent);
                                     }
