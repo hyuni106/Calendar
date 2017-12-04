@@ -17,7 +17,7 @@ public class ServerUtil {
 
     private static final String TAG = ServerUtil.class.getSimpleName();
 
-    private final static String BASE_URL = "http://192.168.100.121:8080/cal_app/"; // 라이브서버
+    private final static String BASE_URL = "http://13.125.83.235:8080/calendarApp/"; // 라이브서버
 //    private final static String BASE_URL = "http://share-tdd.com/"; // 개발서버
 
     //    JSON 처리 부분 인터페이스
@@ -196,7 +196,7 @@ public class ServerUtil {
 
     // 모든 회원 불러오기
     public static void getAllUsers(final Context context, final JsonResponseHandler handler) {
-        String url = BASE_URL + "user/allUsers";
+        String url = BASE_URL + "group/allUsers";
         //		String registrationId = ContextUtil.getRegistrationId(context);
 
         Map<String, String> data = new HashMap<String, String>();

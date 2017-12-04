@@ -99,13 +99,17 @@ public class AddScheduleActivity extends BaseActivity {
                     isStartPicker = true;
                     hour = 0;
                     minute = 0;
+                    new TimePickerDialog(mContext, timeSetListener, hour, minute, false).show();
+                    new DatePickerDialog(mContext, startDateSetListener, startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DAY_OF_MONTH)).show();
                 } else if (view.getId() == R.id.endScheduleLayout) {
                     isStartPicker = false;
                     hour = 23;
                     minute = 59;
+                    new TimePickerDialog(mContext, timeSetListener, hour, minute, false).show();
+                    new DatePickerDialog(mContext, endDateSetListener, startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DAY_OF_MONTH)).show();
                 }
-                new TimePickerDialog(mContext, timeSetListener, hour, minute, false).show();
-                new DatePickerDialog(mContext, dateSetListener, startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DAY_OF_MONTH)).show();
+//                new TimePickerDialog(mContext, timeSetListener, hour, minute, false).show();
+//                new DatePickerDialog(mContext, dateSetListener, startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DAY_OF_MONTH)).show();
             }
         };
 
@@ -113,23 +117,47 @@ public class AddScheduleActivity extends BaseActivity {
         endScheduleLayout.setOnClickListener(dateTimePicker);
     }
 
-    private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+    private DatePickerDialog.OnDateSetListener startDateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             // TODO Auto-generated method stub
             SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
-            if (isStartPicker) {
-                startDate.set(Calendar.YEAR, year);
-                startDate.set(Calendar.MONTH, monthOfYear);
-                startDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                startDateTxt.setText(myDateFormat.format(startDate.getTime()));
-                endDateTxt.setText(myDateFormat.format(startDate.getTime()));
-            } else {
-                endDate.set(Calendar.YEAR, year);
-                endDate.set(Calendar.MONTH, monthOfYear);
-                endDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                endDateTxt.setText(myDateFormat.format(endDate.getTime()));
-            }
+            startDate.set(Calendar.YEAR, year);
+            startDate.set(Calendar.MONTH, monthOfYear);
+            startDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            startDateTxt.setText(myDateFormat.format(startDate.getTime()));
+            endDate.set(Calendar.YEAR, year);
+            endDate.set(Calendar.MONTH, monthOfYear);
+            endDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            endDateTxt.setText(myDateFormat.format(endDate.getTime()));
+        }
+    };
+
+    private DatePickerDialog.OnDateSetListener endDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            // TODO Auto-generated method stub
+            SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+//            if (isStartPicker) {
+//                startDate.set(Calendar.YEAR, year);
+//                startDate.set(Calendar.MONTH, monthOfYear);
+//                startDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+////                endDate.set(Calendar.YEAR, year);
+////                endDate.set(Calendar.MONTH, monthOfYear);
+////                endDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//                startDateTxt.setText(myDateFormat.format(startDate.getTime()));
+////                endDateTxt.setText(myDateFormat.format(endDate.getTime()));
+//            }
+////            else {
+////                endDate.set(Calendar.YEAR, year);
+////                endDate.set(Calendar.MONTH, monthOfYear);
+////                endDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+////                endDateTxt.setText(myDateFormat.format(endDate.getTime()));
+////            }
+            endDate.set(Calendar.YEAR, year);
+            endDate.set(Calendar.MONTH, monthOfYear);
+            endDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            endDateTxt.setText(myDateFormat.format(endDate.getTime()));
         }
     };
 
@@ -142,11 +170,18 @@ public class AddScheduleActivity extends BaseActivity {
                 startDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 startDate.set(MINUTE, minute);
                 startTimeTxt.setText(myDateFormat.format(startDate.getTime()));
-            } else {
-                endDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                endDate.set(MINUTE, minute);
-                endTimeTxt.setText(myDateFormat.format(endDate.getTime()));
+//                endDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//                endDate.set(MINUTE, minute);
+//                endTimeTxt.setText(myDateFormat.format(endDate.getTime()));
             }
+//            else {
+//                endDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//                endDate.set(MINUTE, minute);
+//                endTimeTxt.setText(myDateFormat.format(endDate.getTime()));
+//            }
+            endDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            endDate.set(MINUTE, minute);
+            endTimeTxt.setText(myDateFormat.format(endDate.getTime()));
         }
     };
 

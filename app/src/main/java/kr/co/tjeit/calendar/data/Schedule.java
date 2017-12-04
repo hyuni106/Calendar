@@ -38,17 +38,15 @@ public class Schedule implements Serializable {
 
             SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar start_date = Calendar.getInstance();
-            start_date.setTime(myDateFormat.parse(json.getString("start_date")));
+            start_date.setTimeInMillis(json.getLong("start_date"));
             s.setStart_date(start_date);
             Calendar end_date = Calendar.getInstance();
-            end_date.setTime(myDateFormat.parse(json.getString("end_date")));
+            end_date.setTimeInMillis(json.getLong("end_date"));
             s.setEnd_date(end_date);
 
             s.setLocation(json.getString("location"));
             s.setTag(json.getInt("tag"));
         } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         }
 
