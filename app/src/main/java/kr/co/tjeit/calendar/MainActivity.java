@@ -20,11 +20,17 @@ import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import kr.co.tjeit.calendar.adapter.GridViewAdapter;
 import kr.co.tjeit.calendar.data.Group;
+import kr.co.tjeit.calendar.data.Schedule;
 import kr.co.tjeit.calendar.data.User;
 import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.GlobalData;
+import kr.co.tjeit.calendar.util.ServerUtil;
 
 public class MainActivity extends BaseActivity {
 
@@ -163,7 +169,13 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setValues() {
         setTitle("");
-        groupNameTxt.setText(GlobalData.usersGroup.get(0).getName());
+        for (Group g : GlobalData.usersGroup) {
+            if (g.getId() == ContextUtil.getRecentGroupId(mContext)) {
+                mainGroup = g;
+            }
+        }
+        groupNameTxt.setText(mainGroup.getName());
+//        getAllScheduleFromGroup(mainGroup.getId());
         setSupportActionBar(toolBar);
         toolBar.setNavigationIcon(materialMenu);
         setBottomNavi();
@@ -177,6 +189,24 @@ public class MainActivity extends BaseActivity {
 
         bottomNavigation.isColoredBackground(false);
         bottomNavigation.setItemActiveColorWithoutColoredBackground(getResources().getColor(R.color.honey_flower));
+    }
+
+    public void getAllScheduleFromGroup(int id) {
+        GlobalData.allSchedule.clear();
+        ServerUtil.getAllSchedule(mContext, id, new ServerUtil.JsonResponseHandler() {
+            @Override
+            public void onResponse(JSONObject json) {
+                try {
+                    JSONArray schedule = json.getJSONArray("schedule");
+                    for (int i=0; i<schedule.length(); i++) {
+                        Schedule s = Schedule.getScheduleFromJson(schedule.getJSONObject(i));
+                        GlobalData.allSchedule.add(s);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void setBottomNavi() {

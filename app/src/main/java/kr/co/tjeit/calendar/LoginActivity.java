@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import kr.co.tjeit.calendar.data.Group;
+import kr.co.tjeit.calendar.data.Schedule;
 import kr.co.tjeit.calendar.data.User;
 import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.GlobalData;
@@ -50,6 +51,23 @@ public class LoginActivity extends BaseActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (ContextUtil.getRecentGroupId(mContext) != 0) {
+                    GlobalData.allSchedule.clear();
+                    ServerUtil.getAllSchedule(mContext, ContextUtil.getRecentGroupId(mContext), new ServerUtil.JsonResponseHandler() {
+                        @Override
+                        public void onResponse(JSONObject json) {
+                            try {
+                                JSONArray schedule = json.getJSONArray("schedule");
+                                for (int i=0; i<schedule.length(); i++) {
+                                    Schedule s = Schedule.getScheduleFromJson(schedule.getJSONObject(i));
+                                    GlobalData.allSchedule.add(s);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
                 ServerUtil.sign_in(mContext, idEdt.getText().toString(), pwEdt.getText().toString(),
                         new ServerUtil.JsonResponseHandler() {
                             @Override

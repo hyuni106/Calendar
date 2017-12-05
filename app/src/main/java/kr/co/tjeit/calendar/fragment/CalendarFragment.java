@@ -80,12 +80,11 @@ public class CalendarFragment extends Fragment {
         settingCalendar();
         if (GlobalData.allSchedule.size() == 0) {
             noCalendarAlertTxt.setVisibility(View.VISIBLE);
-
         } else {
             mList.clear();
-            String selectDate = myDateFormatDate.format(Calendar.getInstance().getTime());
+            String selectDate = myDateFormatDate.format(Calendar.getInstance().getTimeInMillis());
             for (Schedule s : GlobalData.allSchedule) {
-                if (myDateFormatDate.format(s.getStart_date().getTime()).equals(selectDate)) {
+                if (myDateFormatDate.format(s.getStart_date().getTimeInMillis()).equals(selectDate)) {
                     mList.add(s);
                 }
             }
@@ -173,9 +172,9 @@ public class CalendarFragment extends Fragment {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 //                Toast.makeText(getContext(), "선택 : " + date.getCalendar(), Toast.LENGTH_SHORT).show();
                 mList.clear();
-                String selectDate = myDateFormatDate.format(date.getCalendar().getTime());
+                String selectDate = myDateFormatDate.format(date.getCalendar().getTimeInMillis());
                 for (Schedule s : GlobalData.allSchedule) {
-                    if (myDateFormatDate.format(s.getStart_date().getTime()).equals(selectDate)) {
+                    if (myDateFormatDate.format(s.getStart_date().getTimeInMillis()).equals(selectDate)) {
                         mList.add(s);
                     }
                 }
@@ -192,10 +191,11 @@ public class CalendarFragment extends Fragment {
     }
 
     public void addDecorator() {
+        calendarView.removeDecorators();
 //        CalendarDay date = calendarView.getSelectedDate();
 //        CalendarDay date = CalendarDay.today();
         ArrayList<CalendarDay> dates = new ArrayList<>();
-        for (int i=0; i<GlobalData.allSchedule.size(); i++) {
+        for (int i = 0; i < GlobalData.allSchedule.size(); i++) {
             Calendar decoDate = GlobalData.allSchedule.get(i).getStart_date();
             dates.add(CalendarDay.from(decoDate.get(Calendar.YEAR), decoDate.get(Calendar.MONTH), decoDate.get(Calendar.DAY_OF_MONTH)));
         }
