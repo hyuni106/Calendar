@@ -46,10 +46,7 @@ public class BoardAdapter extends ArrayAdapter<Board> {
         TextView contentTxt = (TextView) row.findViewById(R.id.contentTxt);
         TextView writerTxt = (TextView) row.findViewById(R.id.writerTxt);
         TextView createAtTxt = (TextView) row.findViewById(R.id.createAtTxt);
-        TextView commentBtn = (TextView) row.findViewById(R.id.commentBtn);
-        final TextView likeBtn = (TextView) row.findViewById(R.id.likeBtn);
         final TextView likeTxt = (TextView) row.findViewById(R.id.likeTxt);
-        TextView shareBtn = (TextView) row.findViewById(R.id.shareBtn);
 
         contentTxt.setText(data.getContent());
 
@@ -62,18 +59,6 @@ public class BoardAdapter extends ArrayAdapter<Board> {
             String like = String.format(Locale.KOREA, "좋아요 %d개", data.getLikeUser().size());
             likeTxt.setText(like);
         }
-
-        likeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                for (User u : data.getLikeUser()) {
-//                    if (u.getId() == )
-//                }
-                String like = String.format(Locale.KOREA, "좋아요 %d개", data.getLikeUser().size() + 1);
-                likeTxt.setText(like);
-                likeBtn.setTextColor(getContext().getResources().getColor(R.color.red));
-            }
-        });
 
         return row;
     }

@@ -10,10 +10,10 @@
     tools:context="kr.co.tjeit.calendar.LoginActivity">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
         android:layout_marginTop="50dp"
-        android:src="@drawable/app_icon_border"/>
+        android:src="@drawable/pont_logo"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,6 +51,7 @@
                     android:paddingBottom="10dp"
                     android:paddingLeft="20dp"
                     android:background="@drawable/gray_round_edittext"
+                    android:singleLine="true"
                     android:hint="ID" />
 
                 <EditText
@@ -62,6 +63,7 @@
                     android:paddingBottom="10dp"
                     android:paddingLeft="20dp"
                     android:background="@drawable/gray_round_edittext"
+                    android:singleLine="true"
                     android:hint="Password"
                     android:inputType="textPassword" />
 

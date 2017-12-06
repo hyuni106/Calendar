@@ -17,8 +17,8 @@ public class ServerUtil {
 
     private static final String TAG = ServerUtil.class.getSimpleName();
 
-//    private final static String BASE_URL = "http://13.125.83.235:8080/calendarApp/"; // 라이브서버
-    private final static String BASE_URL = "http://192.168.100.116:8080/cal_app/"; // 개발서버
+    private final static String BASE_URL = "http://13.125.83.235:8080/calendarApp/"; // 라이브서버
+//    private final static String BASE_URL = "http://192.168.100.116:8080/cal_app/"; // 개발서버
 
     //    JSON 처리 부분 인터페이스
     public interface JsonResponseHandler {

@@ -70,28 +70,30 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="5dp">
+
 
                 <TextView
+                    android:id="@+id/startDateTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="시작" />
-
-                <TextView
-                    android:id="@id/startDateTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="2017년 11월 28일" />
+                    android:text="2017년 11월 28일"
+                    android:textColor="@color/text_color"/>
 
                 <TextView
                     android:id="@+id/startTimeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="오후 01시 05분" />
+                    android:text="오후 01시 05분"
+                    android:textColor="@color/text_color"/>
 
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/next_img"/>
 
             <LinearLayout
                 android:id="@+id/endScheduleLayout"
@@ -100,26 +102,22 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="종료" />
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/endDateTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="2017년 11월 28일" />
+                    android:text="2017년 11월 28일"
+                    android:textColor="@color/text_color" />
 
                 <TextView
                     android:id="@+id/endTimeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="오후 01시 05분" />
+                    android:text="오후 01시 05분"
+                    android:textColor="@color/text_color" />
 
             </LinearLayout>
 

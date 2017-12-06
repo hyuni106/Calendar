@@ -63,28 +63,30 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="5dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="시작" />
 
                 <TextView
                     android:id="@+id/startDateTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="2017년 11월 28일" />
+                    android:text="2017년 11월 28일"
+                    android:textColor="@color/text_color"/>
 
                 <TextView
                     android:id="@+id/startTimeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="오후 01시 05분" />
+                    android:text="오후 01시 05분"
+                    android:textColor="@color/text_color"/>
 
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/next_img"/>
 
             <LinearLayout
                 android:id="@+id/endScheduleLayout"
@@ -93,26 +95,22 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="종료" />
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/endDateTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="2017년 11월 28일" />
+                    android:text="2017년 11월 28일"
+                    android:textColor="@color/text_color" />
 
                 <TextView
                     android:id="@+id/endTimeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="오후 01시 05분" />
+                    android:text="오후 01시 05분"
+                    android:textColor="@color/text_color" />
 
             </LinearLayout>
 
@@ -123,21 +121,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@drawable/gray_border_white_round_edittext"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
             android:hint="제목" />
 
         <EditText
             android:id="@+id/locationEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/gray_border_white_round_edittext"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:layout_marginTop="10dp"
             android:hint="장소" />
 
         <EditText
             android:id="@+id/memoEdt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="메모" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/gray_border_white_round_edittext"
+            android:hint="메모"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp" />
 
         <TextView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1" />
@@ -146,7 +160,13 @@
             android:id="@+id/okBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="확인" />
+            android:layout_marginTop="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/theme_color_btn"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="확 인" />
 
     </LinearLayout>
 
