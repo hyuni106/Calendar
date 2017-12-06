@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,7 +52,11 @@ public class BoardAdapter extends ArrayAdapter<Board> {
         TextView shareBtn = (TextView) row.findViewById(R.id.shareBtn);
 
         contentTxt.setText(data.getContent());
-        createAtTxt.setText(data.getCreatedAt());
+
+        SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        createAtTxt.setText(myDateFormat.format(data.getCreatedAt().getTime()));
+
+        writerTxt.setText(data.getWriter().getNickName());
 
         if (data.getLikeUser().size() != 0) {
             String like = String.format(Locale.KOREA, "좋아요 %d개", data.getLikeUser().size());

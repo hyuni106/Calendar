@@ -2,17 +2,20 @@ package kr.co.tjeit.calendar;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
@@ -52,6 +55,11 @@ public class AddScheduleActivity extends BaseActivity {
     String endDateString = "";
     String startTimeString = "";
     String endTimeString = "";
+    private LinearLayout tagSelectLayout;
+
+    ArrayAdapter<String> adapter;
+
+    int tag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +85,7 @@ public class AddScheduleActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 ServerUtil.createSchedule(mContext, inputEdt.getText().toString(), memoEdt.getText().toString(), startDateString + startTimeString, endDateString + endTimeString, locationEdt.getText().toString(),
-                        ContextUtil.getRecentGroupId(mContext), ContextUtil.getUserData(mContext).getId(), 1, new ServerUtil.JsonResponseHandler() {
+                        ContextUtil.getRecentGroupId(mContext), ContextUtil.getUserData(mContext).getId(), tag, new ServerUtil.JsonResponseHandler() {
                             @Override
                             public void onResponse(JSONObject json) {
                                 try {
@@ -90,8 +98,6 @@ public class AddScheduleActivity extends BaseActivity {
                                 }
                             }
                         });
-//                Log.d("날짜", startDateString + startTimeString);
-//                Log.d("날짜", endDateString + endTimeString);
             }
         });
 
@@ -110,30 +116,32 @@ public class AddScheduleActivity extends BaseActivity {
                     new TimePickerDialog(mContext, timeSetListener, endDate.get(Calendar.HOUR_OF_DAY), endDate.get(MINUTE), false).show();
                     new DatePickerDialog(mContext, dateSetListener, endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH), endDate.get(Calendar.DAY_OF_MONTH)).show();
                 }
-//                new TimePickerDialog(mContext, timeSetListener, hour, minute, false).show();
-//                new DatePickerDialog(mContext, dateSetListener, startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DAY_OF_MONTH)).show();
             }
         };
 
         startScheduleLayout.setOnClickListener(dateTimePicker);
         endScheduleLayout.setOnClickListener(dateTimePicker);
-    }
 
-//    private DatePickerDialog.OnDateSetListener startDateSetListener = new DatePickerDialog.OnDateSetListener() {
-//        @Override
-//        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//            // TODO Auto-generated method stub
-//            SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
-//            startDate.set(Calendar.YEAR, year);
-//            startDate.set(Calendar.MONTH, monthOfYear);
-//            startDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//            startDateTxt.setText(myDateFormat.format(startDate.getTime()));
-//            endDate.set(Calendar.YEAR, year);
-//            endDate.set(Calendar.MONTH, monthOfYear);
-//            endDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//            endDateTxt.setText(myDateFormat.format(endDate.getTime()));
-//        }
-//    };
+        tagSelectLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(
+                        mContext);
+                alertBuilder.setIcon(R.mipmap.ic_launcher);
+                alertBuilder.setTitle("항목중에 하나를 선택하세요.");
+
+                alertBuilder.setAdapter(adapter,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+//                                Toast.makeText(mContext, id + "번", Toast.LENGTH_SHORT).show();
+                                tag = id + 1;
+                            }
+                        });
+                alertBuilder.show();
+            }
+        });
+    }
 
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -217,6 +225,14 @@ public class AddScheduleActivity extends BaseActivity {
         startDateString = myStartDateFormat.format(startDate.getTime());
         SimpleDateFormat myEndDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         endDateString = myEndDateFormat.format(endDate.getTime());
+
+        adapter = new ArrayAdapter<String>(
+                mContext,
+                android.R.layout.select_dialog_singlechoice);
+        adapter.add("1번");
+        adapter.add("2번");
+        adapter.add("3번");
+        adapter.add("4번");
     }
 
     public String parseDateFormat(Date date) {
@@ -236,6 +252,7 @@ public class AddScheduleActivity extends BaseActivity {
         this.startScheduleLayout = (LinearLayout) findViewById(R.id.startScheduleLayout);
         this.startTimeTxt = (TextView) findViewById(R.id.startTimeTxt);
         this.startDateTxt = (TextView) findViewById(R.id.startDateTxt);
+        this.tagSelectLayout = (LinearLayout) findViewById(R.id.tagSelectLayout);
         this.materialmenubutton = (MaterialMenuView) findViewById(R.id.material_menu_button);
         this.toolBar = (Toolbar) findViewById(R.id.toolBar);
     }

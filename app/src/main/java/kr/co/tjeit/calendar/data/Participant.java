@@ -1,5 +1,8 @@
 package kr.co.tjeit.calendar.data;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -11,8 +14,27 @@ public class Participant implements Serializable {
     private int status; // 0 : 미수락 / 1 : 수락 / 2 : 거절
 
     User member;
-    User participant_User;
     Group participant_Group;
+
+    public static Participant getParticipantFromJson(JSONObject json) {
+        Participant p = new Participant();
+
+        try {
+            p.setId(json.getInt("id"));
+            p.setStatus(json.getInt("status"));
+
+            JSONObject user = json.getJSONObject("user");
+            p.member = User.getUserFromJson(user);
+
+            JSONObject group = json.getJSONObject("group");
+            p.participant_Group = Group.getGroupFromJson(group);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return p;
+    }
 
     public Participant() {
     }
@@ -44,14 +66,6 @@ public class Participant implements Serializable {
 
     public void setMember(User member) {
         this.member = member;
-    }
-
-    public User getParticipant_User() {
-        return participant_User;
-    }
-
-    public void setParticipant_User(User participant_User) {
-        this.participant_User = participant_User;
     }
 
     public Group getParticipant_Group() {

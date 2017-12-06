@@ -1,7 +1,13 @@
 package kr.co.tjeit.calendar.data;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -11,16 +17,37 @@ import java.util.List;
 public class Board implements Serializable {
     private int id;
     private String content;
-    private String createdAt;
+    private Calendar createdAt;
 
-    User writer;
-    Group includeGroup;
+    User writer = new User();
     List<User> likeUser = new ArrayList<>();
+
+    public static Board getBoardFromJson(JSONObject json) {
+        Board b = new Board();
+
+        try {
+            b.setId(json.getInt("id"));
+            b.setContent(json.getString("content"));
+
+            SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar createdAt = Calendar.getInstance();
+            createdAt.setTime(myDateFormat.parse(json.getString("createdAt")));
+            b.setCreatedAt(createdAt);
+
+            b.writer = User.getUserFromJson(json.getJSONObject("user"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return b;
+    }
 
     public Board() {
     }
 
-    public Board(int id, String content, String createdAt) {
+    public Board(int id, String content, Calendar createdAt) {
         this.id = id;
         this.content = content;
         this.createdAt = createdAt;
@@ -42,11 +69,11 @@ public class Board implements Serializable {
         this.content = content;
     }
 
-    public String getCreatedAt() {
+    public Calendar getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Calendar createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -56,14 +83,6 @@ public class Board implements Serializable {
 
     public void setWriter(User writer) {
         this.writer = writer;
-    }
-
-    public Group getIncludeGroup() {
-        return includeGroup;
-    }
-
-    public void setIncludeGroup(Group includeGroup) {
-        this.includeGroup = includeGroup;
     }
 
     public List<User> getLikeUser() {

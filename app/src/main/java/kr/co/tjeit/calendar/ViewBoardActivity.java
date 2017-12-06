@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +66,10 @@ public class ViewBoardActivity extends BaseActivity {
     @Override
     public void setValues() {
         contentTxt.setText(view.getContent());
-        writerTxt.setText(view.getCreatedAt());
+
+        SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        writerTxt.setText(myDateFormat.format(view.getCreatedAt().getTime()));
+
         mAdapter = new CommentAdapter(mContext, commentList);
         commentListView.setAdapter(mAdapter);
     }

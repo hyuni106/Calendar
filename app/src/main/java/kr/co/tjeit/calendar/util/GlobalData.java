@@ -29,11 +29,6 @@ public class GlobalData {
         allUser.add(new User(3, "user4", "1992-10-01", "사용자4", "닉넴4"));
         allUser.add(new User(4, "user5", "1992-10-01", "사용자5", "닉넴5"));
 
-        allBoard.clear();
-        allBoard.add(new Board(0, "1번게시물", "2017-12-01"));
-        allBoard.add(new Board(1, "2번게시물", "2017-12-01"));
-        allBoard.add(new Board(2, "3번게시물", "2017-12-01"));
-
         List<User> likeUser = new ArrayList<>();
         allBoard.get(0).setLikeUser(likeUser);
 
@@ -55,9 +50,9 @@ public class GlobalData {
         allParticipantAlert.add(new Participant(3, 1));
         allParticipantAlert.add(new Participant(4, 1));
 
-        allParticipantAlert.get(0).setParticipant_User(allUser.get(0));
-        allParticipantAlert.get(1).setParticipant_User(allUser.get(1));
-        allParticipantAlert.get(2).setParticipant_User(allUser.get(2));
+        allParticipantAlert.get(0).setMember(allUser.get(0));
+        allParticipantAlert.get(1).setMember(allUser.get(1));
+        allParticipantAlert.get(2).setMember(allUser.get(2));
         allParticipantAlert.get(3).setMember(allUser.get(3));
         allParticipantAlert.get(4).setMember(allUser.get(4));
 

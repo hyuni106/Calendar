@@ -6,23 +6,73 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/gray_border_white_box_no_left"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="[카테고리]"/>
+            android:id="@+id/categoryTxt"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:background="@color/firstColor" />
 
-        <TextView
-            android:id="@+id/contentTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="내용"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/startTimeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AM 10:00"
+                    android:textColor="@color/text_color" />
+
+                <TextView
+                    android:id="@+id/endTimeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="PM 01:00"
+                    android:textColor="@color/text_color" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/divide_line" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="20dp">
+
+                <TextView
+                    android:id="@+id/contentTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="일정타이틀"
+                    android:textColor="@color/text_color" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

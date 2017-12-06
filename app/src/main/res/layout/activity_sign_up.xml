@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="kr.co.tjeit.calendar.SignUpActivity">
 
     <FrameLayout
@@ -46,43 +47,58 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/idEdt"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="ID" />
+                        android:background="@drawable/gray_border_white_round_edittext"
+                        android:hint="ID"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp" />
 
                     <TextView
                         android:id="@+id/checkDuplIdBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="중복확인" />
+                        android:layout_gravity="center_vertical|right"
+                        android:layout_marginRight="20dp"
+                        android:text="중복확인"
+                        android:textColor="@color/honey_flower" />
 
-                </LinearLayout>
+                </FrameLayout>
 
                 <EditText
                     android:id="@+id/pwEdt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/gray_border_white_round_edittext"
                     android:hint="Password"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp" />
 
                 <EditText
                     android:id="@+id/pwCheckEdt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/gray_border_white_round_edittext"
                     android:hint="Password"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp" />
 
                 <TextView
                     android:id="@+id/passwordCheckTxt"
@@ -96,24 +112,37 @@
                     android:id="@+id/nameEdt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name" />
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/gray_border_white_round_edittext"
+                    android:hint="Name"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp" />
 
                 <EditText
                     android:id="@+id/nickNameEdt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="NickName" />
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/gray_border_white_round_edittext"
+                    android:hint="NickName"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/gray_border_white_round_edittext">
 
                     <TextView
                         android:id="@+id/birthTxt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginLeft="20dp"
                         android:text="생일" />
 
                     <TextView
@@ -121,7 +150,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="선택하기"/>
+                        android:layout_marginRight="10dp"
+                        android:text="선택하기"
+                        android:textColor="@color/honey_flower"/>
 
                 </LinearLayout>
 
@@ -135,8 +166,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="15dp"
-                    android:text="회원가입"
-                    android:textStyle="bold" />
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/theme_color_btn"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="회 원 가 입" />
 
             </LinearLayout>
 

@@ -34,6 +34,8 @@ public class BoardFragment extends Fragment {
     private com.melnykov.fab.FloatingActionButton fab;
     private android.widget.TextView noCalendarAlertTxt;
 
+    public static BoardFragment boardFragment;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class BoardFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        boardFragment = this;
         setupEvents();
         setValues();
     }
@@ -57,6 +60,7 @@ public class BoardFragment extends Fragment {
             boardListView.setVisibility(View.VISIBLE);
             mAdapter = new BoardAdapter(getContext(), GlobalData.allBoard);
             boardListView.setAdapter(mAdapter);
+            fab.attachToListView(boardListView);
         } else {
             noCalendarAlertTxt.setVisibility(View.VISIBLE);
             boardListView.setVisibility(View.GONE);
@@ -90,6 +94,10 @@ public class BoardFragment extends Fragment {
             boardListView.setVisibility(View.VISIBLE);
             mAdapter = new BoardAdapter(getContext(), GlobalData.allBoard);
             boardListView.setAdapter(mAdapter);
+            fab.attachToListView(boardListView);
+        } else {
+            noCalendarAlertTxt.setVisibility(View.VISIBLE);
+            boardListView.setVisibility(View.GONE);
         }
     }
 }

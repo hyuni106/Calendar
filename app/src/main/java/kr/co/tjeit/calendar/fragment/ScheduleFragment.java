@@ -30,6 +30,8 @@ public class ScheduleFragment extends Fragment {
     ScheduleAdapter mAdapter;
     private android.widget.TextView noCalendarAlertTxt;
 
+    public static ScheduleFragment scheduleFragment;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        scheduleFragment = this;
         setupEvents();
         setValues();
     }

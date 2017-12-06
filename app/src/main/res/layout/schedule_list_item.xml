@@ -7,81 +7,96 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="vertical"
-        android:background="@drawable/gray_border_white_box">
+        android:layout_margin="10dp"
+        android:background="@drawable/gray_border_white_box_no_left"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/categoryTxt"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:background="@color/firstColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:padding="10dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/categoryTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="[카테고리]" />
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingBottom="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:id="@+id/dayTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:textColor="@color/text_color"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/monthTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="10월"
+                    android:textColor="@color/text_color" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/divide_line" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="20dp">
 
                 <TextView
                     android:id="@+id/contentTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="제목" />
+                    android:text="일정타이틀"
+                    android:textColor="@color/text_color" />
 
                 <TextView
-                    android:id="@+id/writerTxt"
+                    android:id="@+id/memoTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="작성자"
-                    android:textSize="12sp" />
+                    android:layout_marginTop="8dp"
+                    android:text="일정메모"
+                    android:textColor="@color/text_color" />
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divide_line"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/likeBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="참여여부" />
-
-            <TextView
-                android:layout_width="1dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@color/divide_line"/>
+                android:layout_marginRight="10dp"
+                android:gravity="center">
 
-            <TextView
-                android:id="@+id/shareBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="공유" />
+                <ImageView
+                    android:id="@+id/likeBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@mipmap/ic_launcher_round"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

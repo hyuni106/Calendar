@@ -7,12 +7,17 @@ import android.widget.EditText;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import kr.co.tjeit.calendar.data.Board;
+import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.GlobalData;
+import kr.co.tjeit.calendar.util.ServerUtil;
 
 public class WriteBoardActivity extends BaseActivity {
 
@@ -44,8 +49,20 @@ public class WriteBoardActivity extends BaseActivity {
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GlobalData.allBoard.add(new Board(GlobalData.allBoard.size()+1, contentEdt.getText().toString(), today));
-                finish();
+                ServerUtil.createBoard(mContext, contentEdt.getText().toString(), ContextUtil.getRecentGroupId(mContext), ContextUtil.getUserData(mContext).getId(),
+                        new ServerUtil.JsonResponseHandler() {
+                            @Override
+                            public void onResponse(JSONObject json) {
+                                try {
+                                    JSONObject board = json.getJSONObject("board");
+                                    Board b = Board.getBoardFromJson(board);
+                                    GlobalData.allBoard.add(b);
+                                    finish();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
             }
         });
     }

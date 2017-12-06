@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import kr.co.tjeit.calendar.R;
 import kr.co.tjeit.calendar.data.Board;
@@ -42,12 +44,25 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         Schedule data = mList.get(position);
 
         TextView categoryTxt = (TextView) row.findViewById(R.id.categoryTxt);
+        TextView dayTxt = (TextView) row.findViewById(R.id.dayTxt);
+        TextView monthTxt = (TextView) row.findViewById(R.id.monthTxt);
         TextView contentTxt = (TextView) row.findViewById(R.id.contentTxt);
-        TextView writerTxt = (TextView) row.findViewById(R.id.writerTxt);
-        TextView likeBtn = (TextView) row.findViewById(R.id.likeBtn);
-        TextView shareBtn = (TextView) row.findViewById(R.id.shareBtn);
+        TextView memoTxt = (TextView) row.findViewById(R.id.memoTxt);
 
+        if (data.getTag() == 1) {
+            categoryTxt.setBackgroundColor(getContext().getResources().getColor(R.color.firstColor));
+        } else if (data.getTag() == 2) {
+            categoryTxt.setBackgroundColor(getContext().getResources().getColor(R.color.secondColor));
+        } else if (data.getTag() == 3) {
+            categoryTxt.setBackgroundColor(getContext().getResources().getColor(R.color.thirdColor));
+        } else {
+            categoryTxt.setBackgroundColor(getContext().getResources().getColor(R.color.fourthColor));
+        }
+
+        monthTxt.setText(String.format(Locale.KOREA, "%d월", data.getStart_date().get(Calendar.MONTH) + 1));
+        dayTxt.setText(data.getStart_date().get(Calendar.DAY_OF_MONTH) + "");
         contentTxt.setText(data.getTitle());
+        memoTxt.setText(data.getMemo());
 
 
         return row;

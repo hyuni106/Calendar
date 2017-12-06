@@ -25,19 +25,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import kr.co.tjeit.calendar.adapter.GridViewAdapter;
+import kr.co.tjeit.calendar.data.Board;
 import kr.co.tjeit.calendar.data.Group;
+import kr.co.tjeit.calendar.data.Participant;
 import kr.co.tjeit.calendar.data.Schedule;
 import kr.co.tjeit.calendar.data.User;
+import kr.co.tjeit.calendar.fragment.BoardFragment;
+import kr.co.tjeit.calendar.fragment.CalendarFragment;
+import kr.co.tjeit.calendar.fragment.ScheduleFragment;
+import kr.co.tjeit.calendar.fragment.SettingFragment;
 import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.GlobalData;
 import kr.co.tjeit.calendar.util.ServerUtil;
 
 public class MainActivity extends BaseActivity {
 
+    public static MainActivity mainActivity;
+
     private com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView bottomNavigation;
     private LinearLayout CalendarLayout;
     private LinearLayout FeedLayout;
-    private LinearLayout BoardFragment;
+    private LinearLayout BoardLayout;
     private LinearLayout SettingLayout;
     private android.support.v7.widget.Toolbar toolBar;
     private com.balysv.materialmenu.MaterialMenuView materialmenubutton;
@@ -64,6 +72,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainActivity = this;
         bindViews();
         setupEvents();
         setValues();
@@ -85,7 +94,7 @@ public class MainActivity extends BaseActivity {
 //                        toolBar.setBackgroundColor(getResources().getColor(R.color.secondColor));
                         break;
                     case 2:
-                        BoardFragment.setVisibility(View.VISIBLE);
+                        BoardLayout.setVisibility(View.VISIBLE);
 //                        toolBar.setBackgroundColor(getResources().getColor(R.color.thirdColor));
                         break;
                     case 3:
@@ -161,6 +170,7 @@ public class MainActivity extends BaseActivity {
                 mainGroup = GlobalData.usersGroup.get(i);
                 ContextUtil.setRecentGroupId(mContext, GlobalData.usersGroup.get(i).getId());
                 drawerLayout.closeDrawer(drawer);
+                getAllScheduleFromGroup(mainGroup.getId());
                 groupNameTxt.setText(mainGroup.getName());
             }
         });
@@ -169,11 +179,18 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setValues() {
         setTitle("");
-        for (Group g : GlobalData.usersGroup) {
-            if (g.getId() == ContextUtil.getRecentGroupId(mContext)) {
-                mainGroup = g;
+
+        if (ContextUtil.getRecentGroupId(mContext) != -1) {
+            for (Group g : GlobalData.usersGroup) {
+                if (g.getId() == ContextUtil.getRecentGroupId(mContext)) {
+                    mainGroup = g;
+                }
             }
+        } else {
+            mainGroup = GlobalData.usersGroup.get(0);
         }
+
+        getAllScheduleFromGroup(mainGroup.getId());
         groupNameTxt.setText(mainGroup.getName());
 //        getAllScheduleFromGroup(mainGroup.getId());
         setSupportActionBar(toolBar);
@@ -191,20 +208,48 @@ public class MainActivity extends BaseActivity {
         bottomNavigation.setItemActiveColorWithoutColoredBackground(getResources().getColor(R.color.honey_flower));
     }
 
+    private void getUserAlert() {
+        GlobalData.allParticipantAlert.clear();
+        ServerUtil.getAllAlert(mContext, ContextUtil.getUserData(mContext).getId(), new ServerUtil.JsonResponseHandler() {
+            @Override
+            public void onResponse(JSONObject json) {
+                try {
+                    JSONArray alert = json.getJSONArray("alert");
+                    for (int i=0; i<alert.length(); i++) {
+                        Participant p = Participant.getParticipantFromJson(alert.getJSONObject(i));
+                        GlobalData.allParticipantAlert.add(p);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     public void getAllScheduleFromGroup(int id) {
         GlobalData.allSchedule.clear();
+        GlobalData.allBoard.clear();
         ServerUtil.getAllSchedule(mContext, id, new ServerUtil.JsonResponseHandler() {
             @Override
             public void onResponse(JSONObject json) {
                 try {
                     JSONArray schedule = json.getJSONArray("schedule");
+                    JSONArray board = json.getJSONArray("board");
                     for (int i=0; i<schedule.length(); i++) {
                         Schedule s = Schedule.getScheduleFromJson(schedule.getJSONObject(i));
                         GlobalData.allSchedule.add(s);
                     }
+                    for (int i=0; i<board.length(); i++) {
+                        Board b = Board.getBoardFromJson(board.getJSONObject(i));
+                        GlobalData.allBoard.add(b);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                CalendarFragment.calendarFragment.onResume();
+                BoardFragment.boardFragment.onResume();
+                ScheduleFragment.scheduleFragment.onResume();
+                SettingFragment.settingFragment.onResume();
             }
         });
     }
@@ -234,14 +279,17 @@ public class MainActivity extends BaseActivity {
     public void initLayout() {
         CalendarLayout.setVisibility(View.GONE);
         FeedLayout.setVisibility(View.GONE);
-        BoardFragment.setVisibility(View.GONE);
+        BoardLayout.setVisibility(View.GONE);
         SettingLayout.setVisibility(View.GONE);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        getUserAlert();
         mAdapter.notifyDataSetChanged();
+        groupNameTxt.setText(mainGroup.getName());
+        userInfoTxt.setText(ContextUtil.getUserData(mContext).getNickName());
     }
 
     @Override
@@ -256,12 +304,16 @@ public class MainActivity extends BaseActivity {
         this.calImgView = (ImageView) findViewById(R.id.calImgView);
         this.bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
         this.SettingLayout = (LinearLayout) findViewById(R.id.SettingLayout);
-        this.BoardFragment = (LinearLayout) findViewById(R.id.BoardFragment);
+        this.BoardLayout = (LinearLayout) findViewById(R.id.BoardFragment);
         this.FeedLayout = (LinearLayout) findViewById(R.id.FeedLayout);
         this.CalendarLayout = (LinearLayout) findViewById(R.id.CalendarLayout);
         this.groupNameTxt = (TextView) findViewById(R.id.groupNameTxt);
         this.materialmenubutton = (MaterialMenuView) findViewById(R.id.material_menu_button);
         this.toolBar = (Toolbar) findViewById(R.id.toolBar);
+    }
+
+    public Group returnMainGroup() {
+        return mainGroup;
     }
 
     @Override

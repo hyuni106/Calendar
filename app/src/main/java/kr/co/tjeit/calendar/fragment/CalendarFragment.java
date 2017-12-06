@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,8 @@ public class CalendarFragment extends Fragment {
     private android.widget.ListView calendarListView;
     private android.widget.TextView noCalendarAlertTxt;
 
+    public static CalendarFragment calendarFragment;
+
     SimpleDateFormat myDateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
 
     @Nullable
@@ -72,6 +75,7 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        calendarFragment = this;
         setupEvents();
         setValues();
     }
@@ -82,9 +86,9 @@ public class CalendarFragment extends Fragment {
             noCalendarAlertTxt.setVisibility(View.VISIBLE);
         } else {
             mList.clear();
-            String selectDate = myDateFormatDate.format(Calendar.getInstance().getTimeInMillis());
+            String selectDate = myDateFormatDate.format(Calendar.getInstance().getTime());
             for (Schedule s : GlobalData.allSchedule) {
-                if (myDateFormatDate.format(s.getStart_date().getTimeInMillis()).equals(selectDate)) {
+                if (myDateFormatDate.format(s.getStart_date().getTime()).equals(selectDate)) {
                     mList.add(s);
                 }
             }
@@ -92,6 +96,8 @@ public class CalendarFragment extends Fragment {
             calendarListView.setAdapter(mAdapter);
             fab.attachToListView(calendarListView);
         }
+
+        addDecorator();
     }
 
     private void settingCalendar() {
@@ -172,9 +178,9 @@ public class CalendarFragment extends Fragment {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 //                Toast.makeText(getContext(), "선택 : " + date.getCalendar(), Toast.LENGTH_SHORT).show();
                 mList.clear();
-                String selectDate = myDateFormatDate.format(date.getCalendar().getTimeInMillis());
+                String selectDate = myDateFormatDate.format(date.getCalendar().getTime());
                 for (Schedule s : GlobalData.allSchedule) {
-                    if (myDateFormatDate.format(s.getStart_date().getTimeInMillis()).equals(selectDate)) {
+                    if (myDateFormatDate.format(s.getStart_date().getTime()).equals(selectDate)) {
                         mList.add(s);
                     }
                 }
@@ -194,18 +200,19 @@ public class CalendarFragment extends Fragment {
         calendarView.removeDecorators();
 //        CalendarDay date = calendarView.getSelectedDate();
 //        CalendarDay date = CalendarDay.today();
-        ArrayList<CalendarDay> dates = new ArrayList<>();
+        ArrayList<CalendarDay> datesTagOne = new ArrayList<>();
         for (int i = 0; i < GlobalData.allSchedule.size(); i++) {
             Calendar decoDate = GlobalData.allSchedule.get(i).getStart_date();
-            dates.add(CalendarDay.from(decoDate.get(Calendar.YEAR), decoDate.get(Calendar.MONTH), decoDate.get(Calendar.DAY_OF_MONTH)));
+            datesTagOne.add(CalendarDay.from(decoDate.get(Calendar.YEAR), decoDate.get(Calendar.MONTH), decoDate.get(Calendar.DAY_OF_MONTH)));
         }
 //        dates.add(date);
-        calendarView.addDecorator(new EventDecorator(getResources().getColor(R.color.honey_flower), dates));
+        calendarView.addDecorator(new EventDecorator(getResources().getColor(R.color.honey_flower), datesTagOne));
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        addDecorator();
         if (GlobalData.allSchedule.size() == 0) {
             noCalendarAlertTxt.setVisibility(View.VISIBLE);
             calendarListView.setVisibility(View.GONE);

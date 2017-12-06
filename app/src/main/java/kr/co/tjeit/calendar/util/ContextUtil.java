@@ -22,19 +22,8 @@ public class ContextUtil {
     private final static String USER_BIRTH = "USER_BIRTH";
     private final static String RECENT_GROUP = "RECENT_GROUP";
 
-    public static void setLoginUser(Context context,int id, String login_id, String name, String nickname, String birth) {
-        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
-        pref.edit().putString(USER_LOGIN, "1").commit();
-        pref.edit().putInt(USER_ID, id).commit();
-        pref.edit().putString(USER_LOGIN_ID, login_id).commit();
-        pref.edit().putString(USER_NAME, name).commit();
-        pref.edit().putString(USER_NICKNAME, nickname).commit();
-        pref.edit().putString(USER_BIRTH, birth).commit();
-    }
-
     public static void setLoginUser(Context context, User loginUser) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
-        pref.edit().putString(USER_LOGIN, "1").commit();
         pref.edit().putInt(USER_ID, loginUser.getId()).commit();
         pref.edit().putString(USER_LOGIN_ID, loginUser.getLogin_id()).commit();
         pref.edit().putString(USER_NAME, loginUser.getName()).commit();
@@ -66,7 +55,17 @@ public class ContextUtil {
         return loginUser;
     }
 
+    public static void setLoginUserNick(Context context, String nickname) {
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        pref.edit().putString(USER_LOGIN, "1").commit();
+    }
+
     public static String isAutoLogin(Context context) {
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        return pref.getString(USER_LOGIN, "");
+    }
+
+    public static String setAutoLogin(Context context) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
         return pref.getString(USER_LOGIN, "");
     }
@@ -79,6 +78,18 @@ public class ContextUtil {
 
     public static int getRecentGroupId(Context context) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
-        return pref.getInt(RECENT_GROUP, 0);
+        return pref.getInt(RECENT_GROUP, -1);
+    }
+    public static void logout(Context context) {
+        loginUser = null;
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+
+        pref.edit().putInt(USER_ID, -1).commit();
+        pref.edit().putString(USER_LOGIN, "").commit();
+        pref.edit().putString(USER_LOGIN_ID, "").commit();
+        pref.edit().putString(USER_NAME, "").commit();
+        pref.edit().putString(USER_NICKNAME, "").commit();
+        pref.edit().putString(USER_BIRTH, "").commit();
+        pref.edit().putInt(RECENT_GROUP, -1).commit();
     }
 }

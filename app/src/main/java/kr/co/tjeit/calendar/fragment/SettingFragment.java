@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 import kr.co.tjeit.calendar.AppSettingActivity;
 import kr.co.tjeit.calendar.CalendarSettingActivity;
 import kr.co.tjeit.calendar.InviteMemberActivity;
+import kr.co.tjeit.calendar.MainActivity;
 import kr.co.tjeit.calendar.R;
 import kr.co.tjeit.calendar.adapter.MemberAdapter;
 import kr.co.tjeit.calendar.data.Participant;
@@ -37,11 +39,17 @@ public class SettingFragment extends Fragment {
 
     List<Participant> memberList = new ArrayList<>();
     MemberAdapter mAdapter;
+    private android.widget.TextView groupNameTxt;
+    private android.widget.TextView groupCommentTxt;
+
+    public static SettingFragment settingFragment;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_setting, container, false);
+        this.groupCommentTxt = (TextView) v.findViewById(R.id.groupCommentTxt);
+        this.groupNameTxt = (TextView) v.findViewById(R.id.groupNameTxt);
         this.calendarSettingLayout = (LinearLayout) v.findViewById(R.id.calendarSettingLayout);
         this.addMemberLayout = (LinearLayout) v.findViewById(R.id.addMemberLayout);
         this.appSettingLayout = (LinearLayout) v.findViewById(R.id.appSettingLayout);
@@ -52,6 +60,7 @@ public class SettingFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        settingFragment = this;
         setupEvents();
         setValues();
     }
@@ -109,5 +118,12 @@ public class SettingFragment extends Fragment {
         } else {
             Toast.makeText(getContext(), "REQUEST_ACT가 아님", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        groupNameTxt.setText(MainActivity.mainActivity.returnMainGroup().getName());
+        groupCommentTxt.setText(MainActivity.mainActivity.returnMainGroup().getComment());
     }
 }

@@ -74,6 +74,7 @@
                         android:orientation="vertical">
 
                         <fragment
+                            android:tag="calendarFrag"
                             class="kr.co.tjeit.calendar.fragment.CalendarFragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -89,6 +90,7 @@
                         android:visibility="gone">
 
                         <fragment
+                            android:tag="FeedFrag"
                             class="kr.co.tjeit.calendar.fragment.ScheduleFragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
@@ -103,6 +105,7 @@
                         android:visibility="gone">
 
                         <fragment
+                            android:tag="BoardFrag"
                             class="kr.co.tjeit.calendar.fragment.BoardFragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
@@ -117,6 +120,7 @@
                         android:visibility="gone">
 
                         <fragment
+                            android:tag="SettingFrag"
                             class="kr.co.tjeit.calendar.fragment.SettingFragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />

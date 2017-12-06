@@ -6,7 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import kr.co.tjeit.calendar.data.Group;
+import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.GlobalData;
+import kr.co.tjeit.calendar.util.ServerUtil;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -21,9 +28,29 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                if (ContextUtil.isAutoLogin(SplashActivity.this).equals("1")) {
+                    ServerUtil.participantGroup(SplashActivity.this, ContextUtil.getUserData(SplashActivity.this).getId(), new ServerUtil.JsonResponseHandler() {
+                        @Override
+                        public void onResponse(JSONObject json) {
+                            try {
+                                JSONArray group = json.getJSONArray("group");
+                                for (int i = 0; i < group.length(); i++) {
+                                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                                    Group g = Group.getGroupFromJson(group.getJSONObject(i));
+                                    GlobalData.usersGroup.add(g);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } else {
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         }, 1000);
     }

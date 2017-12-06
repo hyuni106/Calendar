@@ -24,8 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            app:mm_iconState="arrow"
             app:mm_color="@color/white"
+            app:mm_iconState="arrow"
             app:mm_strokeWidth="2"
             app:mm_transformDuration="3000" />
 
@@ -37,44 +37,52 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/tagSelectLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="카테고리" />
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="카테고리" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/startScheduleLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="10dp"
-                android:gravity="center">
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="시작"/>
+                    android:text="시작" />
 
                 <TextView
                     android:id="@+id/startDateTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="2017년 11월 28일"/>
+                    android:text="2017년 11월 28일" />
 
                 <TextView
                     android:id="@+id/startTimeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="오후 01시 05분"/>
+                    android:text="오후 01시 05분" />
 
             </LinearLayout>
 
@@ -115,24 +123,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="제목"/>
+            android:hint="제목" />
 
         <EditText
             android:id="@+id/locationEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="장소"/>
+            android:hint="장소" />
 
         <EditText
             android:id="@+id/memoEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="메모"/>
+            android:hint="메모" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/okBtn"

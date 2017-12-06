@@ -51,31 +51,18 @@ public class LoginActivity extends BaseActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ContextUtil.getRecentGroupId(mContext) != 0) {
-                    GlobalData.allSchedule.clear();
-                    ServerUtil.getAllSchedule(mContext, ContextUtil.getRecentGroupId(mContext), new ServerUtil.JsonResponseHandler() {
-                        @Override
-                        public void onResponse(JSONObject json) {
-                            try {
-                                JSONArray schedule = json.getJSONArray("schedule");
-                                for (int i=0; i<schedule.length(); i++) {
-                                    Schedule s = Schedule.getScheduleFromJson(schedule.getJSONObject(i));
-                                    GlobalData.allSchedule.add(s);
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                }
                 ServerUtil.sign_in(mContext, idEdt.getText().toString(), pwEdt.getText().toString(),
                         new ServerUtil.JsonResponseHandler() {
                             @Override
                             public void onResponse(JSONObject json) {
                                 try {
                                     if (json.getString("result").equals("OK")) {
+                                        GlobalData.usersGroup.clear();
                                         JSONObject user = json.getJSONObject("user");
                                         ContextUtil.setLoginUser(mContext, User.getUserFromJson(user));
+                                        if (autoLoginCheck.isChecked()) {
+                                            ContextUtil.setAutoLogin(mContext);
+                                        }
                                         JSONArray group = json.getJSONArray("group");
                                         Intent intent = null;
                                         if (group.length() > 0) {

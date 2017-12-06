@@ -5,76 +5,75 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/drawer"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:background="#fff"
-        android:layout_gravity="start"
-        android:dividerHeight="0dp"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/gray_border_white_box_no_left"
+        android:orientation="horizontal">
 
-        <FrameLayout
+        <TextView
+            android:id="@+id/categoryTxt"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:background="@color/honey_flower" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/calImgView"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="@color/honey_flower"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:orientation="vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <TextView
-                    android:id="@+id/userNameTxt"
+                    android:id="@+id/startTimeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:text="사용자" />
+                    android:text="AM 10:00"
+                    android:textColor="@color/text_color" />
 
                 <TextView
-                    android:id="@+id/userInfoTxt"
+                    android:id="@+id/endTimeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/white"
-                    android:text="사용자 정보" />
+                    android:text="PM 01:00"
+                    android:textColor="@color/text_color" />
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/settingBtn"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@mipmap/ic_launcher_round"
-                android:layout_gravity="right"
-                android:layout_margin="10dp"/>
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/divide_line" />
 
-        </FrameLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="20dp">
 
-        <Button
-            android:id="@+id/calAddBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/honey_flower"
-            android:textColor="@color/white"
-            android:text="캘린더 추가"/>
+                <TextView
+                    android:id="@+id/contentTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="일정타이틀"
+                    android:textColor="@color/text_color" />
 
-        <GridView
-            android:id="@+id/groupGridView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnWidth="130dp"
-            android:horizontalSpacing="10dp"
-            android:verticalSpacing="10dp"
-            android:numColumns="auto_fit" >
-        </GridView>
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
