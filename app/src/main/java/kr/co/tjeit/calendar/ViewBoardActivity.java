@@ -3,8 +3,8 @@ package kr.co.tjeit.calendar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import kr.co.tjeit.calendar.adapter.CommentAdapter;
 import kr.co.tjeit.calendar.data.Board;
 import kr.co.tjeit.calendar.data.Comment;
@@ -31,8 +32,11 @@ public class ViewBoardActivity extends BaseActivity {
     Board view;
     List<Comment> commentList = new ArrayList<>();
     CommentAdapter mAdapter;
-    private android.widget.Button commentBtn;
     private android.widget.EditText commentEdt;
+    private de.hdodenhof.circleimageview.CircleImageView profileimage;
+    private TextView likeTxt;
+    private TextView commentBtn;
+    private android.widget.ImageView likeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +65,22 @@ public class ViewBoardActivity extends BaseActivity {
                 commentEdt.setText("");
             }
         });
+
+        likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
     public void setValues() {
         contentTxt.setText(view.getContent());
 
+        writerTxt.setText(view.getWriter().getNickName());
         SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        writerTxt.setText(myDateFormat.format(view.getCreatedAt().getTime()));
+        createAtTxt.setText(myDateFormat.format(view.getCreatedAt().getTime()));
 
         mAdapter = new CommentAdapter(mContext, commentList);
         commentListView.setAdapter(mAdapter);
@@ -76,13 +88,15 @@ public class ViewBoardActivity extends BaseActivity {
 
     @Override
     public void bindViews() {
-        this.commentBtn = (Button) findViewById(R.id.commentBtn);
+        this.commentBtn = (TextView) findViewById(R.id.commentBtn);
         this.commentEdt = (EditText) findViewById(R.id.commentEdt);
+        this.likeBtn = (ImageView) findViewById(R.id.likeBtn);
         this.commentListView = (ListView) findViewById(R.id.commentListView);
-        this.likeCountTxt = (TextView) findViewById(R.id.likeCountTxt);
+        this.likeTxt = (TextView) findViewById(R.id.likeTxt);
+        this.contentTxt = (TextView) findViewById(R.id.contentTxt);
         this.createAtTxt = (TextView) findViewById(R.id.createAtTxt);
         this.writerTxt = (TextView) findViewById(R.id.writerTxt);
-        this.contentTxt = (TextView) findViewById(R.id.contentTxt);
+        this.profileimage = (CircleImageView) findViewById(R.id.profile_image);
         this.backBtn = (MaterialMenuView) findViewById(R.id.backBtn);
         this.toolBar = (Toolbar) findViewById(R.id.toolBar);
     }

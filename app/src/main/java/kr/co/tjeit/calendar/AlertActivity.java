@@ -8,8 +8,15 @@ import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import kr.co.tjeit.calendar.adapter.AlertAdapter;
+import kr.co.tjeit.calendar.data.Participant;
+import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.GlobalData;
+import kr.co.tjeit.calendar.util.ServerUtil;
 
 public class AlertActivity extends BaseActivity {
 
@@ -20,10 +27,13 @@ public class AlertActivity extends BaseActivity {
 
     AlertAdapter mAdapter;
 
+    public static AlertActivity alertActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alert);
+        alertActivity = this;
         bindViews();
         setupEvents();
         setValues();
@@ -41,15 +51,48 @@ public class AlertActivity extends BaseActivity {
 
     @Override
     public void setValues() {
+//        getUserAlert();
+        mAdapter = new AlertAdapter(mContext, GlobalData.allParticipantAlert);
+        alertListView.setAdapter(mAdapter);
+
+        showAlert();
+
+    }
+
+    void showAlert() {
         if (GlobalData.allParticipantAlert.size() == 0) {
             noAlertTxt.setVisibility(View.VISIBLE);
             alertListView.setVisibility(View.GONE);
         } else {
-            mAdapter = new AlertAdapter(mContext, GlobalData.allParticipantAlert);
-            alertListView.setAdapter(mAdapter);
             noAlertTxt.setVisibility(View.GONE);
             alertListView.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void getUserAlert() {
+        GlobalData.allParticipantAlert.clear();
+        ServerUtil.getAllAlert(mContext, ContextUtil.getUserData(mContext).getId(), new ServerUtil.JsonResponseHandler() {
+            @Override
+            public void onResponse(JSONObject json) {
+                try {
+                    JSONArray alert = json.getJSONArray("alert");
+                    for (int i=0; i<alert.length(); i++) {
+                        Participant p = Participant.getParticipantFromJson(alert.getJSONObject(i));
+                        GlobalData.allParticipantAlert.add(p);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                showAlert();
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUserAlert();
     }
 
     @Override

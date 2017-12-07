@@ -3,6 +3,7 @@ package kr.co.tjeit.calendar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.balysv.materialmenu.MaterialMenuView;
@@ -12,7 +13,6 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import kr.co.tjeit.calendar.data.Board;
 import kr.co.tjeit.calendar.util.ContextUtil;
@@ -23,10 +23,10 @@ public class WriteBoardActivity extends BaseActivity {
 
     private android.support.v7.widget.Toolbar toolBar;
     private com.balysv.materialmenu.MaterialMenuView backBtn;
-    private com.balysv.materialmenu.MaterialMenuView checkBtn;
     private android.widget.EditText contentEdt;
 
     String today;
+    private android.widget.Button okBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class WriteBoardActivity extends BaseActivity {
             }
         });
 
-        checkBtn.setOnClickListener(new View.OnClickListener() {
+        contentEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ServerUtil.createBoard(mContext, contentEdt.getText().toString(), ContextUtil.getRecentGroupId(mContext), ContextUtil.getUserData(mContext).getId(),
@@ -75,8 +75,8 @@ public class WriteBoardActivity extends BaseActivity {
 
     @Override
     public void bindViews() {
+        this.okBtn = (Button) findViewById(R.id.okBtn);
         this.contentEdt = (EditText) findViewById(R.id.contentEdt);
-        this.checkBtn = (MaterialMenuView) findViewById(R.id.checkBtn);
         this.backBtn = (MaterialMenuView) findViewById(R.id.backBtn);
         this.toolBar = (Toolbar) findViewById(R.id.toolBar);
     }

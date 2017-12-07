@@ -2,6 +2,7 @@ package kr.co.tjeit.calendar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -51,6 +52,11 @@ public class LoginActivity extends BaseActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (autoLoginCheck.isChecked()) {
+                    ContextUtil.setAutoLogin(mContext);
+                    Log.d("확인", ContextUtil.isAutoLogin(mContext));
+                }
+
                 ServerUtil.sign_in(mContext, idEdt.getText().toString(), pwEdt.getText().toString(),
                         new ServerUtil.JsonResponseHandler() {
                             @Override
@@ -60,9 +66,6 @@ public class LoginActivity extends BaseActivity {
                                         GlobalData.usersGroup.clear();
                                         JSONObject user = json.getJSONObject("user");
                                         ContextUtil.setLoginUser(mContext, User.getUserFromJson(user));
-                                        if (autoLoginCheck.isChecked()) {
-                                            ContextUtil.setAutoLogin(mContext);
-                                        }
                                         JSONArray group = json.getJSONArray("group");
                                         Intent intent = null;
                                         if (group.length() > 0) {

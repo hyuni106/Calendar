@@ -28,6 +28,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                Log.d("확인", ContextUtil.isAutoLogin(SplashActivity.this));
                 if (ContextUtil.isAutoLogin(SplashActivity.this).equals("1")) {
                     ServerUtil.participantGroup(SplashActivity.this, ContextUtil.getUserData(SplashActivity.this).getId(), new ServerUtil.JsonResponseHandler() {
                         @Override

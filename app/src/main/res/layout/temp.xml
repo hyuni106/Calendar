@@ -5,81 +5,103 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/gray_border_white_box_no_left"
-        android:orientation="horizontal">
+        android:id="@+id/drawer"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:dividerHeight="0dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/categoryTxt"
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:background="@color/honey_flower" />
-
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/calImgView"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/honey_flower" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="15dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/profile_image"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@mipmap/ic_launcher"
-                    app:civ_border_color="@color/honey_flower"
-                    app:civ_border_width="2dp" />
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/userNameTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="vertical">
+                    android:text="사용자"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/writerTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="작성자"
-                        android:textColor="@color/text_color" />
-
-                    <TextView
-                        android:id="@+id/createAtTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="작성시간"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/userInfoTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="사용자 정보"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/contentTxt"
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"
-                android:text="내용"
-                android:textColor="@color/text_color" />
+                android:layout_gravity="right"
+                android:layout_margin="10dp">
 
-            <TextView
-                android:id="@+id/likeTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="좋아요 0개"
-                android:textSize="12sp" />
+                <ImageView
+                    android:id="@+id/alertBtn"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/alert_icon" />
 
-        </LinearLayout>
+                <FrameLayout
+                    android:id="@+id/alertLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/alert_circle" />
+
+                    <TextView
+                        android:id="@+id/alertCountTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="1"
+                        android:layout_gravity="center"
+                        android:textSize="12sp"/>
+
+                </FrameLayout>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/calAddBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/honey_flower"
+            android:text="캘린더 추가"
+            android:textColor="@color/white" />
+
+        <GridView
+            android:id="@+id/groupGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnWidth="130dp"
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="10dp"></GridView>
 
     </LinearLayout>
 

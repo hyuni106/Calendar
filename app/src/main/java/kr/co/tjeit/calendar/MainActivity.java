@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -59,6 +61,8 @@ public class MainActivity extends BaseActivity {
     private android.widget.TextView userInfoTxt;
     private android.widget.Button calAddBtn;
     private android.widget.GridView groupGridView;
+    private FrameLayout alertLayout;
+    private TextView alertCountTxt;
 
     GridViewAdapter mAdapter;
     private ImageView alertBtn;
@@ -67,6 +71,8 @@ public class MainActivity extends BaseActivity {
     private TextView groupNameTxt;
 
     long backPressedTimeInMillis = 0;
+
+    int alertCoount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,14 +186,17 @@ public class MainActivity extends BaseActivity {
     public void setValues() {
         setTitle("");
 
+        Log.d("확인", ContextUtil.getRecentGroupId(mContext) + "번");
         if (ContextUtil.getRecentGroupId(mContext) != -1) {
             for (Group g : GlobalData.usersGroup) {
                 if (g.getId() == ContextUtil.getRecentGroupId(mContext)) {
+                    Log.d("확인", g.getId() + "번");
                     mainGroup = g;
                 }
             }
         } else {
             mainGroup = GlobalData.usersGroup.get(0);
+            Log.d("확인", GlobalData.usersGroup.get(0).getId() + "번");
         }
 
         getAllScheduleFromGroup(mainGroup.getId());
@@ -204,26 +213,9 @@ public class MainActivity extends BaseActivity {
         mAdapter = new GridViewAdapter(mContext, GlobalData.usersGroup);
         groupGridView.setAdapter(mAdapter);
 
+        bottomNavigation.selectTab(0);
         bottomNavigation.isColoredBackground(false);
         bottomNavigation.setItemActiveColorWithoutColoredBackground(getResources().getColor(R.color.honey_flower));
-    }
-
-    private void getUserAlert() {
-        GlobalData.allParticipantAlert.clear();
-        ServerUtil.getAllAlert(mContext, ContextUtil.getUserData(mContext).getId(), new ServerUtil.JsonResponseHandler() {
-            @Override
-            public void onResponse(JSONObject json) {
-                try {
-                    JSONArray alert = json.getJSONArray("alert");
-                    for (int i=0; i<alert.length(); i++) {
-                        Participant p = Participant.getParticipantFromJson(alert.getJSONObject(i));
-                        GlobalData.allParticipantAlert.add(p);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     public void getAllScheduleFromGroup(int id) {
@@ -286,14 +278,37 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getUserAlert();
+        getUserAlertCount();
         mAdapter.notifyDataSetChanged();
         groupNameTxt.setText(mainGroup.getName());
+        Log.d("확인메인", ContextUtil.getUserData(mContext).getNickName());
         userInfoTxt.setText(ContextUtil.getUserData(mContext).getNickName());
+    }
+
+    private void getUserAlertCount() {
+        ServerUtil.getAlertCount(mContext, ContextUtil.getUserData(mContext).getId(), new ServerUtil.JsonResponseHandler() {
+            @Override
+            public void onResponse(JSONObject json) {
+                try {
+                    JSONObject count = json.getJSONObject("count");
+                    alertCoount = count.getInt("count");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (alertCoount > 0) {
+                    alertLayout.setVisibility(View.VISIBLE);
+                    alertCountTxt.setText(alertCoount + "");
+                } else {
+                    alertLayout.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     @Override
     public void bindViews() {
+        this.alertCountTxt = (TextView) findViewById(R.id.alertCountTxt);
+        this.alertLayout = (FrameLayout) findViewById(R.id.alertLayout);
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         this.drawer = (LinearLayout) findViewById(R.id.drawer);
         this.groupGridView = (GridView) findViewById(R.id.groupGridView);
@@ -331,6 +346,9 @@ public class MainActivity extends BaseActivity {
 
         if (currentTimeInMillis - backPressedTimeInMillis < 2000) {
 //            2초 이내에 백버튼을 다시 눌렀으니 종료해야 함.
+            if (!ContextUtil.isAutoLogin(mContext).equals("1")) {
+                ContextUtil.logout(mContext);
+            }
             finish();
             return;
         } else {

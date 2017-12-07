@@ -28,17 +28,6 @@
             app:mm_strokeWidth="2"
             app:mm_transformDuration="3000" />
 
-        <com.balysv.materialmenu.MaterialMenuView
-            android:id="@+id/checkBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="5dp"
-            app:mm_iconState="check"
-            app:mm_color="@color/white"
-            app:mm_strokeWidth="2"
-            app:mm_transformDuration="3000" />
-
     </FrameLayout>
 
     <LinearLayout
@@ -51,7 +40,24 @@
             android:id="@+id/contentEdt"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@drawable/gray_border_white_round_edittext"
+            android:hint="게시글을 작성해주세요."
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"/>
+
+        <Button
+            android:id="@+id/okBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/theme_color_btn"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="확 인" />
 
     </LinearLayout>
 

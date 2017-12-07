@@ -17,8 +17,8 @@ public class ServerUtil {
 
     private static final String TAG = ServerUtil.class.getSimpleName();
 
-    private final static String BASE_URL = "http://13.125.83.235:8080/calendarApp/"; // 라이브서버
-//    private final static String BASE_URL = "http://192.168.100.116:8080/cal_app/"; // 개발서버
+//    private final static String BASE_URL = "http://13.125.83.235:8080/calendarApp/"; // 라이브서버
+    private final static String BASE_URL = "http://192.168.100.110:8080/cal_app/"; // 개발서버
 
     //    JSON 처리 부분 인터페이스
     public interface JsonResponseHandler {
@@ -234,7 +234,7 @@ public class ServerUtil {
         });
     }
 
-    // 회원 가입시 아이디 중복 체크
+    // 사용자의 모든 그룹 가져오기
     public static void participantGroup(final Context context, final int user_id, final JsonResponseHandler handler) {
         String url = BASE_URL + "user/userGroup";
         //		String registrationId = ContextUtil.getRegistrationId(context);
@@ -586,6 +586,90 @@ public class ServerUtil {
 
         Map<String, String> data = new HashMap<String, String>();
         data.put("nickname", nickname);
+        data.put("user_id", user_id + "");
+
+        AsyncHttpRequest.post(context, url, data, false, new AsyncHttpRequest.HttpResponseHandler() {
+
+            @Override
+            public boolean onPrepare() {
+                return true;
+            }
+
+            @Override
+            public void onResponse(String response) {
+                System.out.println(response);
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    if (handler != null)
+                        handler.onResponse(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+
+        });
+    }
+
+    // 초대 수락 or 거절
+    public static void updateParticipantStatus(final Context context, int status, int participant_id, int user_id, final JsonResponseHandler handler) {
+        String url = BASE_URL + "user/participant_status";
+        //		String registrationId = ContextUtil.getRegistrationId(context);
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("status", status + "");
+        data.put("participant_id", participant_id + "");
+        data.put("user_id", user_id + "");
+
+        AsyncHttpRequest.post(context, url, data, false, new AsyncHttpRequest.HttpResponseHandler() {
+
+            @Override
+            public boolean onPrepare() {
+                return true;
+            }
+
+            @Override
+            public void onResponse(String response) {
+                System.out.println(response);
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    if (handler != null)
+                        handler.onResponse(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+
+        });
+    }
+
+    // 초대 알림 수
+    public static void getAlertCount(final Context context, int user_id, final JsonResponseHandler handler) {
+        String url = BASE_URL + "user/alert_count";
+        //		String registrationId = ContextUtil.getRegistrationId(context);
+
+        Map<String, String> data = new HashMap<String, String>();
         data.put("user_id", user_id + "");
 
         AsyncHttpRequest.post(context, url, data, false, new AsyncHttpRequest.HttpResponseHandler() {

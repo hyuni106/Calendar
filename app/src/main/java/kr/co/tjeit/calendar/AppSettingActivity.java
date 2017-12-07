@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -57,6 +58,9 @@ public class AppSettingActivity extends BaseActivity {
                                     @Override
                                     public void onResponse(JSONObject json) {
                                         ContextUtil.setLoginUserNick(mContext, txtUrl.getText().toString());
+                                        Log.d("확인닉변경", txtUrl.getText().toString());
+                                        Log.d("확인닉변경", ContextUtil.getUserData(mContext).getNickName());
+                                        MainActivity.mainActivity.onResume();
                                     }
                                 });
                             }
@@ -74,9 +78,9 @@ public class AppSettingActivity extends BaseActivity {
                         .setMessage("로그아웃 하시겠습니까?")
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+                                MainActivity.mainActivity.finish();
                                 ContextUtil.logout(mContext);
                                 Intent intent = new Intent(mContext, LoginActivity.class);
-                                MainActivity.mainActivity.finish();
                                 startActivity(intent);
                                 finish();
                             }
