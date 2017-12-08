@@ -1,5 +1,6 @@
 package kr.co.tjeit.calendar.data;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,6 +36,12 @@ public class Board implements Serializable {
             b.setCreatedAt(createdAt);
 
             b.writer = User.getUserFromJson(json.getJSONObject("user"));
+
+            JSONArray like_user = json.getJSONArray("like_user");
+            for (int i=0; i<like_user.length(); i++) {
+                User u = User.getUserFromJson(like_user.getJSONObject(i));
+                b.likeUser.add(u);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (ParseException e) {

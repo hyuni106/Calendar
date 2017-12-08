@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,7 +96,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void setValues() {
+        String token = FirebaseInstanceId.getInstance().getToken();
 
+        Log.d("token값", token);
     }
 
     @Override

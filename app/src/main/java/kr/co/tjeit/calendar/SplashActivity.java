@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import kr.co.tjeit.calendar.data.Group;
+import kr.co.tjeit.calendar.data.User;
 import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.GlobalData;
 import kr.co.tjeit.calendar.util.ServerUtil;
@@ -24,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
 
 //        GlobalData.initUserData();
         GlobalData.usersGroup.clear();
+        getAllUser();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -54,5 +56,23 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         }, 1000);
+    }
+
+    public void getAllUser() {
+        GlobalData.allUser.clear();
+        ServerUtil.getAllUsers(SplashActivity.this, new ServerUtil.JsonResponseHandler() {
+            @Override
+            public void onResponse(JSONObject json) {
+                try {
+                    JSONArray users = json.getJSONArray("users");
+                    for (int i=0; i<users.length(); i++) {
+                        User u = User.getUserFromJson(users.getJSONObject(i));
+                        GlobalData.allUser.add(u);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

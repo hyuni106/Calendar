@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.MaterialMenuView;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
@@ -196,6 +197,7 @@ public class MainActivity extends BaseActivity {
             }
         } else {
             mainGroup = GlobalData.usersGroup.get(0);
+            ContextUtil.setRecentGroupId(mContext, GlobalData.usersGroup.get(0).getId());
             Log.d("확인", GlobalData.usersGroup.get(0).getId() + "번");
         }
 

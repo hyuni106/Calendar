@@ -21,8 +21,8 @@
             android:id="@+id/commentTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
+            android:layout_margin="5dp"
+            android:textColor="@color/text_color"
             android:text="댓글내용"/>
 
     </LinearLayout>

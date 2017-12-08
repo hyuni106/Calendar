@@ -45,6 +45,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         TextView commentTxt = (TextView) row.findViewById(R.id.commentTxt);
 
         commentTxt.setText(data.getContent());
+        writerTxt.setText(data.getWriter().getNickName());
 
         return row;
     }

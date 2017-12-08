@@ -168,7 +168,7 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getContext(), ViewScheduleActivity.class);
-                intent.putExtra("schedule_item", GlobalData.allSchedule.get(i));
+                intent.putExtra("schedule_item", mList.get(i));
                 startActivity(intent);
             }
         });

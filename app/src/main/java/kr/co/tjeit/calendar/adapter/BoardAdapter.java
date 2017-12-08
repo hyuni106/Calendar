@@ -58,6 +58,8 @@ public class BoardAdapter extends ArrayAdapter<Board> {
         if (data.getLikeUser().size() != 0) {
             String like = String.format(Locale.KOREA, "좋아요 %d개", data.getLikeUser().size());
             likeTxt.setText(like);
+        } else {
+            likeTxt.setText("좋아요 0개");
         }
 
         return row;

@@ -13,10 +13,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import kr.co.tjeit.calendar.adapter.InviteAdapter;
 import kr.co.tjeit.calendar.adapter.MemberAdapter;
 import kr.co.tjeit.calendar.data.Schedule;
 import kr.co.tjeit.calendar.data.User;
+import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.GlobalData;
 import kr.co.tjeit.calendar.util.ServerUtil;
 
@@ -28,10 +32,14 @@ public class InviteMemberActivity extends BaseActivity {
 
     InviteAdapter mAdapter;
 
+    String intentActivity = null;
+    List<User> viewUser = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_member);
+        intentActivity = getIntent().getStringExtra("intent");
         bindViews();
         setupEvents();
         setValues();
@@ -59,23 +67,15 @@ public class InviteMemberActivity extends BaseActivity {
 
     @Override
     public void setValues() {
-        GlobalData.allUser.clear();
-        ServerUtil.getAllUsers(mContext, new ServerUtil.JsonResponseHandler() {
-            @Override
-            public void onResponse(JSONObject json) {
-                try {
-                    JSONArray users = json.getJSONArray("users");
-                    for (int i=0; i<users.length(); i++) {
-                        User u = User.getUserFromJson(users.getJSONObject(i));
-                        GlobalData.allUser.add(u);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        if (intentActivity.equals("1")) {
+            for (User u : GlobalData.allUser) {
+                if (u.getId() != ContextUtil.getUserData(mContext).getId()) {
+                    viewUser.add(u);
                 }
             }
-        });
+        }
 
-        mAdapter = new InviteAdapter(mContext, GlobalData.allUser);
+        mAdapter = new InviteAdapter(mContext, viewUser);
         userListView.setAdapter(mAdapter);
     }
 

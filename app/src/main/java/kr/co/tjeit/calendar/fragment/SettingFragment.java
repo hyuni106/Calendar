@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +28,9 @@ import kr.co.tjeit.calendar.R;
 import kr.co.tjeit.calendar.adapter.MemberAdapter;
 import kr.co.tjeit.calendar.data.Participant;
 import kr.co.tjeit.calendar.data.User;
+import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.GlobalData;
+import kr.co.tjeit.calendar.util.ServerUtil;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -61,19 +68,42 @@ public class SettingFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         settingFragment = this;
+        Log.d("세팅", "onActivityCreated");
         setupEvents();
         setValues();
     }
 
     private void setValues() {
+//        getAllMember();
+    }
+
+    private void getAllMember() {
+        GlobalData.allParticipantAlert.clear();
         memberList.clear();
-        for (int i=0; i<GlobalData.allParticipantAlert.size(); i++) {
-            if (GlobalData.allParticipantAlert.get(i).getStatus() == 1) {
-                memberList.add(GlobalData.allParticipantAlert.get(i));
+        ServerUtil.getParticipantUser(getContext(), ContextUtil.getRecentGroupId(getContext()), new ServerUtil.JsonResponseHandler() {
+            @Override
+            public void onResponse(JSONObject json) {
+                try {
+                    JSONArray participant = json.getJSONArray("participant");
+                    for (int i=0; i<participant.length(); i++) {
+                        Participant p = Participant.getParticipantFromJson(participant.getJSONObject(i));
+                        Log.d("설정", p.getId() + "");
+                        GlobalData.allParticipantAlert.add(p);
+                    }
+                    memberList.addAll(GlobalData.allParticipantAlert);
+                    JSONArray invite = json.getJSONArray("invite");
+                    for (int i=0; i<invite.length(); i++) {
+                        Participant p = Participant.getParticipantFromJson(invite.getJSONObject(i));
+                        Log.d("설정", p.getId() + "");
+                        memberList.add(p);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mAdapter = new MemberAdapter(getContext(), memberList);
+                memberListView.setAdapter(mAdapter);
             }
-        }
-        mAdapter = new MemberAdapter(getContext(), memberList);
-        memberListView.setAdapter(mAdapter);
+        });
     }
 
     private void setupEvents() {
@@ -96,6 +126,7 @@ public class SettingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), InviteMemberActivity.class);
+                intent.putExtra("intent", "2");
                 startActivityForResult(intent, 1);
             }
         });
@@ -123,6 +154,8 @@ public class SettingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d("세팅", "onResume");
+        getAllMember();
         groupNameTxt.setText(MainActivity.mainActivity.returnMainGroup().getName());
         groupCommentTxt.setText(MainActivity.mainActivity.returnMainGroup().getComment());
     }

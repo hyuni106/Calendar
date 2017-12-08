@@ -1,5 +1,8 @@
 package kr.co.tjeit.calendar.data;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +15,22 @@ public class Comment implements Serializable {
 
     User writer;
     Board includeBoard;
+
+    public static Comment getCommentFromJson (JSONObject json) {
+        Comment c = new Comment();
+
+        try {
+            c.setId(json.getInt("id"));
+            c.setContent(json.getString("content"));
+
+            User u = User.getUserFromJson(json.getJSONObject("write_user"));
+            c.writer = u;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return c;
+    }
 
     public Comment() {
     }

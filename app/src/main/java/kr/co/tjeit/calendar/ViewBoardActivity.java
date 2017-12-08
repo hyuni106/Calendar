@@ -10,14 +10,21 @@ import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import kr.co.tjeit.calendar.adapter.CommentAdapter;
 import kr.co.tjeit.calendar.data.Board;
 import kr.co.tjeit.calendar.data.Comment;
+import kr.co.tjeit.calendar.util.ContextUtil;
+import kr.co.tjeit.calendar.util.ServerUtil;
 
 public class ViewBoardActivity extends BaseActivity {
 
@@ -29,7 +36,7 @@ public class ViewBoardActivity extends BaseActivity {
     private TextView contentTxt;
     private android.widget.ListView commentListView;
 
-    Board view;
+    Board board;
     List<Comment> commentList = new ArrayList<>();
     CommentAdapter mAdapter;
     private android.widget.EditText commentEdt;
@@ -38,11 +45,13 @@ public class ViewBoardActivity extends BaseActivity {
     private TextView commentBtn;
     private android.widget.ImageView likeBtn;
 
+    boolean isLiked = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_board);
-        view = (Board) getIntent().getSerializableExtra("board_Item");
+        board = (Board) getIntent().getSerializableExtra("board_Item");
         bindViews();
         setupEvents();
         setValues();
@@ -60,30 +69,104 @@ public class ViewBoardActivity extends BaseActivity {
         commentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                commentList.add(new Comment(commentList.size() + 1, commentEdt.getText().toString()));
-                mAdapter.notifyDataSetChanged();
-                commentEdt.setText("");
+                ServerUtil.insertNewComment(mContext, commentEdt.getText().toString(), ContextUtil.getUserData(mContext).getId(), board.getId(), new ServerUtil.JsonResponseHandler() {
+                    @Override
+                    public void onResponse(JSONObject json) {
+                        try {
+                            JSONObject comment = json.getJSONObject("comment");
+                            commentList.add(Comment.getCommentFromJson(comment));
+                            mAdapter.notifyDataSetChanged();
+                            commentEdt.setText("");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         });
 
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
+                final int user_id = ContextUtil.getUserData(mContext).getId();
+                final int board_id = board.getId();
 
+                if (!isLiked) {
+                    ServerUtil.insertLikeBoard(mContext, user_id, board_id, new ServerUtil.JsonResponseHandler() {
+                        @Override
+                        public void onResponse(JSONObject json) {
+                            likeBtn.setImageResource(R.drawable.fill_heart);
+                            String like = String.format(Locale.KOREA, "좋아요 %d개", board.getLikeUser().size() + 1);
+                            likeTxt.setText(like);
+                            board.getLikeUser().add(ContextUtil.getUserData(mContext));
+                            isLiked = true;
+                        }
+                    });
+                } else {
+                    ServerUtil.deleteLikeBoard(mContext, user_id, board_id, new ServerUtil.JsonResponseHandler() {
+                        @Override
+                        public void onResponse(JSONObject json) {
+                            likeBtn.setImageResource(R.drawable.empty_heart);
+                            String like = String.format(Locale.KOREA, "좋아요 %d개", board.getLikeUser().size() - 1);
+                            likeTxt.setText(like);
+                            for (int i=0; i<board.getLikeUser().size(); i++) {
+                                if (board.getLikeUser().get(i).getId() == user_id) {
+                                    board.getLikeUser().remove(i);
+                                }
+                            }
+                            isLiked = false;
+                        }
+                    });
+                }
             }
         });
     }
 
     @Override
     public void setValues() {
-        contentTxt.setText(view.getContent());
+        getAllComment();
 
-        writerTxt.setText(view.getWriter().getNickName());
+        contentTxt.setText(board.getContent());
+
+        writerTxt.setText(board.getWriter().getNickName());
         SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        createAtTxt.setText(myDateFormat.format(view.getCreatedAt().getTime()));
+        createAtTxt.setText(myDateFormat.format(board.getCreatedAt().getTime()));
 
-        mAdapter = new CommentAdapter(mContext, commentList);
-        commentListView.setAdapter(mAdapter);
+        if (board.getLikeUser().size() != 0) {
+            String like = String.format(Locale.KOREA, "좋아요 %d개", board.getLikeUser().size());
+            likeTxt.setText(like);
+            for (int i=0; i<board.getLikeUser().size(); i++) {
+                if (board.getLikeUser().get(i).getId() == ContextUtil.getUserData(mContext).getId()) {
+                    isLiked = true;
+                } else {
+                    isLiked = false;
+                }
+            }
+            if (isLiked) {
+                likeBtn.setImageResource(R.drawable.fill_heart);
+            }
+        }
+
+    }
+
+    private void getAllComment() {
+        commentList.clear();
+        ServerUtil.getAllComment(mContext, board.getId(), new ServerUtil.JsonResponseHandler() {
+            @Override
+            public void onResponse(JSONObject json) {
+                try {
+                    JSONArray comment = json.getJSONArray("comment");
+                    for (int i=0; i<comment.length(); i++) {
+                        Comment c = Comment.getCommentFromJson(comment.getJSONObject(i));
+                        commentList.add(c);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mAdapter = new CommentAdapter(mContext, commentList);
+                commentListView.setAdapter(mAdapter);
+            }
+        });
     }
 
     @Override

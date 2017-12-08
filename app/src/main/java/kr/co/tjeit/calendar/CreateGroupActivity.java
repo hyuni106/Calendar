@@ -98,6 +98,7 @@ public class CreateGroupActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, InviteMemberActivity.class);
+                intent.putExtra("intent", "1");
                 startActivityForResult(intent, 1);
             }
         });
