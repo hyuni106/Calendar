@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -225,6 +226,8 @@ public class AsyncHttpRequest {
 		private HttpResponseHandler mResponseHandler = null;
 		private boolean showProgress = false;
 
+		private CustomProgressDialog customProgressDialog = null;
+
 		public AsyncHttpRequestTask(Context context, AsyncTaskHandler handler, boolean isInsert, HttpResponseHandler responseHandler) {
 			mContext = context;
 			mHandler = handler;
@@ -240,12 +243,16 @@ public class AsyncHttpRequest {
 			try {
 				if (mContext != null && showProgress) {
 
-					mProgress = new ProgressDialog(mContext);
+					customProgressDialog = new CustomProgressDialog(mContext);
+//					mProgress = new ProgressDialog(mContext);
 //					mProgress .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
 //					mProgress.setTitle(  );
-					mProgress.setMessage("잠시만 기다려주세요..");
-					mProgress.show();
+//					mProgress.setMessage("잠시만 기다려주세요..");
+//					mProgress.show();
+
+					customProgressDialog .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+					customProgressDialog.show();
 
 					if (mResponseHandler != null)
 						if (!mResponseHandler.onPrepare())
@@ -271,9 +278,17 @@ public class AsyncHttpRequest {
 				mResponseHandler.onResponse(result);
 				mResponseHandler.onFinish();
 			}
-			if (mProgress != null)
+//			if (mProgress != null)
+//			{
+//				mProgress.dismiss();
+//
+//				//mProgress = null;
+//
+//			}
+
+			if (customProgressDialog != null)
 			{
-				mProgress.dismiss();
+				customProgressDialog.dismiss();
 
 				//mProgress = null;
 
@@ -286,8 +301,10 @@ public class AsyncHttpRequest {
 			super.onCancelled();
 			if (mResponseHandler != null)
 				mResponseHandler.onCancelled();
-			if (mProgress != null)
-				mProgress.dismiss();			
+//			if (mProgress != null)
+//				mProgress.dismiss();
+			if (customProgressDialog != null)
+				customProgressDialog.dismiss();
 		}
 	}
 
