@@ -83,6 +83,7 @@ public class ViewScheduleActivity extends BaseActivity {
                             JSONObject attend = json.getJSONObject("attend");
                             mList.add(Attend.getAttendFromJson(attend));
                             mAdapter.notifyDataSetChanged();
+                            attendListView.smoothScrollToPosition(mAdapter.getCount() - 1);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

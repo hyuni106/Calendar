@@ -77,6 +77,7 @@ public class ViewBoardActivity extends BaseActivity {
                             commentList.add(Comment.getCommentFromJson(comment));
                             mAdapter.notifyDataSetChanged();
                             commentEdt.setText("");
+                            commentListView.smoothScrollToPosition(mAdapter.getCount() - 1);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
