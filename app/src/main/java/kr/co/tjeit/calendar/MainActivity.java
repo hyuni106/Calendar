@@ -178,6 +178,7 @@ public class MainActivity extends BaseActivity {
                 ContextUtil.setRecentGroupId(mContext, GlobalData.usersGroup.get(i).getId());
                 drawerLayout.closeDrawer(drawer);
                 getAllScheduleFromGroup(mainGroup.getId());
+                SettingFragment.settingFragment.getAllMember();
                 groupNameTxt.setText(mainGroup.getName());
             }
         });
@@ -203,7 +204,6 @@ public class MainActivity extends BaseActivity {
 
         getAllScheduleFromGroup(mainGroup.getId());
         groupNameTxt.setText(mainGroup.getName());
-//        getAllScheduleFromGroup(mainGroup.getId());
         setSupportActionBar(toolBar);
         toolBar.setNavigationIcon(materialMenu);
         setBottomNavi();
@@ -249,8 +249,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setBottomNavi() {
-        int[] image = {R.drawable.ic_mic_black_24dp, R.drawable.ic_favorite_black_24dp,
-                R.drawable.ic_book_black_24dp, R.drawable.github_circle};
+        int[] image = {R.drawable.calendar_icon, R.drawable.ic_favorite_black_24dp,
+                R.drawable.ic_book_black_24dp, R.drawable.setting_icon};
         int[] color = {ContextCompat.getColor(this, R.color.honey_flower), ContextCompat.getColor(this, R.color.honey_flower),
                 ContextCompat.getColor(this, R.color.honey_flower), ContextCompat.getColor(this, R.color.honey_flower)};
 

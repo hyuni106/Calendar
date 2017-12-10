@@ -27,7 +27,8 @@
         <activity android:name=".CreateGroupActivity" />
         <activity android:name=".AddScheduleActivity" />
         <activity android:name=".AppSettingActivity" />
-        <activity android:name=".ViewScheduleActivity" />
+        <activity android:name=".ViewScheduleActivity"
+            android:theme="@style/noaction" />
         <activity android:name=".ViewBoardActivity" />
         <activity android:name=".CalendarSettingActivity" />
         <activity android:name=".AlertActivity" />

@@ -18,6 +18,7 @@ import java.util.List;
 
 import kr.co.tjeit.calendar.adapter.InviteAdapter;
 import kr.co.tjeit.calendar.adapter.MemberAdapter;
+import kr.co.tjeit.calendar.data.Participant;
 import kr.co.tjeit.calendar.data.Schedule;
 import kr.co.tjeit.calendar.data.User;
 import kr.co.tjeit.calendar.util.ContextUtil;
@@ -67,9 +68,23 @@ public class InviteMemberActivity extends BaseActivity {
 
     @Override
     public void setValues() {
+        viewUser.clear();
+
         if (intentActivity.equals("1")) {
             for (User u : GlobalData.allUser) {
                 if (u.getId() != ContextUtil.getUserData(mContext).getId()) {
+                    viewUser.add(u);
+                }
+            }
+        } else {
+            for (User u : GlobalData.allUser) {
+                boolean isParticipant = true;
+                for (Participant p : GlobalData.allParticipantAlert) {
+                    if (u.getId() == p.getMember().getId()) {
+                        isParticipant = false;
+                    }
+                }
+                if (isParticipant) {
                     viewUser.add(u);
                 }
             }

@@ -23,4 +23,9 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">13sp</item>
     </style>
+
+    <style name="noaction" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

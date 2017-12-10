@@ -18,7 +18,7 @@ public class ServerUtil {
     private static final String TAG = ServerUtil.class.getSimpleName();
 
 //    private final static String BASE_URL = "http://13.125.83.235:8080/calendarApp/"; // 라이브서버
-    private final static String BASE_URL = "http://192.168.100.117:8080/cal_app/"; // 개발서버
+    private final static String BASE_URL = "http://172.30.1.44:8080/cal_app/"; // 개발서버
 
     //    JSON 처리 부분 인터페이스
     public interface JsonResponseHandler {
@@ -34,7 +34,7 @@ public class ServerUtil {
         data.put("content", content);
 
 
-        AsyncHttpRequest.postWithImageFile(context, url, data, bitmap, "profile", new AsyncHttpRequest.HttpResponseHandler() {
+        AsyncHttpRequest.postWithImageFile(context, url, data, bitmap, "file", new AsyncHttpRequest.HttpResponseHandler() {
             @Override
             public boolean onPrepare() {
                 return true;
@@ -460,7 +460,7 @@ public class ServerUtil {
         Map<String, String> data = new HashMap<String, String>();
         data.put("group_id", group_id + "");
 
-        AsyncHttpRequest.post(context, url, data, false, new AsyncHttpRequest.HttpResponseHandler() {
+        AsyncHttpRequest.post(context, url, data, true, new AsyncHttpRequest.HttpResponseHandler() {
 
             @Override
             public boolean onPrepare() {
@@ -881,7 +881,90 @@ public class ServerUtil {
         Map<String, String> data = new HashMap<String, String>();
         data.put("group_id", group_id + "");
 
+        AsyncHttpRequest.post(context, url, data, true, new AsyncHttpRequest.HttpResponseHandler() {
+
+            @Override
+            public boolean onPrepare() {
+                return true;
+            }
+
+            @Override
+            public void onResponse(String response) {
+                System.out.println(response);
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    if (handler != null)
+                        handler.onResponse(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+
+        });
+    }
+
+    // 참여 목록 불러오기
+    public static void getAttendList(final Context context, int schedule_id, final JsonResponseHandler handler) {
+        String url = BASE_URL + "group/attend_list";
+        //		String registrationId = ContextUtil.getRegistrationId(context);
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("schedule_id", schedule_id + "");
+
         AsyncHttpRequest.post(context, url, data, false, new AsyncHttpRequest.HttpResponseHandler() {
+
+            @Override
+            public boolean onPrepare() {
+                return true;
+            }
+
+            @Override
+            public void onResponse(String response) {
+                System.out.println(response);
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    if (handler != null)
+                        handler.onResponse(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+
+        });
+    }
+
+    // 일정 참여하기
+    public static void insertNewAttend(final Context context,int user_id, int schedule_id, final JsonResponseHandler handler) {
+        String url = BASE_URL + "group/new_attend";
+        //		String registrationId = ContextUtil.getRegistrationId(context);
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("user_id", user_id + "");
+        data.put("schedule_id", schedule_id + "");
+
+        AsyncHttpRequest.post(context, url, data, true, new AsyncHttpRequest.HttpResponseHandler() {
 
             @Override
             public boolean onPrepare() {
