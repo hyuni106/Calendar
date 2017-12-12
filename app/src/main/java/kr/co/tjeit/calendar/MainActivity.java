@@ -94,19 +94,15 @@ public class MainActivity extends BaseActivity {
                 switch (index) {
                     case 0:
                         CalendarLayout.setVisibility(View.VISIBLE);
-//                        toolBar.setBackgroundColor(getResources().getColor(R.color.firstColor));
                         break;
                     case 1:
                         FeedLayout.setVisibility(View.VISIBLE);
-//                        toolBar.setBackgroundColor(getResources().getColor(R.color.secondColor));
                         break;
                     case 2:
                         BoardLayout.setVisibility(View.VISIBLE);
-//                        toolBar.setBackgroundColor(getResources().getColor(R.color.thirdColor));
                         break;
                     case 3:
                         SettingLayout.setVisibility(View.VISIBLE);
-//                        toolBar.setBackgroundColor(getResources().getColor(R.color.fourthColor));
                         break;
                 }
             }
@@ -188,13 +184,20 @@ public class MainActivity extends BaseActivity {
     public void setValues() {
         setTitle("");
 
+        boolean isCorrectGroupId = false;
         Log.d("확인", ContextUtil.getRecentGroupId(mContext) + "번");
         if (ContextUtil.getRecentGroupId(mContext) != -1) {
             for (Group g : GlobalData.usersGroup) {
+                Log.d("검사", g.getId() + "번 / " + ContextUtil.getRecentGroupId(mContext) + "번");
                 if (g.getId() == ContextUtil.getRecentGroupId(mContext)) {
                     Log.d("확인", g.getId() + "번");
+                    isCorrectGroupId = true;
                     mainGroup = g;
                 }
+            }
+            if (!isCorrectGroupId) {
+                mainGroup = GlobalData.usersGroup.get(0);
+                ContextUtil.setRecentGroupId(mContext, GlobalData.usersGroup.get(0).getId());
             }
         } else {
             mainGroup = GlobalData.usersGroup.get(0);

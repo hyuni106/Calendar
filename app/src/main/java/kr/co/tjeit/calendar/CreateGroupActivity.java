@@ -114,7 +114,7 @@ public class CreateGroupActivity extends BaseActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
-            Toast.makeText(mContext, "결과가 성공이 아님.", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, "결과가 성공이 아님.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -123,7 +123,7 @@ public class CreateGroupActivity extends BaseActivity {
             inviteUserList.add(addUser);
             mAdapter.notifyDataSetChanged();
         } else {
-            Toast.makeText(mContext, "REQUEST_ACT가 아님", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, "REQUEST_ACT가 아님", Toast.LENGTH_SHORT).show();
         }
     }
 

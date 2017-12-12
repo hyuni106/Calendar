@@ -83,21 +83,7 @@
                     android:textColor="@color/text_color" />
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/likeBtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@mipmap/ic_launcher_round"/>
-
-            </LinearLayout>
-
+            
         </LinearLayout>
 
     </LinearLayout>

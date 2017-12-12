@@ -74,6 +74,7 @@ public class BoardFragment extends Fragment {
                 Intent intent = new Intent(getContext(), ViewBoardActivity.class);
                 intent.putExtra("board_Item", GlobalData.allBoard.get(position));
                 startActivity(intent);
+//                getActivity().finish();
             }
         });
 

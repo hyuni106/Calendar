@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="kr.co.tjeit.calendar.CreateGroupActivity">
 
     <FrameLayout
@@ -54,28 +55,32 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="그룹 이름" />
-
         <EditText
             android:id="@+id/groupNameEdt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="그룹 설명" />
+            android:layout_weight="1"
+            android:background="@drawable/gray_border_white_round_edittext"
+            android:singleLine="true"
+            android:hint="그룹이름"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp" />
 
         <EditText
             android:id="@+id/groupInfoEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="10자 이내로 작성해주세요"
-            android:maxLength="10"/>
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/gray_border_white_round_edittext"
+            android:singleLine="true"
+            android:hint="그룹 설명 (10자 이내)"
+            android:maxLength="10"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp" />
+
 
     </LinearLayout>
 
@@ -83,18 +88,27 @@
         android:id="@+id/inviteMemberLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="초대하기" />
+            android:padding="10dp"
+            android:text="초대하기"
+            android:textColor="@color/text_color" />
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/next_img" />
 
     </LinearLayout>
 

@@ -73,6 +73,7 @@ public class AlertAdapter extends ArrayAdapter<Participant> {
                     status_result = "거절";
                 }
                 final String finalStatus_result = status_result;
+                final int finalStatus = status;
                 ServerUtil.updateParticipantStatus(mContext, status, data.getId(), ContextUtil.getUserData(getContext()).getId(), new ServerUtil.JsonResponseHandler() {
                     @Override
                     public void onResponse(JSONObject json) {
@@ -80,9 +81,11 @@ public class AlertAdapter extends ArrayAdapter<Participant> {
                         try {
                             GlobalData.usersGroup.clear();
                             JSONArray group = json.getJSONArray("group");
-                            for (int i=0; i<group.length(); i++) {
-                                Group g = Group.getGroupFromJson(group.getJSONObject(i));
-                                GlobalData.usersGroup.add(g);
+                            if (finalStatus == 1) {
+                                for (int i = 0; i < group.length(); i++) {
+                                    Group g = Group.getGroupFromJson(group.getJSONObject(i));
+                                    GlobalData.usersGroup.add(g);
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

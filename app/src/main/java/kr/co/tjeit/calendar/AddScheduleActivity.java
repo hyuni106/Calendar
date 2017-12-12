@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
@@ -60,6 +59,7 @@ public class AddScheduleActivity extends BaseActivity {
     ArrayAdapter<String> adapter;
 
     int tag = 0;
+    private TextView middleTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,15 +127,29 @@ public class AddScheduleActivity extends BaseActivity {
             public void onClick(View view) {
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(
                         mContext);
-                alertBuilder.setIcon(R.mipmap.ic_launcher);
-                alertBuilder.setTitle("항목중에 하나를 선택하세요.");
+                alertBuilder.setTitle("태그");
 
                 alertBuilder.setAdapter(adapter,
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int id) {
-//                                Toast.makeText(mContext, id + "번", Toast.LENGTH_SHORT).show();
+                            public void onClick(DialogInterface dialog, int id) {
                                 tag = id + 1;
+                                if (id == 0) {
+                                    toolBar.setBackgroundColor(getResources().getColor(R.color.firstColor));
+                                    middleTxt.setTextColor(getResources().getColor(R.color.firstColor));
+                                    okBtn.setBackgroundResource(R.drawable.first_color_btn);
+                                } else if (id == 1) {
+                                    toolBar.setBackgroundColor(getResources().getColor(R.color.secondColor));
+                                    middleTxt.setTextColor(getResources().getColor(R.color.secondColor));
+                                    okBtn.setBackgroundResource(R.drawable.second_color_btn);
+                                } else if (id == 2) {
+                                    toolBar.setBackgroundColor(getResources().getColor(R.color.thirdColor));
+                                    middleTxt.setTextColor(getResources().getColor(R.color.thirdColor));
+                                    okBtn.setBackgroundResource(R.drawable.third_color_btn);
+                                } else {
+                                    toolBar.setBackgroundColor(getResources().getColor(R.color.fourthColor));
+                                    middleTxt.setTextColor(getResources().getColor(R.color.fourthColor));
+                                    okBtn.setBackgroundResource(R.drawable.foruth_color_btn);
+                                }
                             }
                         });
                 alertBuilder.show();
@@ -229,10 +243,10 @@ public class AddScheduleActivity extends BaseActivity {
         adapter = new ArrayAdapter<String>(
                 mContext,
                 android.R.layout.select_dialog_singlechoice);
-        adapter.add("1번");
-        adapter.add("2번");
-        adapter.add("3번");
-        adapter.add("4번");
+        adapter.add("Very Pale Pink");
+        adapter.add("Very Light Orange");
+        adapter.add("Light Green");
+        adapter.add("Light Blue");
     }
 
     public String parseDateFormat(Date date) {
@@ -249,6 +263,7 @@ public class AddScheduleActivity extends BaseActivity {
         this.endScheduleLayout = (LinearLayout) findViewById(R.id.endScheduleLayout);
         this.endTimeTxt = (TextView) findViewById(R.id.endTimeTxt);
         this.endDateTxt = (TextView) findViewById(R.id.endDateTxt);
+        this.middleTxt = (TextView) findViewById(R.id.middleTxt);
         this.startScheduleLayout = (LinearLayout) findViewById(R.id.startScheduleLayout);
         this.startTimeTxt = (TextView) findViewById(R.id.startTimeTxt);
         this.startDateTxt = (TextView) findViewById(R.id.startDateTxt);

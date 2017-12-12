@@ -9,11 +9,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import kr.co.tjeit.calendar.data.Group;
 import kr.co.tjeit.calendar.util.ContextUtil;
 import kr.co.tjeit.calendar.util.ServerUtil;
 
@@ -23,6 +27,9 @@ public class AppSettingActivity extends BaseActivity {
     private com.balysv.materialmenu.MaterialMenuView backBtn;
     private android.widget.LinearLayout changeNickLayout;
     private LinearLayout logoutLayout;
+    private LinearLayout deleteGroupLayout;
+
+    Group userGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +65,8 @@ public class AppSettingActivity extends BaseActivity {
                                     @Override
                                     public void onResponse(JSONObject json) {
                                         ContextUtil.setLoginUserNick(mContext, txtUrl.getText().toString());
-                                        Log.d("확인닉변경", txtUrl.getText().toString());
-                                        Log.d("확인닉변경", ContextUtil.getUserData(mContext).getNickName());
+//                                        Log.d("확인닉변경", txtUrl.getText().toString());
+//                                        Log.d("확인닉변경", ContextUtil.getUserData(mContext).getNickName());
                                         MainActivity.mainActivity.onResume();
                                     }
                                 });
@@ -93,12 +100,13 @@ public class AppSettingActivity extends BaseActivity {
 
     @Override
     public void setValues() {
-
+        userGroup = MainActivity.mainActivity.returnMainGroup();
     }
 
     @Override
     public void bindViews() {
         this.logoutLayout = (LinearLayout) findViewById(R.id.logoutLayout);
+        this.deleteGroupLayout = (LinearLayout) findViewById(R.id.deleteGroupLayout);
         this.changeNickLayout = (LinearLayout) findViewById(R.id.changeNickLayout);
         this.backBtn = (MaterialMenuView) findViewById(R.id.backBtn);
         this.toolBar = (Toolbar) findViewById(R.id.toolBar);

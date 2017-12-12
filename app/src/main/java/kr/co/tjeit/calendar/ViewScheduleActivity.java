@@ -76,19 +76,41 @@ public class ViewScheduleActivity extends BaseActivity {
         attendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ServerUtil.insertNewAttend(mContext, ContextUtil.getUserData(mContext).getId(), schedule.getId(), new ServerUtil.JsonResponseHandler() {
-                    @Override
-                    public void onResponse(JSONObject json) {
-                        try {
-                            JSONObject attend = json.getJSONObject("attend");
-                            mList.add(Attend.getAttendFromJson(attend));
+                int user_id = ContextUtil.getUserData(mContext).getId();
+                int schedule_id = schedule.getId();
+                if (isLoginUserAttend) {
+                    ServerUtil.deleteAttend(mContext, user_id, schedule_id, new ServerUtil.JsonResponseHandler() {
+                        @Override
+                        public void onResponse(JSONObject json) {
+                            int remove = -1;
+                            for (int i = 0; i < mList.size(); i++) {
+                                if (mList.get(i).getAttendUser().getId() == ContextUtil.getUserData(mContext).getId()) {
+                                    remove = i;
+                                }
+                            }
+                            mList.remove(remove);
                             mAdapter.notifyDataSetChanged();
-                            attendListView.smoothScrollToPosition(mAdapter.getCount() - 1);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            isLoginUserAttend = false;
+                            attendBtn.setText("참 여");
                         }
-                    }
-                });
+                    });
+                } else {
+                    ServerUtil.insertNewAttend(mContext, user_id, schedule_id, new ServerUtil.JsonResponseHandler() {
+                        @Override
+                        public void onResponse(JSONObject json) {
+                            try {
+                                JSONObject attend = json.getJSONObject("attend");
+                                mList.add(Attend.getAttendFromJson(attend));
+                                mAdapter.notifyDataSetChanged();
+                                attendListView.smoothScrollToPosition(mAdapter.getCount() - 1);
+                                isLoginUserAttend = true;
+                                attendBtn.setText("참 여 취 소");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
             }
         });
     }

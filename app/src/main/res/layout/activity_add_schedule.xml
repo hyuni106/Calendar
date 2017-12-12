@@ -83,10 +83,13 @@
 
             </LinearLayout>
 
-            <ImageView
+            <TextView
+                android:id="@+id/middleTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/next_img"/>
+                android:gravity="center"
+                android:text=">"
+                android:textSize="30sp" />
 
             <LinearLayout
                 android:id="@+id/endScheduleLayout"

@@ -171,6 +171,12 @@ public class ViewBoardActivity extends BaseActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
     public void bindViews() {
         this.commentBtn = (TextView) findViewById(R.id.commentBtn);
         this.commentEdt = (EditText) findViewById(R.id.commentEdt);

@@ -17,8 +17,8 @@ public class ServerUtil {
 
     private static final String TAG = ServerUtil.class.getSimpleName();
 
-//    private final static String BASE_URL = "http://13.125.83.235:8080/calendarApp/"; // 라이브서버
-    private final static String BASE_URL = "http://172.30.1.44:8080/cal_app/"; // 개발서버
+    private final static String BASE_URL = "http://13.125.83.235:8080/calendarApp/"; // 라이브서버
+//    private final static String BASE_URL = "http://192.168.100.118:8080/cal_app/"; // 개발서버
 
     //    JSON 처리 부분 인터페이스
     public interface JsonResponseHandler {
@@ -963,6 +963,91 @@ public class ServerUtil {
         Map<String, String> data = new HashMap<String, String>();
         data.put("user_id", user_id + "");
         data.put("schedule_id", schedule_id + "");
+
+        AsyncHttpRequest.post(context, url, data, true, new AsyncHttpRequest.HttpResponseHandler() {
+
+            @Override
+            public boolean onPrepare() {
+                return true;
+            }
+
+            @Override
+            public void onResponse(String response) {
+                System.out.println(response);
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    if (handler != null)
+                        handler.onResponse(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+
+        });
+    }
+
+    // 일정 참여 취소하기
+    public static void deleteAttend(final Context context,int user_id, int schedule_id, final JsonResponseHandler handler) {
+        String url = BASE_URL + "group/delete_attend";
+        //		String registrationId = ContextUtil.getRegistrationId(context);
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("user_id", user_id + "");
+        data.put("schedule_id", schedule_id + "");
+
+        AsyncHttpRequest.post(context, url, data, true, new AsyncHttpRequest.HttpResponseHandler() {
+
+            @Override
+            public boolean onPrepare() {
+                return true;
+            }
+
+            @Override
+            public void onResponse(String response) {
+                System.out.println(response);
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    if (handler != null)
+                        handler.onResponse(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+
+        });
+    }
+
+    // 기존그룹 멤버 추가
+    public static void inviteOneUser(final Context context,int user_id, int participant_user_id, int group_id, final JsonResponseHandler handler) {
+        String url = BASE_URL + "group/invite";
+        //		String registrationId = ContextUtil.getRegistrationId(context);
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("user_id", user_id + "");
+        data.put("participant_user_id", participant_user_id + "");
+        data.put("group_id", group_id + "");
 
         AsyncHttpRequest.post(context, url, data, true, new AsyncHttpRequest.HttpResponseHandler() {
 

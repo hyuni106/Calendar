@@ -96,7 +96,6 @@ public class CalendarFragment extends Fragment {
             calendarListView.setAdapter(mAdapter);
             fab.attachToListView(calendarListView);
         }
-
         addDecorator();
     }
 
@@ -227,8 +226,14 @@ public class CalendarFragment extends Fragment {
             mAdapter = new CalendarAdapter(getContext(), mList);
             calendarListView.setAdapter(mAdapter);
             fab.attachToListView(calendarListView);
-            noCalendarAlertTxt.setVisibility(View.GONE);
-            calendarListView.setVisibility(View.VISIBLE);
+            if (mList.size() != 0) {
+                noCalendarAlertTxt.setVisibility(View.GONE);
+                calendarListView.setVisibility(View.VISIBLE);
+                mAdapter.notifyDataSetChanged();
+            } else {
+                calendarListView.setVisibility(View.GONE);
+                noCalendarAlertTxt.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -236,7 +241,7 @@ public class CalendarFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
-            Toast.makeText(getContext(), "결과가 성공이 아님.", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "결과가 성공이 아님.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -244,8 +249,6 @@ public class CalendarFragment extends Fragment {
             Schedule add = (Schedule) data.getSerializableExtra("schedule");
             GlobalData.allSchedule.add(add);
             addDecorator();
-        } else {
-            Toast.makeText(getContext(), "REQUEST_ACT가 아님", Toast.LENGTH_SHORT).show();
         }
     }
 

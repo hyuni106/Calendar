@@ -1,8 +1,11 @@
 package kr.co.tjeit.calendar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -57,11 +60,38 @@ public class InviteMemberActivity extends BaseActivity {
 
         userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent();
-                intent.putExtra("user", GlobalData.allUser.get(i));
-                setResult(RESULT_OK, intent);
-                finish();
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                if (intentActivity.equals("1")) {
+                    Intent intent = new Intent();
+                    intent.putExtra("user", GlobalData.allUser.get(i));
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    new AlertDialog.Builder(mContext)
+                            .setTitle("초대")
+                            .setMessage("이 사용자를 초대하시겠습니까?")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    ServerUtil.inviteOneUser(mContext, ContextUtil.getUserData(mContext).getId(), viewUser.get(i).getId(), ContextUtil.getRecentGroupId(mContext), new ServerUtil.JsonResponseHandler() {
+                                        @Override
+                                        public void onResponse(JSONObject json) {
+                                            try {
+                                                Intent intent = new Intent();
+                                                JSONObject invite = json.getJSONObject("invite");
+                                                Participant p = Participant.getParticipantFromJson(invite);
+                                                intent.putExtra("invite", p);
+                                                setResult(RESULT_OK, intent);
+                                                finish();
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                                }
+                            })
+                            .setNegativeButton("취소", null)
+                            .show();
+                }
             }
         });
     }

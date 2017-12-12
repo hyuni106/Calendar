@@ -130,18 +130,16 @@ public class SettingFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
-            Toast.makeText(getContext(), "결과가 성공이 아님.", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "결과가 성공이 아님.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (requestCode == 1) {
-            Participant add = new Participant(GlobalData.allParticipantAlert.size()+1, 0);
-            User addUser = (User) data.getSerializableExtra("user");
-            add.setMember(addUser);
+            Participant add = (Participant) data.getSerializableExtra("invite");
             GlobalData.allParticipantAlert.add(add);
             mAdapter.notifyDataSetChanged();
         } else {
-            Toast.makeText(getContext(), "REQUEST_ACT가 아님", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "REQUEST_ACT가 아님", Toast.LENGTH_SHORT).show();
         }
     }
 
